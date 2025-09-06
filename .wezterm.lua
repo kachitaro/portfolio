@@ -8,11 +8,12 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 
 config.font_size = 9.0
 
-config.color_scheme = 'Apprentice (Gogh)'
+config.color_scheme = 'Catppuccin Mocha'
 
 config.default_prog = {"pwsh.exe"}
 
 config.hide_tab_bar_if_only_one_tab = true
+config.default_cursor_style = "SteadyBar"
 
 config.colors = {
   background = "#14151b",
