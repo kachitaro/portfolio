@@ -36,7 +36,7 @@ $allPackages = @(
     "extras/flutter",
     "extras/android-studio",
     "extras/gradle",
-    "DejaVuSansMono-NF-Mono",
+    "nerd-fonts/JetBrainsMono"
     "vcredist-aio",
     "docker"
 ) -join " "
