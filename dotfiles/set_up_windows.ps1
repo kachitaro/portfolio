@@ -29,6 +29,7 @@ $allPackages = @(
     "main/nvm",
     "main/yarn",
     "main/python",
+    "main/pwsh",
     "java/temurin17-jdk",
     "extras/wezterm",
     "extras/vscode",
