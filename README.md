@@ -64,7 +64,7 @@
 
 <!-- Animated Profile Visitors & Waving Footer -->
 <p align="center">
-  <img src="https://profile-counter.glitch.me/Kachitaro/count.svg" alt="Visitor Counter" />
+  <img src="https://komarev.com/ghpvc/?username=Kachitaro&label=PROFILE%20VIEWS&color=89b4fa&style=for-the-badge" alt="Visitor Counter" />
 </p>
 
 <p align="center">
