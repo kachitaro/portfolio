@@ -1,6 +1,0 @@
-Host git.nexpando.com
-  HostName git.nexpando.com
-  Port 2268
-  User git
-  IdentityFile ~/.ssh/id_ed25519_nexpando
-  IdentitiesOnly yes
