@@ -17,7 +17,7 @@
 
   <!-- Quick Social Badges -->
   <p align="center">
-    <a href="https://github.com/Kachitaro">
+    <a href="https://github.com/kachitaro">
       <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" />
     </a>
     <a href="mailto:anhtai.dev@gmail.com">
@@ -33,9 +33,9 @@
 
 ## ⚡ Giới thiệu (About Me)
 
-- 👤 **Họ và tên:** John (Anh Tài) (`@Kachitaro`)
+- 👤 **Tên:** John (Anh Tài) (`@kachitaro`)
 - 💻 **Lĩnh vực hoạt động:** Phát triển ứng dụng Web là chủ yếu (React, Next.js, Node.js, TypeScript, Python), Mobile & Tự động hóa công việc.
-- 🤝 **Hợp tác:** Sẵn sàng hợp tác trong mảng **Phát triển Web** & **Đào tạo công nghệ** (Web Development & Tech Training).
+- 🤝 **Hợp tác:** Sẵn sàng hợp tác trong mảng **Phát triển Web** (Web Development).
 - 📍 **Quốc gia:** Việt Nam 🇻🇳
 - 📫 **Liên hệ trực tiếp:**
   - ✉️ **Email:** [anhtai.dev@gmail.com](mailto:anhtai.dev@gmail.com)
