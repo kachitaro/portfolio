@@ -1,0 +1,28 @@
+{
+  "company": "Nexpando",
+  "role": {
+    "vi": "Software Engineer (Kỹ sư phần mềm)",
+    "en": "Software Engineer"
+  },
+  "period": {
+    "vi": "Tháng 02/2023 - Hiện tại",
+    "en": "Feb 2023 - Present"
+  },
+  "duration": {
+    "vi": "3 năm 7 tháng",
+    "en": "3 yrs 7 mos"
+  },
+  "employmentType": {
+    "vi": "Full-time (Toàn thời gian)",
+    "en": "Full-time"
+  },
+  "workplaceType": {
+    "vi": "Việt Nam · On-site (Tại văn phòng)",
+    "en": "Vietnam · On-site"
+  },
+  "description": {
+    "vi": "Tham gia đội ngũ phát triển các hệ thống phần mềm web của công ty (Nexbus, Vnshop V2, BANA). Trực tiếp lập trình các phân hệ giao diện người dùng bằng React.js, Next.js và TypeScript; kết nối tích hợp các RESTful APIs và phối hợp chặt chẽ cùng các thành viên trong team để hoàn thành sprint đúng tiến độ.",
+    "en": "Working as a software engineer on production web applications (Nexbus, Vnshop V2, BANA). Developing frontend UI modules with React.js, Next.js, and TypeScript; integrating RESTful APIs and collaborating closely with teammates in agile sprints."
+  },
+  "skills": ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "RESTful API", "Git", "Zustand / Redux"]
+}

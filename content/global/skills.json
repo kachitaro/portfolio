@@ -1,0 +1,37 @@
+{
+  "skills": [
+    { "name": "HTML5 / Responsive UI", "level": 88, "category": "frontend", "icon": "html" },
+    { "name": "Tailwind CSS / CSS3", "level": 85, "category": "frontend", "icon": "tailwind" },
+    { "name": "JavaScript (ES6+)", "level": 82, "category": "frontend", "icon": "js" },
+    { "name": "React.js", "level": 80, "category": "frontend", "icon": "react" },
+    { "name": "TypeScript", "level": 75, "category": "frontend", "icon": "ts" },
+    { "name": "Next.js (App Router)", "level": 72, "category": "frontend", "icon": "nextjs" },
+    { "name": "State Management (Zustand / Redux)", "level": 70, "category": "frontend", "icon": "redux" },
+    { "name": "RESTful API Integration", "level": 78, "category": "backend", "icon": "postman" },
+    { "name": "Node.js / Express (Basic)", "level": 65, "category": "backend", "icon": "nodejs" },
+    { "name": "PostgreSQL / Prisma (Basic)", "level": 60, "category": "database", "icon": "postgres" },
+    { "name": "MongoDB (Basic)", "level": 60, "category": "database", "icon": "mongodb" },
+    { "name": "Git / GitHub Workflow", "level": 80, "category": "tools", "icon": "git" },
+    { "name": "VS Code & Web DevTools", "level": 85, "category": "tools", "icon": "vscode" },
+    { "name": "Vite & Build Tools", "level": 75, "category": "tools", "icon": "vite" },
+    { "name": "Docker (Basic usage)", "level": 60, "category": "tools", "icon": "docker" }
+  ],
+  "toolchains": [
+    {
+      "category": { "vi": "Ngôn ngữ & Cốt lõi", "en": "Languages & Core" },
+      "items": ["HTML5", "CSS3", "JavaScript (ES6+)", "TypeScript", "SCSS"]
+    },
+    {
+      "category": { "vi": "Frameworks & UI", "en": "Frameworks & UI" },
+      "items": ["React.js", "Next.js (App Router)", "Tailwind CSS", "shadcn/ui", "Radix UI"]
+    },
+    {
+      "category": { "vi": "State & API Data Flow", "en": "State & API Data Flow" },
+      "items": ["Zustand", "Redux Toolkit", "Axios", "RESTful API", "JWT Authentication"]
+    },
+    {
+      "category": { "vi": "Công cụ & Làm việc nhóm", "en": "Tools & Workflow" },
+      "items": ["Git / GitHub", "VS Code", "Chrome DevTools", "Postman", "Vite", "Docker (Basic)"]
+    }
+  ]
+}

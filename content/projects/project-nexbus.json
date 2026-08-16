@@ -1,0 +1,32 @@
+{
+  "title": {
+    "vi": "Hệ thống Bán vé Trực tuyến Nexbus",
+    "en": "Nexbus Online Ticketing Platform"
+  },
+  "company": "Nexpando",
+  "projectType": "enterprise",
+  "status": {
+    "vi": "Đã triển khai (In Production)",
+    "en": "In Production"
+  },
+  "description": {
+    "vi": "Hệ thống website phục vụ nghiệp vụ tìm kiếm chuyến xe, chọn ghế ngồi theo thời gian thực và đặt vé trực tuyến. Tham gia phát triển giao diện người dùng, tối ưu luồng thao tác và kết nối API hệ thống.",
+    "en": "Production web ticketing platform designed for journey schedule searching, interactive seat selection, and online booking. Contributed to building frontend workflows and API integrations."
+  },
+  "category": "enterprise",
+  "tags": ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "State Management", "REST API"],
+  "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1000&auto=format&fit=crop",
+  "featured": true,
+  "highlights": {
+    "vi": [
+      "Xây dựng giao diện tìm kiếm tuyến đường và sơ đồ chọn ghế ngồi trực quan",
+      "Phát triển luồng điền thông tin hành khách và xác nhận đặt chỗ",
+      "Đảm bảo giao diện hiển thị mượt mà trên cả máy tính và điện thoại"
+    ],
+    "en": [
+      "Built interactive trip searching and visual seat selection layout",
+      "Developed passenger information checkout form and booking confirmation",
+      "Ensured responsive rendering across both desktop and mobile screens"
+    ]
+  }
+}

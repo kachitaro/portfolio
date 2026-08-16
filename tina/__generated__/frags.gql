@@ -1,0 +1,179 @@
+fragment PersonalParts on Personal {
+  __typename
+  name
+  nickname
+  handle
+  avatar
+  email
+  location {
+    __typename
+    vi
+    en
+  }
+  level {
+    __typename
+    vi
+    en
+  }
+  roles {
+    __typename
+    vi
+    en
+  }
+  bio {
+    __typename
+    vi
+    en
+  }
+  aboutDetailed {
+    __typename
+    vi {
+      __typename
+      personalities
+      intro
+      visionQuote
+      funFacts {
+        __typename
+        label
+        value
+      }
+      highlights {
+        __typename
+        title
+        desc
+      }
+    }
+    en {
+      __typename
+      personalities
+      intro
+      visionQuote
+      funFacts {
+        __typename
+        label
+        value
+      }
+      highlights {
+        __typename
+        title
+        desc
+      }
+    }
+  }
+  services {
+    __typename
+    vi {
+      __typename
+      title
+      desc
+    }
+    en {
+      __typename
+      title
+      desc
+    }
+  }
+  socials {
+    __typename
+    github
+    email
+  }
+}
+
+fragment SkillsParts on Skills {
+  __typename
+  skills {
+    __typename
+    name
+    level
+    category
+    icon
+  }
+  toolchains {
+    __typename
+    category {
+      __typename
+      vi
+      en
+    }
+    items
+  }
+}
+
+fragment ProjectParts on Project {
+  __typename
+  title {
+    __typename
+    vi
+    en
+  }
+  description {
+    __typename
+    vi
+    en
+  }
+  category
+  projectType
+  status {
+    __typename
+    vi
+    en
+  }
+  company
+  image
+  tags
+  githubUrl
+  demoUrl
+  featured
+  highlights {
+    __typename
+    vi
+    en
+  }
+}
+
+fragment ExperienceParts on Experience {
+  __typename
+  company
+  role {
+    __typename
+    vi
+    en
+  }
+  period {
+    __typename
+    vi
+    en
+  }
+  duration {
+    __typename
+    vi
+    en
+  }
+  employmentType {
+    __typename
+    vi
+    en
+  }
+  workplaceType {
+    __typename
+    vi
+    en
+  }
+  description {
+    __typename
+    vi
+    en
+  }
+  skills
+}
+
+fragment PostParts on Post {
+  __typename
+  title
+  date
+  description
+  coverImage
+  tags
+  body
+}
