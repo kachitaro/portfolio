@@ -7,15 +7,10 @@ const branch =
   process.env.NEXT_PUBLIC_TINA_BRANCH ||
   "main";
 
-const isLocal =
-  process.env.TINA_PUBLIC_IS_LOCAL === "true" ||
-  !process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
-
 export default defineConfig({
   branch,
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || null,
   token: process.env.TINA_TOKEN || null,
-  isLocal,
 
   build: {
     outputFolder: "admin",
@@ -211,7 +206,7 @@ export default defineConfig({
             label: "Danh sách Kỹ năng (Skills List)",
             list: true,
             ui: {
-              itemProps: (item) => ({ label: `${item?.name || "Skill"} (${item?.level || 0}%)` }),
+              itemProps: (item: any) => ({ label: `${item?.name || "Skill"} (${item?.level || 0}%)` }),
             },
             fields: [
               { type: "string", name: "name", label: "Tên kỹ năng", required: true },
@@ -257,7 +252,6 @@ export default defineConfig({
         format: "json",
         ui: {
           router: () => `/projects`,
-          itemProps: (item) => ({ label: item?.title?.vi || item?.title?.en || "Dự án" }),
         },
         fields: [
           {
@@ -354,9 +348,6 @@ export default defineConfig({
         label: "Kinh Nghiệm Làm Việc (Experience)",
         path: "content/experiences",
         format: "json",
-        ui: {
-          itemProps: (item) => ({ label: `${item?.company || "Công ty"} - ${item?.role?.vi || item?.role?.en || "Vị trí"}` }),
-        },
         fields: [
           { type: "string", name: "company", label: "Tên công ty", required: true },
           {
