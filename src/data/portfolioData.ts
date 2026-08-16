@@ -70,7 +70,7 @@ export const personalInfo = {
         { label: 'Production Experience', value: '3+ Years' },
         { label: 'Coding Hours', value: '~4,000+ hrs' },
         { label: 'Enterprise Projects', value: '3 Projects' },
-        { label: 'GitHub Repos', value: '25+' },
+        { label: 'GitHub Repos', value: '15+' },
         { label: 'Git Commits', value: '~1,500+' },
         { label: 'Issues Resolved', value: '~600+' },
         { label: 'Growth Mindset', value: '100%' },

@@ -22,7 +22,9 @@ import {
   Code2,
   Layers,
   Zap,
-  Globe
+  Globe,
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/github-icon';
 
@@ -31,6 +33,7 @@ export function ContactSection() {
   const [copied, setCopied] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   
   const [formData, setFormData] = useState({
     name: '',
@@ -53,13 +56,35 @@ export function ContactSection() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleEmailFallback = () => {
+    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+      formData.subject || 'Portfolio Contact from ' + formData.name
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )}`;
+    window.location.href = mailtoUrl;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setLoading(true);
+    setErrorMessage('');
 
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Có lỗi xảy ra khi gửi tin nhắn.');
+      }
+
       setLoading(false);
       setFormSubmitted(true);
 
@@ -68,17 +93,10 @@ export function ContactSection() {
         spread: 80,
         origin: { y: 0.6 }
       });
-
-      const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-        formData.subject || 'Portfolio Contact from ' + formData.name
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`;
-
-      setTimeout(() => {
-        window.location.href = mailtoUrl;
-      }, 800);
-    }, 600);
+    } catch (err: any) {
+      setLoading(false);
+      setErrorMessage(err.message || 'Không thể kết nối đến máy chủ.');
+    }
   };
 
   return (
@@ -191,17 +209,18 @@ export function ContactSection() {
               </Badge>
             </a>
 
-            {/* Role & Company Card */}
-            <div className="glass-panel p-5 rounded-3xl border-border/60 flex items-center gap-3">
-              <div className="p-2.5 rounded-2xl bg-sky-500/10 text-sky-400">
-                <Sparkles className="w-5 h-5" />
+            {/* Telegram Notification Badge */}
+            <div className="glass-panel p-5 rounded-3xl border-sky-500/30 flex items-center gap-3 bg-sky-500/5">
+              <div className="p-2.5 rounded-2xl bg-sky-500/15 text-sky-400">
+                <Zap className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-foreground">
-                  Software Engineer @ Nexpando
+                <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                  <span>Telegram Notification Bot</span>
+                  <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </h4>
                 <p className="text-xs text-muted-foreground">
-                  {t('Sẵn sàng trao đổi cơ hội hợp tác mới', 'Open to exciting software engineering projects')}
+                  {t('Tin nhắn gửi từ form sẽ thông báo ngay tới điện thoại của mình.', 'Form messages trigger instant notification via Telegram.')}
                 </p>
               </div>
             </div>
@@ -214,35 +233,59 @@ export function ContactSection() {
               <CardHeader className="pb-4">
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-primary" />
-                  <span>{t('Gửi tin nhắn nhanh', 'Send a Quick Message')}</span>
+                  <span>{t('Gửi tin nhắn nhanh (Tự động qua Telegram)', 'Send Quick Message (via Telegram)')}</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 {formSubmitted ? (
-                  <div className="py-8 text-center space-y-3 animate-in fade-in zoom-in-95 duration-300">
-                    <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto">
-                      <Check className="w-6 h-6" />
+                  <div className="py-8 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
+                    <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto shadow-md">
+                      <Check className="w-7 h-7" />
                     </div>
-                    <h3 className="text-lg font-bold">
-                      {t('Cảm ơn bạn đã gửi tin nhắn! 🎉', 'Thank you for reaching out! 🎉')}
+                    <h3 className="text-xl font-bold text-foreground">
+                      {t('Tin nhắn đã được gửi thành công! 🎉', 'Message sent successfully! 🎉')}
                     </h3>
-                    <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                    <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
                       {t(
-                        'Ứng dụng email của bạn sẽ mở để xác nhận gửi, hoặc bạn có thể liên hệ trực tiếp qua anhtai.dev@gmail.com.',
-                        'Your mail client is preparing the draft, or feel free to message directly at anhtai.dev@gmail.com.'
+                        'Thông báo đã được chuyển tức thì tới Telegram của mình. Mình sẽ phản hồi lại cho bạn qua Email sớm nhất!',
+                        'Your message was sent instantly to my Telegram. I will get back to you via your email shortly!'
                       )}
                     </p>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setFormSubmitted(false)}
-                      className="mt-4 rounded-full"
+                      onClick={() => {
+                        setFormSubmitted(false);
+                        setFormData({ name: '', email: '', subject: '', message: '' });
+                      }}
+                      className="mt-2 rounded-full px-6"
                     >
                       {t('Gửi tin nhắn khác', 'Send another message')}
                     </Button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    
+                    {/* Error Banner */}
+                    {errorMessage && (
+                      <div className="p-3.5 rounded-2xl bg-destructive/10 border border-destructive/30 text-destructive text-xs flex flex-col gap-2 animate-in fade-in duration-200">
+                        <div className="flex items-center gap-2 font-semibold">
+                          <AlertCircle className="w-4 h-4 shrink-0" />
+                          <span>{errorMessage}</span>
+                        </div>
+                        <div className="flex items-center gap-2 pt-1 border-t border-destructive/20 text-foreground">
+                          <span>{t('Hoặc bạn có thể gửi trực tiếp qua Email:', 'Or you can send directly via Email:')}</span>
+                          <button
+                            type="button"
+                            onClick={handleEmailFallback}
+                            className="underline font-semibold text-primary hover:opacity-80 cursor-pointer"
+                          >
+                            {t('Gửi qua Email ngay', 'Send via Email')}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <label className="text-xs font-semibold text-foreground/80">
@@ -303,7 +346,10 @@ export function ContactSection() {
                       className="w-full rounded-xl py-2.5 gap-2 font-medium shadow-md cursor-pointer text-sm"
                     >
                       {loading ? (
-                        <span>{t('Đang gửi...', 'Sending...')}</span>
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>{t('Đang gửi tới Telegram...', 'Sending to Telegram...')}</span>
+                        </>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
