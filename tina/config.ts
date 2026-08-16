@@ -1,10 +1,10 @@
 import { defineConfig } from "tinacms";
 
-// Tina Cloud branch configuration
 const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
   process.env.HEAD ||
+  process.env.NEXT_PUBLIC_TINA_BRANCH ||
   "main";
 
 const isLocal =
