@@ -1,10 +1,9 @@
 <div align="center">
   <!-- Animated Waving Hand Icon -->
-  <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="40" alt="Waving Hand" />
+  <p align="center">
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=89b4fa&height=120" width="100%" alt="Waving Hearder" />
+  </p>
 
-  <br /><br />
-
-  <!-- Avatar Picture & Animated Typing SVG Banner (Side-by-Side) -->
   <a href="https://github.com/Kachitaro">
     <img src="https://github.com/Kachitaro.png" width="130" height="130" style="border-radius: 50%; border: 3px solid #89b4fa; vertical-align: middle;" alt="John (Anh Tài) Avatar" />
   </a>
@@ -13,9 +12,6 @@
     <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=2500&pause=500&color=89B4FA&multiline=true&width=450&height=110&lines=Hi%2C+I'm+John+(Anh+T%C3%A0i)+%F0%9F%90%B1;Web+Developer+(Frontend+%26+Backend)+%F0%9F%92%BB;Tech+Instructor+%F0%9F%93%9D;Welcome+to+my+GitHub+Profile!+%F0%9F%9A%80" style="vertical-align: middle;" alt="Typing SVG Banner" />
   </a>
 
-  <br /><br />
-
-  <!-- Quick Social Badges -->
   <p align="center">
     <a href="https://github.com/kachitaro">
       <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" />
@@ -26,7 +22,6 @@
   </p>
 </div>
 
-<!-- Animated Rainbow Line Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="Animated Divider" />
 
 <br />
