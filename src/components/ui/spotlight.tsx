@@ -1,33 +1,51 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionTemplate } from 'framer-motion';
+import React from 'react';
+
+import { motion, useMotionTemplate, useSpring } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
+const emptySubscribe = () => () => {};
+
 export function Spotlight() {
-  const [mounted, setMounted] = useState(false);
+  const isMounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
   const { resolvedTheme } = useTheme();
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
 
-  useEffect(() => {
-    setMounted(true);
+  React.useEffect(() => {
+    let frameId: number | null = null;
     const handleMouseMove = ({ clientX, clientY }: MouseEvent) => {
-      mouseX.set(clientX);
-      mouseY.set(clientY);
+      if (frameId !== null) {
+        return;
+      }
+      frameId = window.requestAnimationFrame(() => {
+        mouseX.set(clientX);
+        mouseY.set(clientY);
+        frameId = null;
+      });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
   }, [mouseX, mouseY]);
 
-  const spotlightColor = resolvedTheme === 'dark'
-    ? 'rgba(96, 165, 250, 0.12)'
-    : 'rgba(59, 130, 246, 0.08)';
+  const spotlightColor =
+    resolvedTheme === 'dark' ? 'rgba(96, 165, 250, 0.12)' : 'rgba(59, 130, 246, 0.08)';
 
   const background = useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, ${spotlightColor}, transparent 80%)`;
 
-  if (!mounted) {
+  if (!isMounted) {
     return null;
   }
 

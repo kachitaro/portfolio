@@ -1,97 +1,84 @@
 'use client';
 
-import React from 'react';
+import { ExternalLink, Mail, MapPin } from 'lucide-react';
+import Link from 'next/link';
+
+import { GithubIcon } from '@/components/icons/github-icon';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { ArrowUp, Mail, Heart, Sparkles } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/github-icon';
-import Image from 'next/image';
 
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const navLinks = [
+    { href: '/', label: t('Trang chủ', 'Home') },
+    { href: '/about', label: t('Giới thiệu', 'About') },
+    { href: '/skills', label: t('Kỹ năng', 'Skills') },
+    { href: '/projects', label: t('Dự án', 'Projects') },
+    { href: '/experience', label: t('Kinh nghiệm', 'Experience') },
+    { href: '/contact', label: t('Liên hệ', 'Contact') },
+  ];
 
   return (
-    <footer className="border-t border-border/50 bg-background/80 backdrop-blur-md pt-12 pb-8 relative mt-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-border/40">
-          
-          {/* Brand & Bio */}
-          <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/40">
-              <Image
-                src={personalInfo.avatar}
-                alt={personalInfo.name}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-            <div>
-              <h3 className="font-bold text-sm flex items-center gap-1.5">
-                {personalInfo.name}
-                <span className="text-xs font-mono text-muted-foreground">({personalInfo.handle})</span>
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                {t('Software Engineer @ Nexpando', 'Software Engineer @ Nexpando')}
-              </p>
-            </div>
+    <footer className="border-border/50 bg-background/80 relative mt-20 border-t pt-12 pb-8 backdrop-blur-md">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Navigation & Connect */}
+        <div className="flex flex-col justify-between gap-8 pb-10 sm:flex-row sm:items-start">
+          {/* Quick Navigation Links */}
+          <div className="space-y-3">
+            <h4 className="text-foreground text-xs font-semibold tracking-wider uppercase">
+              {t('Điều hướng', 'Navigation')}
+            </h4>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Socials & Back to top */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://github.com/Kachitaro"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonVariants({
-                variant: 'outline',
-                size: 'icon',
-                className: 'h-9 w-9 rounded-full glass-panel hover:bg-muted/80 cursor-pointer'
-              })}
-              title="GitHub"
-            >
-              <GithubIcon className="w-4 h-4" />
-            </a>
+          <div className="space-y-3 sm:text-right">
+            <h4 className="text-foreground text-xs font-semibold tracking-wider uppercase">
+              {t('Kết nối', 'Connect')}
+            </h4>
 
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className={buttonVariants({
-                variant: 'outline',
-                size: 'icon',
-                className: 'h-9 w-9 rounded-full glass-panel hover:bg-muted/80 cursor-pointer'
-              })}
-              title="Email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
+            <div className="flex flex-wrap items-center gap-4 text-xs sm:justify-end">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Mail className="h-3.5 w-3.5" />
+                <span>{personalInfo.email}</span>
+              </a>
 
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={scrollToTop}
-              className="h-9 w-9 rounded-full glass-panel hover:bg-muted/80 cursor-pointer text-primary"
-              title={t('Lên đầu trang', 'Back to top')}
-            >
-              <ArrowUp className="w-4 h-4" />
-            </Button>
+              <a
+                href={personalInfo.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <GithubIcon className="h-3.5 w-3.5" />
+                <span>GitHub</span>
+                <ExternalLink className="h-3 w-3 opacity-60" />
+              </a>
+
+              <div className="text-muted-foreground flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5" />
+                <span>
+                  {language === 'vi' ? personalInfo.location.vi : personalInfo.location.en}
+                </span>
+              </div>
+            </div>
           </div>
-
         </div>
 
-        {/* Bottom copyright line */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="border-border/40 text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs sm:flex-row">
           <p>
-            © {new Date().getFullYear()} John (Anh Tài) — Built with Next.js, Tailwind CSS & Bun.
-          </p>
-          <p className="flex items-center gap-1">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-            <span>in Vietnam 🇻🇳</span>
+            Copyright © {new Date().getFullYear()} John (Anh Tài).{' '}
+            {t('Đã đăng ký bản quyền.', 'All rights reserved.')}
           </p>
         </div>
       </div>

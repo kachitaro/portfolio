@@ -1,28 +1,31 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
+const emptySubscribe = () => () => {};
+
 export function ScrollProgress() {
-  const [mounted, setMounted] = useState(false);
+  const isMounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (!isMounted) {
     return null;
   }
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-teal-400 origin-left z-[100]"
+      className="fixed top-0 right-0 left-0 z-100 h-1 origin-left bg-linear-to-r from-sky-400 via-indigo-500 to-teal-400"
       style={{ scaleX }}
     />
   );

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
+
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 
 const ROTATION_RANGE = 18;
@@ -9,13 +10,13 @@ const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
 export function TiltCard({
   children,
   className = '',
-  onClick
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -25,24 +26,54 @@ export function TiltCard({
 
   const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
 
+  const rectRef = React.useRef<DOMRect | null>(null);
+  const frameRef = React.useRef<number | null>(null);
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!rectRef.current && ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
 
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
+    const rect = rectRef.current;
+    if (!rect) {
+      return;
+    }
 
-    const mouseX = (e.clientX - rect.left) * ROTATION_RANGE / width - HALF_ROTATION_RANGE;
-    const mouseY = (e.clientY - rect.top) * ROTATION_RANGE / height - HALF_ROTATION_RANGE;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    const rX = mouseY * -1;
-    const rY = mouseX;
+    if (frameRef.current !== null) {
+      return;
+    }
 
-    x.set(rX);
-    y.set(rY);
+    frameRef.current = window.requestAnimationFrame(() => {
+      const width = rect.width;
+      const height = rect.height;
+
+      const mouseX = ((clientX - rect.left) * ROTATION_RANGE) / width - HALF_ROTATION_RANGE;
+      const mouseY = ((clientY - rect.top) * ROTATION_RANGE) / height - HALF_ROTATION_RANGE;
+
+      const rX = mouseY * -1;
+      const rY = mouseX;
+
+      x.set(rX);
+      y.set(rY);
+      frameRef.current = null;
+    });
   };
 
   const handleMouseLeave = () => {
+    if (frameRef.current !== null) {
+      window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    rectRef.current = null;
     x.set(0);
     y.set(0);
   };
@@ -50,6 +81,7 @@ export function TiltCard({
   return (
     <motion.div
       ref={ref}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
@@ -57,8 +89,7 @@ export function TiltCard({
         transformStyle: 'preserve-3d',
         transform,
       }}
-      className={className}
-    >
+      className={className}>
       <div style={{ transform: 'translateZ(20px)' }} className="h-full w-full">
         {children}
       </div>
