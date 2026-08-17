@@ -1,26 +1,25 @@
 'use client';
 
-import React from 'react';
-import { useLanguage } from '@/context/language-context';
-import { personalInfo } from '@/data/portfolioData';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { TiltCard } from '@/components/ui/tilt-card';
 import {
-  Code,
-  Zap,
-  Cpu,
-  MapPin,
-  Mail,
-  UserCheck,
-  Sparkles,
+  Briefcase,
   CheckCircle2,
   Clock,
-  Briefcase,
+  Code,
+  Coffee,
   Layers,
+  Mail,
+  MapPin,
+  Sparkles,
   Terminal,
-  Coffee
+  UserCheck,
+  Zap
 } from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TiltCard } from '@/components/ui/tilt-card';
+import { useLanguage } from '@/context/language-context';
+import { personalInfo } from '@/data/portfolioData';
 
 export function AboutSection() {
   const { language, t } = useLanguage();

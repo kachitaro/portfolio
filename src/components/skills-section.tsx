@@ -1,22 +1,17 @@
 'use client';
 
-import React from 'react';
-import { useLanguage } from '@/context/language-context';
-import { skillsData, toolchainGroups } from '@/data/portfolioData';
+import {
+  CheckCircle2,
+  Code2,
+  Cpu,
+  Terminal,
+  Zap
+} from 'lucide-react';
+
 import { Badge } from '@/components/ui/badge';
 import { TiltCard } from '@/components/ui/tilt-card';
-import {
-  Sparkles,
-  Layers,
-  Database,
-  Wrench,
-  Cpu,
-  Code2,
-  Terminal,
-  Zap,
-  Globe,
-  CheckCircle2
-} from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
+import { skillsData, toolchainGroups } from '@/data/portfolioData';
 
 export function SkillsSection() {
   const { language, t } = useLanguage();
@@ -91,7 +86,7 @@ export function SkillsSection() {
                   {/* Custom Progress Bar */}
                   <div className="w-full h-1.5 bg-muted/80 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-primary via-sky-400 to-indigo-500 rounded-full transition-all duration-700 group-hover:brightness-110"
+                      className="h-full bg-linear-to-r from-primary via-sky-400 to-indigo-500 rounded-full transition-all duration-700 group-hover:brightness-110"
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>

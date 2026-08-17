@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import { ArrowUp, Heart, Mail } from 'lucide-react';
+import Image from 'next/image';
+
+import { GithubIcon } from '@/components/icons/github-icon';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { ArrowUp, Mail, Heart, Sparkles } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/github-icon';
-import Image from 'next/image';
 
 export function Footer() {
   const { t } = useLanguage();
@@ -45,7 +45,7 @@ export function Footer() {
           {/* Socials & Back to top */}
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/Kachitaro"
+              href="https://github.com/kachitaro"
               target="_blank"
               rel="noopener noreferrer"
               className={buttonVariants({

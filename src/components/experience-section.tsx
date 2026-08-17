@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import { Briefcase, Building2, Calendar, Clock, MapPin } from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/language-context';
 import { experienceData } from '@/data/portfolioData';
-import { Badge } from '@/components/ui/badge';
-import { Briefcase, Calendar, Building2, MapPin, Clock, CheckCircle } from 'lucide-react';
 
 export function ExperienceSection() {
   const { language, t } = useLanguage();
@@ -34,7 +34,7 @@ export function ExperienceSection() {
           {experienceData.map((item) => (
             <div key={item.id} className="relative pl-6 sm:pl-8 group">
               {/* Timeline Marker Dot */}
-              <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-background border-2 border-primary group-hover:scale-125 group-hover:bg-primary transition-all duration-300 shadow-xs" />
+              <div className="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-background border-2 border-primary group-hover:scale-125 group-hover:bg-primary transition-all duration-300 shadow-xs" />
 
               <div className="glass-panel p-6 sm:p-7 rounded-2xl border-border/60 hover:border-primary/40 transition-all duration-300 hover:shadow-lg">
                 

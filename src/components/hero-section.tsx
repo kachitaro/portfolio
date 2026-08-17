@@ -1,26 +1,28 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useLanguage } from '@/context/language-context';
-import { personalInfo } from '@/data/portfolioData';
-import { CtaLink } from '@/components/ui/cta-link';
+import React from 'react';
+
 import {
   ArrowRight,
+  Briefcase,
   Mail,
-  Terminal,
-  Briefcase
+  Terminal
 } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/github-icon';
 import Image from 'next/image';
+
+import { GithubIcon } from '@/components/icons/github-icon';
+import { CtaLink } from '@/components/ui/cta-link';
+import { useLanguage } from '@/context/language-context';
+import { personalInfo } from '@/data/portfolioData';
 
 export function HeroSection() {
   const { language, t } = useLanguage();
   const roles = personalInfo.roles[language];
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [fadeState, setFadeState] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [currentRoleIndex, setCurrentRoleIndex] = React.useState(0);
+  const [fadeState, setFadeState] = React.useState(true);
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const interval = setInterval(() => {
       setFadeState(false);
       timeoutRef.current = setTimeout(() => {
@@ -39,15 +41,15 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
-      {/* Subtle Ambient Background Gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-primary/15 dark:bg-primary/20 blur-[130px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-100 bg-primary/15 dark:bg-primary/20 blur-[130px] rounded-full pointer-events-none -z-10" />
+
+      <div className="absolute top-1/3 left-1/4 w-100 h-100 bg-sky-500/10 blur-[120px] rounded-full pointer-events-none -z-10" />
+
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-purple-500/10 blur-[100px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 w-full flex flex-col items-center text-center">
         
-        {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md mb-8 animate-in fade-in zoom-in-95 duration-500">
+      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md mb-8 animate-in fade-in zoom-in-95 duration-500">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -76,7 +78,7 @@ export function HeroSection() {
         {/* Main Headline */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground max-w-3xl leading-[1.15] mb-4">
           {t('Xin chào, mình là', "Hi, I'm")}{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-sky-500 to-indigo-600 dark:from-sky-300 dark:via-indigo-300 dark:to-teal-300">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-sky-500 to-indigo-600 dark:from-sky-300 dark:via-indigo-300 dark:to-teal-300">
             {personalInfo.name}
           </span>
         </h1>
@@ -133,7 +135,7 @@ export function HeroSection() {
           </CtaLink>
 
           <CtaLink
-            href="https://github.com/Kachitaro"
+            href="https://github.com/kachitaro"
             external
             variant="outline"
             size="lg"

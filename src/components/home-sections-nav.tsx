@@ -1,18 +1,18 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import { useLanguage } from '@/context/language-context';
-import { Badge } from '@/components/ui/badge';
-import { CtaLink } from '@/components/ui/cta-link';
 import {
-  User,
+  ArrowRight,
+  Briefcase,
+  Building2,
   Cpu,
   FolderGit2,
-  Briefcase,
-  ArrowRight,
-  Building2,
+  User,
 } from 'lucide-react';
+import Link from 'next/link';
+
+import { Badge } from '@/components/ui/badge';
+import { CtaLink } from '@/components/ui/cta-link';
+import { useLanguage } from '@/context/language-context';
 
 export function HomeSectionsNav() {
   const { t } = useLanguage();

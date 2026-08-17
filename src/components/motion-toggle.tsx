@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
-import { useMotionPreference, setMotionPreference } from '@/hooks/use-motion-preference';
-import { Button } from '@/components/ui/button';
 import { Zap, ZapOff } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
+import { setMotionPreference, useMotionPreference } from '@/hooks/use-motion-preference';
 
 export function MotionToggle() {
   const { reducedMotion, ready } = useMotionPreference();

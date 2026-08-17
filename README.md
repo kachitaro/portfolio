@@ -4,8 +4,8 @@
     <img src="https://capsule-render.vercel.app/api?type=waving&color=89b4fa&height=120" width="100%" alt="Waving Hearder" />
   </p>
 
-  <a href="https://github.com/Kachitaro">
-    <img src="https://github.com/Kachitaro.png" width="130" height="130" style="border-radius: 50%; border: 3px solid #89b4fa; vertical-align: middle;" alt="John (Anh Tài) Avatar" />
+  <a href="https://github.com/kachitaro">
+    <img src="https://github.com/kachitaro.png" width="130" height="130" style="border-radius: 50%; border: 3px solid #89b4fa; vertical-align: middle;" alt="John (Anh Tài) Avatar" />
   </a>
   &nbsp;&nbsp;
   <a href="https://git.io/typing-svg">
@@ -52,7 +52,7 @@
 
 <!-- Animated Profile Visitors & Waving Footer -->
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Kachitaro&label=PROFILE%20VIEWS&color=89b4fa&style=for-the-badge" alt="Visitor Counter" />
+  <img src="https://komarev.com/ghpvc/?username=kachitaro&label=PROFILE%20VIEWS&color=89b4fa&style=for-the-badge" alt="Visitor Counter" />
 </p>
 
 <p align="center">

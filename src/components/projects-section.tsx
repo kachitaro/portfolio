@@ -1,33 +1,29 @@
 'use client';
+import React from 'react';
 
-import React, { useState, useMemo } from 'react';
-import { useLanguage } from '@/context/language-context';
-import { projectsData } from '@/data/portfolioData';
-import { Project } from '@/types/portfolio';
-import { Badge } from '@/components/ui/badge';
-import { TiltCard } from '@/components/ui/tilt-card';
-import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Building2,
   CheckCircle,
-  FolderGit2,
   Lock,
   Search,
-  Sparkles,
-  X,
-  ExternalLink,
-  Layers,
-  Calendar
+  X
 } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/github-icon';
 import Image from 'next/image';
+
+import { GithubIcon } from '@/components/icons/github-icon';
+import { Badge } from '@/components/ui/badge';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { TiltCard } from '@/components/ui/tilt-card';
+import { useLanguage } from '@/context/language-context';
+import { projectsData } from '@/data/portfolioData';
+import { Project } from '@/types/portfolio';
 
 export function ProjectsSection() {
   const { language, t } = useLanguage();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
 
-  const filteredProjects = useMemo(() => {
+  const filteredProjects = React.useMemo(() => {
     if (!searchQuery.trim()) return projectsData;
     const q = searchQuery.toLowerCase();
     return projectsData.filter((p) => {
@@ -93,7 +89,7 @@ export function ProjectsSection() {
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     unoptimized
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent opacity-90" />
                   
                   {/* Status Badge */}
                   {project.status && (
@@ -196,7 +192,7 @@ export function ProjectsSection() {
         {/* GitHub Repositories Link CTA */}
         <div className="mt-16 text-center">
           <a
-            href="https://github.com/Kachitaro"
+            href="https://github.com/kachitaro"
             target="_blank"
             rel="noopener noreferrer"
             className={buttonVariants({

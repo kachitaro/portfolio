@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
-import { useLanguage } from '@/context/language-context';
-import { Button } from '@/components/ui/button';
 import { Languages } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/context/language-context';
 
 export function LanguageToggle() {
   const { language, toggleLanguage } = useLanguage();

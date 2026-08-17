@@ -2,9 +2,9 @@ import { SkillItem } from '@/types/portfolio';
 
 export const personalInfo = {
   name: 'John (Anh Tài)',
-  nickname: 'Kachitaro',
-  handle: '@Kachitaro',
-  avatar: 'https://github.com/Kachitaro.png',
+  nickname: 'kachitaro',
+  handle: '@kachitaro',
+  avatar: 'https://github.com/kachitaro.png',
   email: 'anhtai.dev@gmail.com',
   location: {
     vi: 'Việt Nam 🇻🇳',
@@ -107,7 +107,7 @@ export const personalInfo = {
     ]
   },
   socials: {
-    github: 'https://github.com/Kachitaro',
+    github: 'https://github.com/kachitaro',
     email: 'mailto:anhtai.dev@gmail.com',
   }
 };

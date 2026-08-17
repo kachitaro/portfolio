@@ -1,6 +1,6 @@
 'use client';
 
-import { useSyncExternalStore, useState, useEffect } from 'react';
+import React from 'react';
 
 export type MotionPreference = 'on' | 'off' | null;
 
@@ -42,6 +42,8 @@ function getServerSnapshot(): MotionPreference {
   return null;
 }
 
+const emptySubscribe = () => () => {};
+
 export function setMotionPreference(pref: MotionPreference) {
   currentPref = pref;
   if (typeof window !== 'undefined') {
@@ -59,10 +61,16 @@ export function useMotionPreference(): {
   preference: MotionPreference;
   ready: boolean;
 } {
-  const [ready, setReady] = useState(false);
-  const pref = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
+  const ready = React.useSyncExternalStore(
+    emptySubscribe, 
+    () => true, 
+    () => false 
+  );
+
+  const pref = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  React.useEffect(() => {
     currentPref = getRawPreference();
     LISTENERS.forEach((l) => l());
 
@@ -74,7 +82,6 @@ export function useMotionPreference(): {
     };
 
     mediaQuery.addEventListener('change', handleMediaChange);
-    setReady(true);
 
     return () => {
       mediaQuery.removeEventListener('change', handleMediaChange);

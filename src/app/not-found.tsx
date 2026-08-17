@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
-import { useLanguage } from '@/context/language-context';
-import { CtaLink } from '@/components/ui/cta-link';
-import { Home } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { CtaLink } from '@/components/ui/cta-link';
+import { useLanguage } from '@/context/language-context';
+import { Home } from 'lucide-react';
 
 export default function NotFound() {
   const { t } = useLanguage();
@@ -18,7 +17,7 @@ export default function NotFound() {
         
         {/* Playful Cat Icon & 404 Badge */}
         <div className="relative inline-flex items-center justify-center">
-          <span className="text-6xl sm:text-7xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-primary via-sky-500 to-indigo-500">
+          <span className="text-6xl sm:text-7xl font-extrabold font-mono text-transparent bg-clip-text bg-linear-to-r from-primary via-sky-500 to-indigo-500">
             404
           </span>
           <span className="absolute -top-3 -right-6 text-2xl animate-bounce" title="Cat Lover 🐱">

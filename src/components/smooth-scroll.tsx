@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { ReactLenis, type LenisRef } from '@/lib/lenis';
-import { useMotionPreference } from '@/hooks/use-motion-preference';
+import React from 'react';
+
 import gsap from 'gsap';
+
+import { useMotionPreference } from '@/hooks/use-motion-preference';
+import { ReactLenis, type LenisRef } from '@/lib/lenis';
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const { reducedMotion, ready } = useMotionPreference();
-  const lenisRef = useRef<LenisRef>(null);
+  const lenisRef = React.useRef<LenisRef>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (reducedMotion || !ready) return;
 
     function update() {

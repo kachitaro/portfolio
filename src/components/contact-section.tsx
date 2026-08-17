@@ -187,7 +187,7 @@ export function ContactSection() {
 
             {/* GitHub Card */}
             <a
-              href="https://github.com/Kachitaro"
+              href="https://github.com/kachitaro"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-panel p-5 rounded-3xl border-border/60 hover:border-primary/40 transition-all duration-300 hover:shadow-md flex items-center justify-between group"
@@ -201,7 +201,7 @@ export function ContactSection() {
                     GitHub Profile
                   </h4>
                   <p className="text-xs text-muted-foreground font-mono">
-                    @Kachitaro
+                    @kachitaro
                   </p>
                 </div>
               </div>

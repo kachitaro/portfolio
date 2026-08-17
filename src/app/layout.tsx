@@ -1,15 +1,14 @@
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+import { SmoothScroll } from '@/components/smooth-scroll';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ScrollProgress } from '@/components/ui/scroll-progress';
+import { Spotlight } from '@/components/ui/spotlight';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { LanguageProvider } from '@/context/language-context';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import { LanguageProvider } from '@/context/language-context';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
-import { Spotlight } from '@/components/ui/spotlight';
-import { ScrollProgress } from '@/components/ui/scroll-progress';
-import { EasterEggs } from '@/components/easter-eggs';
-import { SmoothScroll } from '@/components/smooth-scroll';
 
 import { config } from '@/data/config';
 
@@ -64,14 +63,17 @@ export default function RootLayout({
           <LanguageProvider>
             <TooltipProvider delay={200}>
               <ScrollProgress />
+
               <Spotlight />
-              <EasterEggs />
+              
               <Navbar />
+              
               <SmoothScroll>
                 <main className="flex-1 pt-14 relative z-10">
                   {children}
                 </main>
               </SmoothScroll>
+              
               <Footer />
             </TooltipProvider>
           </LanguageProvider>

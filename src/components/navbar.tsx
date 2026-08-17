@@ -1,22 +1,24 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
+import { Code2, Menu, Send, Sparkles, X } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useLanguage } from '@/context/language-context';
-import { ThemeToggle } from '@/components/theme-toggle';
+
 import { LanguageToggle } from '@/components/language-toggle';
 import { MotionToggle } from '@/components/motion-toggle';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { CtaLink } from '@/components/ui/cta-link';
-import { Menu, X, Code2, Sparkles, Send } from 'lucide-react';
-import Image from 'next/image';
+import { useLanguage } from '@/context/language-context';
 
 export function Navbar() {
   const { t } = useLanguage();
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const navLinks = [
     { href: '/', label: t('Trang chủ', 'Home') },
@@ -27,7 +29,7 @@ export function Navbar() {
     { href: '/contact', label: t('Liên hệ', 'Contact') },
   ];
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 15);
     };
@@ -53,7 +55,7 @@ export function Navbar() {
         >
           <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/40 group-hover:ring-primary transition-all duration-300 shadow-xs">
             <Image
-              src="https://github.com/Kachitaro.png"
+              src="https://github.com/kachitaro.png"
               alt="John (Anh Tài)"
               fill
               className="object-cover"
@@ -64,7 +66,7 @@ export function Navbar() {
               John (Anh Tài)
               <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-80" />
             </span>
-            <span className="text-[11px] font-mono text-muted-foreground">@Kachitaro</span>
+            <span className="text-[11px] font-mono text-muted-foreground">@kachitaro</span>
           </div>
         </Link>
 
