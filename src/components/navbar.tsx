@@ -30,11 +30,18 @@ export function Navbar() {
   ];
 
   React.useEffect(() => {
+    let isTicking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      if (!isTicking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 15);
+          isTicking = false;
+        });
+        isTicking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -54,6 +61,7 @@ export function Navbar() {
               src="https://github.com/kachitaro.png"
               alt="John (Anh Tài)"
               fill
+              sizes="36px"
               className="object-cover"
             />
           </div>

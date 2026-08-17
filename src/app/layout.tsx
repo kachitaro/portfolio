@@ -15,11 +15,24 @@ import { config } from '@/data/config';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  display: 'swap',
+  fallback: [
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'sans-serif',
+  ],
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -46,34 +59,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300 overflow-x-hidden relative">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <html
+      lang="vi"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://github.com" />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://skillicons.dev" />
+        <link rel="dns-prefetch" href="https://skillicons.dev" />
+      </head>
+      <body className="bg-background text-foreground relative flex min-h-full flex-col overflow-x-hidden transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LanguageProvider>
             <TooltipProvider delay={200}>
               <ScrollProgress />
 
               <Spotlight />
-              
+
               <Navbar />
-              
+
               <SmoothScroll>
-                <main className="flex-1 pt-14 relative z-10">
-                  {children}
-                </main>
+                <main className="relative z-10 flex-1 pt-14">{children}</main>
               </SmoothScroll>
-              
+
               <Footer />
             </TooltipProvider>
           </LanguageProvider>

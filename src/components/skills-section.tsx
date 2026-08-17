@@ -60,6 +60,9 @@ export function SkillsSection() {
                         <img
                           src={`https://skillicons.dev/icons?i=${skill.icon}`}
                           alt={skill.name}
+                          width={24}
+                          height={24}
+                          decoding="async"
                           className="h-6 w-6 object-contain"
                           loading="lazy"
                           onError={(e) => {

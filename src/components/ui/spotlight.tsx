@@ -19,13 +19,25 @@ export function Spotlight() {
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
 
   React.useEffect(() => {
+    let frameId: number | null = null;
     const handleMouseMove = ({ clientX, clientY }: MouseEvent) => {
-      mouseX.set(clientX);
-      mouseY.set(clientY);
+      if (frameId !== null) {
+        return;
+      }
+      frameId = window.requestAnimationFrame(() => {
+        mouseX.set(clientX);
+        mouseY.set(clientY);
+        frameId = null;
+      });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
   }, [mouseX, mouseY]);
 
   const spotlightColor =

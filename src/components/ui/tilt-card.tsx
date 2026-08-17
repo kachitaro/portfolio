@@ -26,26 +26,54 @@ export function TiltCard({
 
   const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
 
+  const rectRef = React.useRef<DOMRect | null>(null);
+  const frameRef = React.useRef<number | null>(null);
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) {
+    if (!rectRef.current && ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+
+    const rect = rectRef.current;
+    if (!rect) {
       return;
     }
 
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    const mouseX = ((e.clientX - rect.left) * ROTATION_RANGE) / width - HALF_ROTATION_RANGE;
-    const mouseY = ((e.clientY - rect.top) * ROTATION_RANGE) / height - HALF_ROTATION_RANGE;
+    if (frameRef.current !== null) {
+      return;
+    }
 
-    const rX = mouseY * -1;
-    const rY = mouseX;
+    frameRef.current = window.requestAnimationFrame(() => {
+      const width = rect.width;
+      const height = rect.height;
 
-    x.set(rX);
-    y.set(rY);
+      const mouseX = ((clientX - rect.left) * ROTATION_RANGE) / width - HALF_ROTATION_RANGE;
+      const mouseY = ((clientY - rect.top) * ROTATION_RANGE) / height - HALF_ROTATION_RANGE;
+
+      const rX = mouseY * -1;
+      const rY = mouseX;
+
+      x.set(rX);
+      y.set(rY);
+      frameRef.current = null;
+    });
   };
 
   const handleMouseLeave = () => {
+    if (frameRef.current !== null) {
+      window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    rectRef.current = null;
     x.set(0);
     y.set(0);
   };
@@ -53,6 +81,7 @@ export function TiltCard({
   return (
     <motion.div
       ref={ref}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}

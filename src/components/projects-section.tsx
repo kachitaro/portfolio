@@ -103,8 +103,8 @@ export function ProjectsSection() {
                     src={project.image}
                     alt={project.title[language]}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    unoptimized
                   />
                   <div className="from-background via-background/20 absolute inset-0 bg-linear-to-t to-transparent opacity-90" />
 
@@ -266,8 +266,8 @@ export function ProjectsSection() {
                 src={selectedProject.image}
                 alt={selectedProject.title[language]}
                 fill
+                sizes="(max-width: 640px) 100vw, 672px"
                 className="object-cover"
-                unoptimized
               />
             </div>
 
