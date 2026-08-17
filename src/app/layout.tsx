@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kachitaro.vercel.app'),
   title: 'John (Anh Tài) | Software Engineer @ Nexpando',
   description: 'Portfolio of John (Anh Tài) (@Kachitaro) - Software Engineer at Nexpando specializing in React.js, Next.js, TypeScript, and high-performance Enterprise Web Platforms.',
   keywords: [

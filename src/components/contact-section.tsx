@@ -93,9 +93,10 @@ export function ContactSection() {
         spread: 80,
         origin: { y: 0.6 }
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       setLoading(false);
-      setErrorMessage(err.message || 'Không thể kết nối đến máy chủ.');
+      const message = err instanceof Error ? err.message : 'Không thể kết nối đến máy chủ.';
+      setErrorMessage(message);
     }
   };
 
@@ -288,10 +289,12 @@ export function ContactSection() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-foreground/80">
+                        <label htmlFor="contact-name" className="text-xs font-semibold text-foreground/80">
                           {t('Họ và tên *', 'Your Name *')}
                         </label>
                         <Input
+                          id="contact-name"
+                          name="name"
                           required
                           placeholder={t('Nguyễn Văn A', 'John Doe')}
                           value={formData.name}
@@ -300,10 +303,12 @@ export function ContactSection() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-foreground/80">
+                        <label htmlFor="contact-email" className="text-xs font-semibold text-foreground/80">
                           {t('Địa chỉ Email *', 'Your Email *')}
                         </label>
                         <Input
+                          id="contact-email"
+                          name="email"
                           required
                           type="email"
                           placeholder="example@gmail.com"
@@ -315,10 +320,12 @@ export function ContactSection() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-foreground/80">
+                      <label htmlFor="contact-subject" className="text-xs font-semibold text-foreground/80">
                         {t('Chủ đề', 'Subject')}
                       </label>
                       <Input
+                        id="contact-subject"
+                        name="subject"
                         placeholder={t('Dự án Website / Hợp tác phát triển...', 'Website Project / Collaboration inquiry...')}
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
@@ -327,10 +334,12 @@ export function ContactSection() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-foreground/80">
+                      <label htmlFor="contact-message" className="text-xs font-semibold text-foreground/80">
                         {t('Nội dung tin nhắn *', 'Message *')}
                       </label>
                       <Textarea
+                        id="contact-message"
+                        name="message"
                         required
                         rows={4}
                         placeholder={t('Chia sẻ về ý tưởng dự án hoặc câu hỏi của bạn...', 'Tell me about your project requirements or thoughts...')}

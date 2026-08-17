@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
+import { CtaLink } from '@/components/ui/cta-link';
 import { Menu, X, Code2, Sparkles, Send } from 'lucide-react';
 import Image from 'next/image';
 
@@ -55,7 +56,6 @@ export function Navbar() {
               alt="John (Anh Tài)"
               fill
               className="object-cover"
-              unoptimized
             />
           </div>
           <div className="flex flex-col">
@@ -94,16 +94,15 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-2.5">
           <LanguageToggle />
           <ThemeToggle />
-          <Link
+          <CtaLink
             href="/contact"
-            className={buttonVariants({
-              size: 'sm',
-              className: 'h-9 px-4 gap-1.5 rounded-full shadow-xs cursor-pointer text-xs font-medium'
-            })}
+            size="sm"
+            icon={<Send className="w-3.5 h-3.5" />}
+            iconPosition="left"
+            className="h-9 px-4 gap-1.5 rounded-full shadow-xs cursor-pointer text-xs font-medium"
           >
-            <Send className="w-3.5 h-3.5" />
             {t('Liên hệ', 'Get in Touch')}
-          </Link>
+          </CtaLink>
         </div>
 
         {/* Mobile menu trigger */}
@@ -144,17 +143,16 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <Link
+            <CtaLink
               href="/contact"
+              size="sm"
+              icon={<Send className="w-3.5 h-3.5" />}
+              iconPosition="left"
               onClick={() => setMobileMenuOpen(false)}
-              className={buttonVariants({
-                size: 'sm',
-                className: 'mt-2 w-full gap-2 rounded-xl text-xs py-2.5 cursor-pointer'
-              })}
+              className="mt-2 w-full gap-2 rounded-xl text-xs py-2.5 cursor-pointer"
             >
-              <Send className="w-3.5 h-3.5" />
               {t('Liên hệ ngay', 'Get in Touch')}
-            </Link>
+            </CtaLink>
           </div>
         </div>
       )}

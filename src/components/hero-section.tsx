@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
-import { buttonVariants } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { CtaLink } from '@/components/ui/cta-link';
 import {
   ArrowRight,
   Mail,
   Terminal,
-  Sparkles,
-  Layers,
-  CheckCircle2,
   Briefcase
 } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/github-icon';
@@ -23,17 +18,23 @@ export function HeroSection() {
   const roles = personalInfo.roles[language];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [fadeState, setFadeState] = useState(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeState(false);
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
         setFadeState(true);
       }, 300);
     }, 3200);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [roles.length]);
 
   return (
@@ -65,7 +66,6 @@ export function HeroSection() {
               fill
               className="rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
               priority
-              unoptimized
             />
           </div>
           <span className="absolute bottom-1 right-1 text-xl bg-background/90 rounded-full p-1 border border-border shadow-xs" title="Cat Lover 🐱">
@@ -100,54 +100,49 @@ export function HeroSection() {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3.5 mb-12">
-          <Link
+          <CtaLink
             href="/projects"
-            className={buttonVariants({
-              size: 'lg',
-              className: 'rounded-full px-6 gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer font-medium'
-            })}
+            size="lg"
+            icon={<ArrowRight className="w-4 h-4" />}
+            iconPosition="right"
+            className="rounded-full px-6 gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer font-medium"
           >
-            <span>{t('Dự án doanh nghiệp', 'Enterprise Projects')}</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            {t('Dự án doanh nghiệp', 'Enterprise Projects')}
+          </CtaLink>
 
-          <Link
+          <CtaLink
             href="/experience"
-            className={buttonVariants({
-              variant: 'outline',
-              size: 'lg',
-              className: 'rounded-full px-6 gap-2 glass-panel hover:bg-muted/80 transition-all cursor-pointer font-medium'
-            })}
+            variant="outline"
+            size="lg"
+            icon={<Briefcase className="w-4 h-4 text-primary" />}
+            iconPosition="left"
+            className="rounded-full px-6 gap-2 glass-panel hover:bg-muted/80 transition-all cursor-pointer font-medium"
           >
-            <Briefcase className="w-4 h-4 text-primary" />
-            <span>{t('Kinh nghiệm làm việc', 'Experience')}</span>
-          </Link>
+            {t('Kinh nghiệm làm việc', 'Experience')}
+          </CtaLink>
 
-          <Link
+          <CtaLink
             href="/contact"
-            className={buttonVariants({
-              variant: 'outline',
-              size: 'lg',
-              className: 'rounded-full px-6 gap-2 glass-panel hover:bg-muted/80 transition-all cursor-pointer font-medium'
-            })}
+            variant="outline"
+            size="lg"
+            icon={<Mail className="w-4 h-4 text-primary" />}
+            iconPosition="left"
+            className="rounded-full px-6 gap-2 glass-panel hover:bg-muted/80 transition-all cursor-pointer font-medium"
           >
-            <Mail className="w-4 h-4 text-primary" />
-            <span>{t('Liên hệ ngay', 'Get in Touch')}</span>
-          </Link>
+            {t('Liên hệ ngay', 'Get in Touch')}
+          </CtaLink>
 
-          <a
+          <CtaLink
             href="https://github.com/Kachitaro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonVariants({
-              variant: 'outline',
-              size: 'lg',
-              className: 'rounded-full px-5 gap-2 glass-panel hover:bg-muted/80 transition-all font-medium cursor-pointer'
-            })}
+            external
+            variant="outline"
+            size="lg"
+            icon={<GithubIcon className="w-4 h-4" />}
+            iconPosition="left"
+            className="rounded-full px-5 gap-2 glass-panel hover:bg-muted/80 transition-all font-medium cursor-pointer"
           >
-            <GithubIcon className="w-4 h-4" />
-            <span>GitHub</span>
-          </a>
+            GitHub
+          </CtaLink>
         </div>
 
         {/* Quick Highlights Grid */}
