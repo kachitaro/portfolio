@@ -11,16 +11,9 @@
   <a href="https://git.io/typing-svg">
     <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=2500&pause=500&color=89B4FA&multiline=true&width=450&height=110&lines=Hi%2C+I'm+John+(Anh+T%C3%A0i)+%F0%9F%90%B1;Web+Developer+(Frontend+%26+Backend)+%F0%9F%92%BB;Tech+Instructor+%F0%9F%93%9D;Welcome+to+my+GitHub+Profile!+%F0%9F%9A%80" style="vertical-align: middle;" alt="Typing SVG Banner" />
   </a>
-
-  <p align="center">
-    <a href="https://github.com/kachitaro">
-      <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" />
-    </a>
-    <a href="mailto:anhtai.dev@gmail.com">
-      <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Badge" />
-    </a>
-  </p>
 </div>
+
+<br />
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="Animated Divider" />
 

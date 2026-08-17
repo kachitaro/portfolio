@@ -1,7 +1,32 @@
 import { NextResponse } from 'next/server';
 
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const MAX_REQUESTS = 5;
+const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
 export async function POST(req: Request) {
   try {
+    const forwardedFor = req.headers.get('x-forwarded-for');
+    const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 'unknown';
+
+    const now = Date.now();
+    const rateLimitInfo = rateLimitMap.get(clientIp);
+
+    if (rateLimitInfo) {
+      if (now > rateLimitInfo.resetAt) {
+        rateLimitMap.set(clientIp, { count: 1, resetAt: now + WINDOW_MS });
+      } else if (rateLimitInfo.count >= MAX_REQUESTS) {
+        return NextResponse.json(
+          { error: 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau 10 phút.' },
+          { status: 429 }
+        );
+      } else {
+        rateLimitInfo.count += 1;
+      }
+    } else {
+      rateLimitMap.set(clientIp, { count: 1, resetAt: now + WINDOW_MS });
+    }
+
     const { name, email, subject, message } = await req.json();
 
     if (!name || !email || !message) {
@@ -71,10 +96,11 @@ ${escapeHtml(message)}
       success: true,
       message: 'Tin nhắn đã được gửi tới Telegram thành công!'
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error handling contact form:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Đã có lỗi xảy ra trong quá trình xử lý.';
     return NextResponse.json(
-      { error: error.message || 'Đã có lỗi xảy ra trong quá trình xử lý.' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
