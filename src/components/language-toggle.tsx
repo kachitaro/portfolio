@@ -13,10 +13,9 @@ export function LanguageToggle() {
       variant="outline"
       size="sm"
       onClick={toggleLanguage}
-      className="h-9 px-3 gap-1.5 rounded-full border-border/60 bg-background/80 backdrop-blur-sm shadow-xs transition-transform hover:scale-105 font-medium text-xs"
-      title={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
-    >
-      <Languages className="h-3.5 w-3.5 text-primary" />
+      className="border-border/60 bg-background/80 h-9 gap-1.5 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-sm transition-transform hover:scale-105"
+      title={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}>
+      <Languages className="text-primary h-3.5 w-3.5" />
       <span className="font-semibold">{language === 'vi' ? 'VI' : 'EN'}</span>
     </Button>
   );

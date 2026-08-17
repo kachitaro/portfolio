@@ -24,30 +24,30 @@ import {
   Zap,
   Globe,
   AlertCircle,
-  Loader2
+  Loader2,
 } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/github-icon';
 
 export function ContactSection() {
   const { language, t } = useLanguage();
-  const [copied, setCopied] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isCopied, setCopied] = useState(false);
+  const [isFormSubmitted, setFormSubmitted] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
 
   const services = personalInfo.services[language];
   const serviceIcons = [
-    <Code2 key="0" className="w-5 h-5 text-sky-400" />,
-    <Layers key="1" className="w-5 h-5 text-indigo-400" />,
-    <Zap key="2" className="w-5 h-5 text-amber-400" />,
-    <Globe key="3" className="w-5 h-5 text-emerald-400" />
+    <Code2 key="0" className="h-5 w-5 text-sky-400" />,
+    <Layers key="1" className="h-5 w-5 text-indigo-400" />,
+    <Zap key="2" className="h-5 w-5 text-amber-400" />,
+    <Globe key="3" className="h-5 w-5 text-emerald-400" />,
   ];
 
   const handleCopyEmail = () => {
@@ -58,16 +58,18 @@ export function ContactSection() {
 
   const handleEmailFallback = () => {
     const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      formData.subject || 'Portfolio Contact from ' + formData.name
+      formData.subject || 'Portfolio Contact from ' + formData.name,
     )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
     )}`;
     window.location.href = mailtoUrl;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name || !formData.email || !formData.message) {
+      return;
+    }
 
     setLoading(true);
     setErrorMessage('');
@@ -91,7 +93,7 @@ export function ContactSection() {
       confetti({
         particleCount: 120,
         spread: 80,
-        origin: { y: 0.6 }
+        origin: { y: 0.6 },
       });
     } catch (err: unknown) {
       setLoading(false);
@@ -101,83 +103,85 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
+    <section id="contact" className="relative py-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <Badge variant="outline" className="mb-3 px-3.5 py-1 text-xs uppercase tracking-wider border-primary/30 text-primary">
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <Badge
+            variant="outline"
+            className="border-primary/30 text-primary mb-3 px-3.5 py-1 text-xs tracking-wider uppercase">
             {t('Liên hệ & Hợp tác', 'Get In Touch')}
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             {t('Hãy cùng bắt đầu một dự án mới!', "Let's Build Something Awesome Together!")}
           </h2>
-          <p className="mt-3 text-muted-foreground text-sm sm:text-base">
+          <p className="text-muted-foreground mt-3 text-sm sm:text-base">
             {t(
               'Bạn đang cần phát triển website, xây dựng ứng dụng hoặc trao đổi giải pháp công nghệ? Đừng ngần ngại nhắn tin cho mình nhé.',
-              'Looking for a dedicated software engineer or discussing modern web architectures? Reach out anytime!'
+              'Looking for a dedicated software engineer or discussing modern web architectures? Reach out anytime!',
             )}
           </p>
         </div>
 
         {/* Top Badges (Location, Timezone, Availability) */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
-          <div className="flex items-center gap-2 px-4 py-2 bg-background/80 glass-panel rounded-full border border-border/60 text-xs font-medium">
-            <MapPin className="w-3.5 h-3.5 text-primary" />
+        <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
+          <div className="bg-background/80 glass-panel border-border/60 flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium">
+            <MapPin className="text-primary h-3.5 w-3.5" />
             <span>{personalInfo.location[language]}</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-background/80 glass-panel rounded-full border border-border/60 text-xs font-medium">
-            <Clock className="w-3.5 h-3.5 text-sky-400" />
+          <div className="bg-background/80 glass-panel border-border/60 flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium">
+            <Clock className="h-3.5 w-3.5 text-sky-400" />
             <span>UTC+7 (ICT Timezone)</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-xs font-semibold text-emerald-500">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-500">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
             </span>
-            <span>{t('AVAILABLE FOR FREELANCE & PROJECTS', 'AVAILABLE FOR FREELANCE & PROJECTS')}</span>
+            <span>
+              {t('AVAILABLE FOR FREELANCE & PROJECTS', 'AVAILABLE FOR FREELANCE & PROJECTS')}
+            </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-          
+        <div className="mb-16 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
           {/* Contact Details & Direct Channels */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            
+          <div className="flex flex-col gap-4 lg:col-span-5">
             {/* Direct Email Card */}
-            <div className="glass-panel p-6 rounded-3xl border-border/60 shadow-xs">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2.5 rounded-2xl bg-primary/10 text-primary">
-                  <Mail className="w-5 h-5" />
+            <div className="glass-panel border-border/60 rounded-3xl p-6 shadow-xs">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="bg-primary/10 text-primary rounded-2xl p-2.5">
+                  <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">
+                  <h4 className="text-foreground text-sm font-bold">
                     {t('Địa chỉ Email trực tiếp', 'Direct Email')}
                   </h4>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {t('Phản hồi nhanh trong 24 giờ', 'Quick response within 24h')}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-muted/60 border border-border/40 font-mono text-xs sm:text-sm">
-                <span className="text-foreground select-all truncate mr-2">
+              <div className="bg-muted/60 border-border/40 flex items-center justify-between rounded-2xl border p-3 font-mono text-xs sm:text-sm">
+                <span className="text-foreground mr-2 truncate select-all">
                   {personalInfo.email}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleCopyEmail}
-                  className="h-8 px-2.5 gap-1.5 rounded-xl text-xs cursor-pointer hover:bg-background shrink-0"
-                >
-                  {copied ? (
+                  className="hover:bg-background h-8 shrink-0 cursor-pointer gap-1.5 rounded-xl px-2.5 text-xs">
+                  {isCopied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
-                      <span className="text-emerald-500 font-semibold">{t('Đã chép!', 'Copied!')}</span>
+                      <Check className="h-3.5 w-3.5 text-emerald-500" />
+                      <span className="font-semibold text-emerald-500">
+                        {t('Đã chép!', 'Copied!')}
+                      </span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="h-3.5 w-3.5" />
                       <span>{t('Sao chép', 'Copy')}</span>
                     </>
                   )}
@@ -190,66 +194,70 @@ export function ContactSection() {
               href="https://github.com/kachitaro"
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel p-5 rounded-3xl border-border/60 hover:border-primary/40 transition-all duration-300 hover:shadow-md flex items-center justify-between group"
-            >
+              className="glass-panel border-border/60 hover:border-primary/40 group flex items-center justify-between rounded-3xl p-5 transition-all duration-300 hover:shadow-md">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-background border border-border/50 text-foreground group-hover:text-primary transition-colors">
-                  <GithubIcon className="w-5 h-5" />
+                <div className="bg-background border-border/50 text-foreground group-hover:text-primary rounded-2xl border p-2.5 transition-colors">
+                  <GithubIcon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h4 className="text-foreground group-hover:text-primary text-sm font-bold transition-colors">
                     GitHub Profile
                   </h4>
-                  <p className="text-xs text-muted-foreground font-mono">
-                    @kachitaro
-                  </p>
+                  <p className="text-muted-foreground font-mono text-xs">@kachitaro</p>
                 </div>
               </div>
-              <Badge variant="outline" className="text-xs border-border/60">
+              <Badge variant="outline" className="border-border/60 text-xs">
                 {t('Xem hồ sơ', 'Visit')} ↗
               </Badge>
             </a>
 
             {/* Telegram Notification Badge */}
-            <div className="glass-panel p-5 rounded-3xl border-sky-500/30 flex items-center gap-3 bg-sky-500/5">
-              <div className="p-2.5 rounded-2xl bg-sky-500/15 text-sky-400">
-                <Zap className="w-5 h-5" />
+            <div className="glass-panel flex items-center gap-3 rounded-3xl border-sky-500/30 bg-sky-500/5 p-5">
+              <div className="rounded-2xl bg-sky-500/15 p-2.5 text-sky-400">
+                <Zap className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                <h4 className="text-foreground flex items-center gap-1.5 text-sm font-bold">
                   <span>Telegram Notification Bot</span>
                   <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </h4>
-                <p className="text-xs text-muted-foreground">
-                  {t('Tin nhắn gửi từ form sẽ thông báo ngay tới điện thoại của mình.', 'Form messages trigger instant notification via Telegram.')}
+                <p className="text-muted-foreground text-xs">
+                  {t(
+                    'Tin nhắn gửi từ form sẽ thông báo ngay tới điện thoại của mình.',
+                    'Form messages trigger instant notification via Telegram.',
+                  )}
                 </p>
               </div>
             </div>
-
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <Card className="glass-panel border-border/60 shadow-lg rounded-3xl">
+            <Card className="glass-panel border-border/60 rounded-3xl shadow-lg">
               <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bold flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-primary" />
-                  <span>{t('Gửi tin nhắn nhanh (Tự động qua Telegram)', 'Send Quick Message (via Telegram)')}</span>
+                <CardTitle className="flex items-center gap-2 text-xl font-bold">
+                  <MessageSquare className="text-primary h-5 w-5" />
+                  <span>
+                    {t(
+                      'Gửi tin nhắn nhanh (Tự động qua Telegram)',
+                      'Send Quick Message (via Telegram)',
+                    )}
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {formSubmitted ? (
-                  <div className="py-8 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-                    <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto shadow-md">
-                      <Check className="w-7 h-7" />
+                {isFormSubmitted ? (
+                  <div className="animate-in fade-in zoom-in-95 space-y-4 py-8 text-center duration-300">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 shadow-md">
+                      <Check className="h-7 w-7" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground">
+                    <h3 className="text-foreground text-xl font-bold">
                       {t('Tin nhắn đã được gửi thành công! 🎉', 'Message sent successfully! 🎉')}
                     </h3>
-                    <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+                    <p className="text-muted-foreground mx-auto max-w-md text-sm leading-relaxed">
                       {t(
                         'Thông báo đã được chuyển tức thì tới Telegram của mình. Mình sẽ phản hồi lại cho bạn qua Email sớm nhất!',
-                        'Your message was sent instantly to my Telegram. I will get back to you via your email shortly!'
+                        'Your message was sent instantly to my Telegram. I will get back to you via your email shortly!',
                       )}
                     </p>
                     <Button
@@ -259,37 +267,41 @@ export function ContactSection() {
                         setFormSubmitted(false);
                         setFormData({ name: '', email: '', subject: '', message: '' });
                       }}
-                      className="mt-2 rounded-full px-6"
-                    >
+                      className="mt-2 rounded-full px-6">
                       {t('Gửi tin nhắn khác', 'Send another message')}
                     </Button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    
                     {/* Error Banner */}
                     {errorMessage && (
-                      <div className="p-3.5 rounded-2xl bg-destructive/10 border border-destructive/30 text-destructive text-xs flex flex-col gap-2 animate-in fade-in duration-200">
+                      <div className="bg-destructive/10 border-destructive/30 text-destructive animate-in fade-in flex flex-col gap-2 rounded-2xl border p-3.5 text-xs duration-200">
                         <div className="flex items-center gap-2 font-semibold">
-                          <AlertCircle className="w-4 h-4 shrink-0" />
+                          <AlertCircle className="h-4 w-4 shrink-0" />
                           <span>{errorMessage}</span>
                         </div>
-                        <div className="flex items-center gap-2 pt-1 border-t border-destructive/20 text-foreground">
-                          <span>{t('Hoặc bạn có thể gửi trực tiếp qua Email:', 'Or you can send directly via Email:')}</span>
+                        <div className="border-destructive/20 text-foreground flex items-center gap-2 border-t pt-1">
+                          <span>
+                            {t(
+                              'Hoặc bạn có thể gửi trực tiếp qua Email:',
+                              'Or you can send directly via Email:',
+                            )}
+                          </span>
                           <button
                             type="button"
                             onClick={handleEmailFallback}
-                            className="underline font-semibold text-primary hover:opacity-80 cursor-pointer"
-                          >
+                            className="text-primary cursor-pointer font-semibold underline hover:opacity-80">
                             {t('Gửi qua Email ngay', 'Send via Email')}
                           </button>
                         </div>
                       </div>
                     )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-1.5">
-                        <label htmlFor="contact-name" className="text-xs font-semibold text-foreground/80">
+                        <label
+                          htmlFor="contact-name"
+                          className="text-foreground/80 text-xs font-semibold">
                           {t('Họ và tên *', 'Your Name *')}
                         </label>
                         <Input
@@ -299,11 +311,13 @@ export function ContactSection() {
                           placeholder={t('Nguyễn Văn A', 'John Doe')}
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="rounded-xl bg-background/60"
+                          className="bg-background/60 rounded-xl"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="contact-email" className="text-xs font-semibold text-foreground/80">
+                        <label
+                          htmlFor="contact-email"
+                          className="text-foreground/80 text-xs font-semibold">
                           {t('Địa chỉ Email *', 'Your Email *')}
                         </label>
                         <Input
@@ -314,27 +328,34 @@ export function ContactSection() {
                           placeholder="example@gmail.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="rounded-xl bg-background/60"
+                          className="bg-background/60 rounded-xl"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-subject" className="text-xs font-semibold text-foreground/80">
+                      <label
+                        htmlFor="contact-subject"
+                        className="text-foreground/80 text-xs font-semibold">
                         {t('Chủ đề', 'Subject')}
                       </label>
                       <Input
                         id="contact-subject"
                         name="subject"
-                        placeholder={t('Dự án Website / Hợp tác phát triển...', 'Website Project / Collaboration inquiry...')}
+                        placeholder={t(
+                          'Dự án Website / Hợp tác phát triển...',
+                          'Website Project / Collaboration inquiry...',
+                        )}
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="rounded-xl bg-background/60"
+                        className="bg-background/60 rounded-xl"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-message" className="text-xs font-semibold text-foreground/80">
+                      <label
+                        htmlFor="contact-message"
+                        className="text-foreground/80 text-xs font-semibold">
                         {t('Nội dung tin nhắn *', 'Message *')}
                       </label>
                       <Textarea
@@ -342,26 +363,28 @@ export function ContactSection() {
                         name="message"
                         required
                         rows={4}
-                        placeholder={t('Chia sẻ về ý tưởng dự án hoặc câu hỏi của bạn...', 'Tell me about your project requirements or thoughts...')}
+                        placeholder={t(
+                          'Chia sẻ về ý tưởng dự án hoặc câu hỏi của bạn...',
+                          'Tell me about your project requirements or thoughts...',
+                        )}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="rounded-xl bg-background/60 resize-none"
+                        className="bg-background/60 resize-none rounded-xl"
                       />
                     </div>
 
                     <Button
                       type="submit"
-                      disabled={loading}
-                      className="w-full rounded-xl py-2.5 gap-2 font-medium shadow-md cursor-pointer text-sm"
-                    >
-                      {loading ? (
+                      disabled={isLoading}
+                      className="w-full cursor-pointer gap-2 rounded-xl py-2.5 text-sm font-medium shadow-md">
+                      {isLoading ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <Loader2 className="h-4 w-4 animate-spin" />
                           <span>{t('Đang gửi tới Telegram...', 'Sending to Telegram...')}</span>
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4" />
+                          <Send className="h-4 w-4" />
                           <span>{t('Gửi tin nhắn ngay', 'Send Message')}</span>
                         </>
                       )}
@@ -371,39 +394,33 @@ export function ContactSection() {
               </CardContent>
             </Card>
           </div>
-
         </div>
 
         {/* Services Grid (What I can help with) */}
         <div>
-          <div className="text-center max-w-xl mx-auto mb-8">
-            <h3 className="text-xl font-bold font-mono text-foreground flex items-center justify-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+          <div className="mx-auto mb-8 max-w-xl text-center">
+            <h3 className="text-foreground flex items-center justify-center gap-2 font-mono text-xl font-bold">
+              <Sparkles className="h-5 w-5 text-amber-400" />
               <span>{t('Dịch vụ & Lĩnh vực có thể hỗ trợ', 'What I Can Help With')}</span>
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, idx) => (
               <TiltCard key={idx} className="rounded-2xl">
-                <div className="glass-panel p-5 rounded-2xl border-border/60 hover:border-primary/40 transition-all hover:shadow-md flex flex-col justify-between h-full">
+                <div className="glass-panel border-border/60 hover:border-primary/40 flex h-full flex-col justify-between rounded-2xl p-5 transition-all hover:shadow-md">
                   <div>
-                    <div className="p-2.5 rounded-xl bg-background/80 border border-border/50 w-fit mb-3">
+                    <div className="bg-background/80 border-border/50 mb-3 w-fit rounded-xl border p-2.5">
                       {serviceIcons[idx % serviceIcons.length]}
                     </div>
-                    <h4 className="text-sm font-bold text-foreground mb-1.5">
-                      {service.title}
-                    </h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {service.desc}
-                    </p>
+                    <h4 className="text-foreground mb-1.5 text-sm font-bold">{service.title}</h4>
+                    <p className="text-muted-foreground text-xs leading-relaxed">{service.desc}</p>
                   </div>
                 </div>
               </TiltCard>
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

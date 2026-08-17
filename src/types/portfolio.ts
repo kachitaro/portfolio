@@ -1,6 +1,6 @@
-export type Language = 'vi' | 'en';
+export type TLanguage = 'vi' | 'en';
 
-export interface Project {
+export interface IProject {
   id: string;
   title: {
     vi: string;
@@ -28,7 +28,7 @@ export interface Project {
   };
 }
 
-export interface SkillItem {
+export interface ISkillItem {
   name: string;
   level: number; // 0 - 100
   category: 'frontend' | 'backend' | 'database' | 'tools';
@@ -36,7 +36,7 @@ export interface SkillItem {
   badgeColor?: string;
 }
 
-export interface ExperienceItem {
+export interface IExperienceItem {
   id: string;
   period: {
     vi: string;

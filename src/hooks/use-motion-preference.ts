@@ -2,30 +2,40 @@
 
 import React from 'react';
 
-export type MotionPreference = 'on' | 'off' | null;
+export type TMotionPreference = 'on' | 'off' | null;
 
 const STORAGE_KEY = 'kachitaro_motion_pref';
 const LISTENERS = new Set<() => void>();
 
-function getRawPreference(): MotionPreference {
-  if (typeof window === 'undefined') return null;
+function getRawPreference(): TMotionPreference {
+  if (typeof window === 'undefined') {
+    return null;
+  }
   const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === 'on' || stored === 'off') return stored;
+  if (stored === 'on' || stored === 'off') {
+    return stored;
+  }
   return null;
 }
 
 function getSystemReducedMotion(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === 'undefined') {
+    return false;
+  }
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function computeReducedMotion(pref: MotionPreference): boolean {
-  if (pref === 'on') return true;
-  if (pref === 'off') return false;
+function computeReducedMotion(pref: TMotionPreference): boolean {
+  if (pref === 'on') {
+    return true;
+  }
+  if (pref === 'off') {
+    return false;
+  }
   return getSystemReducedMotion();
 }
 
-let currentPref: MotionPreference = null;
+let currentPref: TMotionPreference = null;
 
 function subscribe(callback: () => void) {
   LISTENERS.add(callback);
@@ -34,17 +44,17 @@ function subscribe(callback: () => void) {
   };
 }
 
-function getSnapshot(): MotionPreference {
+function getSnapshot(): TMotionPreference {
   return currentPref;
 }
 
-function getServerSnapshot(): MotionPreference {
+function getServerSnapshot(): TMotionPreference {
   return null;
 }
 
 const emptySubscribe = () => () => {};
 
-export function setMotionPreference(pref: MotionPreference) {
+export function setMotionPreference(pref: TMotionPreference) {
   currentPref = pref;
   if (typeof window !== 'undefined') {
     if (pref === null) {
@@ -57,15 +67,14 @@ export function setMotionPreference(pref: MotionPreference) {
 }
 
 export function useMotionPreference(): {
-  reducedMotion: boolean;
-  preference: MotionPreference;
-  ready: boolean;
+  isReducedMotion: boolean;
+  preference: TMotionPreference;
+  isReady: boolean;
 } {
-
-  const ready = React.useSyncExternalStore(
-    emptySubscribe, 
-    () => true, 
-    () => false 
+  const isReady = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
   );
 
   const pref = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -88,11 +97,11 @@ export function useMotionPreference(): {
     };
   }, []);
 
-  const reducedMotion = ready ? computeReducedMotion(pref) : false;
+  const isReducedMotion = isReady ? computeReducedMotion(pref) : false;
 
   return {
-    reducedMotion,
+    isReducedMotion,
     preference: pref,
-    ready,
+    isReady,
   };
 }

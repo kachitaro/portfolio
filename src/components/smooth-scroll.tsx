@@ -8,11 +8,13 @@ import { useMotionPreference } from '@/hooks/use-motion-preference';
 import { ReactLenis, type LenisRef } from '@/lib/lenis';
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const { reducedMotion, ready } = useMotionPreference();
+  const { isReducedMotion, isReady } = useMotionPreference();
   const lenisRef = React.useRef<LenisRef>(null);
 
   React.useEffect(() => {
-    if (reducedMotion || !ready) return;
+    if (isReducedMotion || !isReady) {
+      return;
+    }
 
     function update() {
       lenisRef.current?.lenis?.raf(performance.now());
@@ -24,10 +26,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       gsap.ticker.remove(update);
     };
-  }, [reducedMotion, ready]);
+  }, [isReducedMotion, isReady]);
 
-  // If user prefers reduced motion or SSR is not ready, return native browser scroll
-  if (reducedMotion || !ready) {
+  if (isReducedMotion || !isReady) {
     return <>{children}</>;
   }
 
@@ -40,8 +41,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         autoRaf: false, // Managed manually via GSAP ticker
-      }}
-    >
+      }}>
       {children}
     </ReactLenis>
   );

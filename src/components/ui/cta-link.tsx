@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 
-export interface CtaLinkProps {
+export interface ICtaLinkProps {
   href: string;
   variant?: 'primary' | 'outline' | 'secondary' | 'ghost' | 'destructive' | 'link';
   size?: VariantProps<typeof buttonVariants>['size'];
@@ -26,7 +26,7 @@ export function CtaLink({
   className,
   external = false,
   onClick,
-}: CtaLinkProps) {
+}: ICtaLinkProps) {
   const mappedVariant = variant === 'primary' ? 'default' : variant;
   const combinedClassName = cn(buttonVariants({ variant: mappedVariant, size, className }));
 
@@ -45,8 +45,7 @@ export function CtaLink({
         target="_blank"
         rel="noopener noreferrer"
         className={combinedClassName}
-        onClick={onClick}
-      >
+        onClick={onClick}>
         {content}
       </a>
     );

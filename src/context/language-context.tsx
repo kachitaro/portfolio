@@ -1,48 +1,65 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Language } from '@/types/portfolio';
+import React from 'react';
+import { type TLanguage } from '@/types/portfolio';
 
-interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
+interface ILanguageContextType {
+  language: TLanguage;
+  setLanguage: (lang: TLanguage) => void;
   toggleLanguage: () => void;
   t: (vi: string, en: string) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = React.createContext<ILanguageContextType | undefined>(undefined);
+
+const STORAGE_KEY = 'kachitaro_portfolio_lang';
+
+function getClientLanguage(): TLanguage {
+  if (typeof window === 'undefined') {
+    return 'vi';
+  }
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === 'vi' || saved === 'en') {
+    return saved as TLanguage;
+  }
+  return 'vi';
+}
+
+const subscribe = (callback: () => void) => {
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
+};
+
+const getServerLanguage = (): TLanguage => 'vi';
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('vi');
+  const language = React.useSyncExternalStore<TLanguage>(
+    subscribe,
+    getClientLanguage,
+    getServerLanguage,
+  );
 
-  useEffect(() => {
-    const saved = localStorage.getItem('kachitaro_portfolio_lang') as Language;
-    if (saved === 'vi' || saved === 'en') {
-      setLanguage(saved);
-    }
-  }, []);
-
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem('kachitaro_portfolio_lang', lang);
+  const handleSetLanguage = (lang: TLanguage) => {
+    localStorage.setItem(STORAGE_KEY, lang);
+    window.dispatchEvent(new Event('storage'));
   };
 
   const toggleLanguage = () => {
-    const next = language === 'vi' ? 'en' : 'vi';
-    handleSetLanguage(next);
+    handleSetLanguage(language === 'vi' ? 'en' : 'vi');
   };
 
   const t = (vi: string, en: string) => (language === 'vi' ? vi : en);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, toggleLanguage, t }}>
+    <LanguageContext.Provider
+      value={{ language, setLanguage: handleSetLanguage, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
+  const context = React.useContext(LanguageContext);
   if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
