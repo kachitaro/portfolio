@@ -8,6 +8,10 @@ import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import { Spotlight } from '@/components/ui/spotlight';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
+import { EasterEggs } from '@/components/easter-eggs';
+import { SmoothScroll } from '@/components/smooth-scroll';
+
+import { config } from '@/data/config';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,33 +24,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kachitaro.vercel.app'),
-  title: 'John (Anh Tài) | Software Engineer @ Nexpando',
-  description: 'Portfolio of John (Anh Tài) (@Kachitaro) - Software Engineer at Nexpando specializing in React.js, Next.js, TypeScript, and high-performance Enterprise Web Platforms.',
-  keywords: [
-    'Kachitaro',
-    'John Anh Tai',
-    'Software Engineer',
-    'Frontend Developer',
-    'React Developer',
-    'Next.js Developer',
-    'Nexpando',
-    'Nexbus',
-    'Vnshop V2',
-    'BANA'
-  ],
-  authors: [{ name: 'John (Anh Tài)', url: 'https://github.com/Kachitaro' }],
+  metadataBase: new URL(config.site),
+  title: config.title,
+  description: config.description.short,
+  keywords: config.keywords,
+  authors: [config.author],
   openGraph: {
-    title: 'John (Anh Tài) - Software Engineer Portfolio',
-    description: 'Explore enterprise projects, frontend engineering skills, and work experience by John (Anh Tài).',
-    url: 'https://github.com/Kachitaro',
-    siteName: 'John (Anh Tài) Portfolio',
+    title: `${config.author.name} - Software Engineer Portfolio`,
+    description: config.description.long,
+    url: config.site,
+    siteName: `${config.author.name} Portfolio`,
     images: [
       {
-        url: 'https://github.com/Kachitaro.png',
-        width: 400,
-        height: 400,
-        alt: 'John (Anh Tài)',
+        url: config.ogImg,
+        width: 1200,
+        height: 630,
+        alt: config.author.name,
       },
     ],
     locale: 'vi_VN',
@@ -72,10 +65,13 @@ export default function RootLayout({
             <TooltipProvider delay={200}>
               <ScrollProgress />
               <Spotlight />
+              <EasterEggs />
               <Navbar />
-              <main className="flex-1 pt-14 relative z-10">
-                {children}
-              </main>
+              <SmoothScroll>
+                <main className="flex-1 pt-14 relative z-10">
+                  {children}
+                </main>
+              </SmoothScroll>
               <Footer />
             </TooltipProvider>
           </LanguageProvider>

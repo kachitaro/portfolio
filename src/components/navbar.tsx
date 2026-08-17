@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
+import { MotionToggle } from '@/components/motion-toggle';
 import { Button } from '@/components/ui/button';
 import { CtaLink } from '@/components/ui/cta-link';
 import { Menu, X, Code2, Sparkles, Send } from 'lucide-react';
@@ -92,6 +93,7 @@ export function Navbar() {
 
         {/* Action Controls */}
         <div className="hidden md:flex items-center gap-2.5">
+          <MotionToggle />
           <LanguageToggle />
           <ThemeToggle />
           <CtaLink
@@ -107,6 +109,7 @@ export function Navbar() {
 
         {/* Mobile menu trigger */}
         <div className="flex md:hidden items-center gap-2">
+          <MotionToggle />
           <LanguageToggle />
           <ThemeToggle />
           <Button
