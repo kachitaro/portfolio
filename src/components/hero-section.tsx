@@ -9,10 +9,12 @@ import { GithubIcon } from '@/components/icons/github-icon';
 import { CtaLink } from '@/components/ui/cta-link';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
+import { useGithubProfile } from '@/hooks/use-github-profile';
 
 export function HeroSection() {
   const { language, t } = useLanguage();
   const roles = personalInfo.roles[language];
+  const { profile } = useGithubProfile('kachitaro');
   const [currentRoleIndex, setCurrentRoleIndex] = React.useState(0);
   const [isFadeState, setFadeState] = React.useState(true);
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -60,9 +62,10 @@ export function HeroSection() {
         <div className="group relative mb-6">
           <div className="ring-primary/30 group-hover:ring-primary/60 bg-background relative h-28 w-28 overflow-hidden rounded-full p-1 shadow-xl ring-4 transition-all duration-300 sm:h-32 sm:w-32">
             <Image
-              src={personalInfo.avatar}
+              src={profile?.avatar_url || personalInfo.avatar}
               alt={personalInfo.name}
               fill
+              unoptimized
               sizes="(max-width: 640px) 112px, 128px"
               className="rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
               priority
@@ -144,18 +147,23 @@ export function HeroSection() {
 
         {/* Quick Highlights Grid */}
         <div className="grid w-full max-w-4xl grid-cols-2 gap-3.5 md:grid-cols-4">
-          {personalInfo.aboutDetailed[language].funFacts.slice(0, 4).map((stat, idx) => (
-            <div
-              key={idx}
-              className="glass-panel flex flex-col items-center justify-center rounded-2xl p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-              <span className="text-primary font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
-                {stat.value}
-              </span>
-              <span className="text-muted-foreground mt-1 text-xs font-medium sm:text-sm">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+          {personalInfo.aboutDetailed[language].funFacts.slice(0, 4).map((stat, idx) => {
+            const isGithubStat = stat.label.includes('GitHub');
+            const value = isGithubStat && profile ? `${profile.public_repos}+` : stat.value;
+
+            return (
+              <div
+                key={idx}
+                className="glass-panel flex flex-col items-center justify-center rounded-2xl p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+                <span className="text-primary font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                  {value}
+                </span>
+                <span className="text-muted-foreground mt-1 text-xs font-medium sm:text-sm">
+                  {stat.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
