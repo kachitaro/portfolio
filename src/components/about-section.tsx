@@ -20,10 +20,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
+import { useGithubProfile } from '@/hooks/use-github-profile';
 
 export function AboutSection() {
   const { language, t } = useLanguage();
   const about = personalInfo.aboutDetailed[language];
+  const { profile } = useGithubProfile('kachitaro');
 
   const funFactIcons = [
     <Briefcase key="0" className="h-5 w-5 text-sky-400" />,
@@ -187,23 +189,28 @@ export function AboutSection() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {about.funFacts.map((fact, idx) => (
-              <TiltCard key={idx} className="rounded-2xl">
-                <div className="glass-panel border-border/60 hover:border-primary/40 group flex flex-col items-center justify-center gap-2 rounded-2xl p-5 text-center transition-all hover:shadow-lg">
-                  <div className="bg-background/80 border-border/50 rounded-2xl border p-3 transition-transform group-hover:scale-110">
-                    {funFactIcons[idx % funFactIcons.length]}
+            {about.funFacts.map((fact, idx) => {
+              const isGithubStat = fact.label.includes('GitHub');
+              const value = isGithubStat && profile ? `${profile.public_repos}+` : fact.value;
+
+              return (
+                <TiltCard key={idx} className="rounded-2xl">
+                  <div className="glass-panel border-border/60 hover:border-primary/40 group flex flex-col items-center justify-center gap-2 rounded-2xl p-5 text-center transition-all hover:shadow-lg">
+                    <div className="bg-background/80 border-border/50 rounded-2xl border p-3 transition-transform group-hover:scale-110">
+                      {funFactIcons[idx % funFactIcons.length]}
+                    </div>
+                    <div className="w-full">
+                      <h4 className="text-foreground group-hover:text-primary font-mono text-xl font-bold transition-colors sm:text-2xl">
+                        {value}
+                      </h4>
+                      <p className="text-muted-foreground mt-0.5 font-mono text-[11px] font-semibold tracking-wider uppercase">
+                        {fact.label}
+                      </p>
+                    </div>
                   </div>
-                  <div className="w-full">
-                    <h4 className="text-foreground group-hover:text-primary font-mono text-xl font-bold transition-colors sm:text-2xl">
-                      {fact.value}
-                    </h4>
-                    <p className="text-muted-foreground mt-0.5 font-mono text-[11px] font-semibold tracking-wider uppercase">
-                      {fact.label}
-                    </p>
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
+                </TiltCard>
+              );
+            })}
           </div>
         </div>
       </div>
