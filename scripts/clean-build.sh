@@ -2,6 +2,6 @@
 
 echo "[ START ] | Clean up..."
 
-rm -rf dist/* build/* *.tsbuildinfo .eslintcache
+rm -rf .next dist/* build/* *.tsbuildinfo .eslintcache
 
 echo "[ DONE  ] | Clean up"

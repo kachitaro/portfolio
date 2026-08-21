@@ -98,6 +98,5 @@
 @import "@radix-ui/colors/amber-dark.css";
 
 
-/* 4. MÀU TRONG SUỐT (Overlay / Alpha - Dùng cho Modals, Dropdown shadows) */
-@import "@radix-ui/colors/black-a.css";
-@import "@radix-ui/colors/white-a.css";
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/white-alpha.css";

@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { SmoothScroll } from '@/components/smooth-scroll';
@@ -6,11 +8,9 @@ import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { Spotlight } from '@/components/ui/spotlight';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { LanguageProvider } from '@/context/language-context';
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-
 import { config } from '@/data/config';
+import { Geist, Geist_Mono } from 'next/font/google';
+import '../themes/globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -67,10 +67,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
         <link rel="preconnect" href="https://github.com" />
+
         <link rel="dns-prefetch" href="https://github.com" />
+
         <link rel="preconnect" href="https://images.unsplash.com" />
+
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
         <link rel="preconnect" href="https://skillicons.dev" />
+
         <link rel="dns-prefetch" href="https://skillicons.dev" />
       </head>
       <body className="bg-background text-foreground relative flex min-h-full flex-col overflow-x-hidden transition-colors duration-300">

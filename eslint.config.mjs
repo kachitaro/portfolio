@@ -23,7 +23,7 @@ const config = [
     },
   },
   {
-    ignores: ['src/components/shadcn/', 'dev-dist/*'],
+    ignores: ['.next/**', 'src/components/shadcn/', 'dev-dist/*'],
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
