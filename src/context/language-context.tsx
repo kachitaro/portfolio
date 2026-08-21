@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import { type TLanguage } from '@/types/portfolio';
+import React from 'react';
 
 interface ILanguageContextType {
   language: TLanguage;

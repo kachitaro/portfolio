@@ -2,6 +2,6 @@
 
 echo "[ START ] | Building for application...\n"
 
-tsc -b && vite build --mode ${1:-production}
+tsc -b && next build
 
 echo "\n[ DONE  ] | Build application"

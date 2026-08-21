@@ -62,7 +62,7 @@ export function HeroSection() {
         <div className="group relative mb-6">
           <div className="ring-primary/30 group-hover:ring-primary/60 bg-background relative h-28 w-28 overflow-hidden rounded-full p-1 shadow-xl ring-4 transition-all duration-300 sm:h-32 sm:w-32">
             <Image
-              src={profile?.avatar_url || personalInfo.avatar}
+              src={profile?.avatarUrl || personalInfo.avatar}
               alt={personalInfo.name}
               fill
               unoptimized
@@ -150,6 +150,8 @@ export function HeroSection() {
           {personalInfo.aboutDetailed[language].funFacts.slice(0, 4).map((stat, idx) => {
             const isGithubStat = stat.label.includes('GitHub');
             const value = isGithubStat && profile ? `${profile.public_repos}+` : stat.value;
+
+            console.log(profile);
 
             return (
               <div

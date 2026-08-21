@@ -114,8 +114,11 @@ export function Navbar() {
         {/* Mobile menu trigger */}
         <div className="flex items-center gap-2 md:hidden">
           <MotionToggle />
+
           <LanguageToggle />
+
           <ThemeToggle />
+
           <Button
             variant="ghost"
             size="icon"

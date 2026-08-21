@@ -1,32 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useLanguage } from '@/context/language-context';
-import { personalInfo } from '@/data/portfolioData';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GithubIcon } from '@/components/icons/github-icon';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
 import { TiltCard } from '@/components/ui/tilt-card';
+import { useLanguage } from '@/context/language-context';
+import { personalInfo } from '@/data/portfolioData';
 import confetti from 'canvas-confetti';
 import {
-  Mail,
-  Send,
-  Copy,
+  AlertCircle,
   Check,
-  MapPin,
-  Sparkles,
-  MessageSquare,
   Clock,
   Code2,
-  Layers,
-  Zap,
+  Copy,
   Globe,
-  AlertCircle,
+  Layers,
   Loader2,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Send,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/github-icon';
+import React, { useState } from 'react';
 
 export function ContactSection() {
   const { language, t } = useLanguage();

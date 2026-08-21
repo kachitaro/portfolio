@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 
-interface GithubProfile {
-  avatar_url: string;
+interface IGithubProfile {
+  avatarUrl: string;
   public_repos: number;
   followers: number;
   following: number;
 }
 
 export function useGithubProfile(username: string) {
-  const [profile, setProfile] = useState<GithubProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = React.useState<IGithubProfile | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchProfile() {
       try {
         const res = await fetch(`https://api.github.com/users/${username}`);
@@ -22,12 +22,12 @@ export function useGithubProfile(username: string) {
       } catch (error) {
         console.error('Failed to fetch Github profile:', error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
-    
+
     fetchProfile();
   }, [username]);
 
-  return { profile, loading };
+  return { profile, isLoading };
 }

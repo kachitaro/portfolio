@@ -23,7 +23,7 @@ export function MotionToggle() {
       variant="outline"
       size="icon"
       onClick={handleToggle}
-      className="border-border/60 bg-background/80 h-9 w-9 cursor-pointer rounded-full shadow-xs backdrop-blur-sm transition-transform hover:scale-105"
+      className="border-border/60 bg-background/80 h-9 w-9 cursor-pointer rounded-md shadow-xs backdrop-blur-sm transition-transform hover:scale-105"
       title={
         isReducedMotion
           ? t('Bật hiệu ứng chuyển động', 'Enable Motion Effects')
