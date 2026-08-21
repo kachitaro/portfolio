@@ -63,7 +63,7 @@
 
   --primary: var(--indigo-9);
   --primary-foreground: #ffffff;
-  /* Bước 9 của Radix luôn đi với chữ trắng để đảm bảo tương phản */
+
 
   --secondary: var(--gray-3);
   --secondary-foreground: var(--gray-11);
@@ -80,7 +80,6 @@
   --input: var(--gray-6);
   --ring: var(--indigo-8);
 
-  /* Biểu đồ (Sử dụng các gam màu sáng/nổi bật của Radix) */
   --chart-1: var(--tomato-9);
   --chart-2: var(--teal-9);
   --chart-3: var(--amber-9);
@@ -90,18 +89,6 @@
   --radius: 0.75rem;
 }
 
-/* 
-  LƯU Ý QUAN TRỌNG VỀ DARK MODE:
-  Khi bạn import các file *-dark.css (vd: gray-dark.css), Radix đã TỰ ĐỘNG đảo giá trị của 
-  var(--gray-1) thành màu tối khi giao diện có class `.dark-theme`.
-  Vì vậy, bạn KHÔNG CẦN khai báo lại toàn bộ bảng màu ở trong .dark nữa!
-*/
-.dark,
-.dark-theme {
-  /* Bạn chỉ viết vào đây nếu muốn GHI ĐÈ những màu ngoại lệ. 
-     Ví dụ: muốn nền tối là đen tuyền (OLED) thay vì màu xám đậm của Radix */
-  /* --background: #000000; */
-}
 
 @layer base {
   * {
@@ -118,7 +105,7 @@
   }
 }
 
-/* Glassmorphism custom classes - Giữ nguyên không đổi */
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(16px);
