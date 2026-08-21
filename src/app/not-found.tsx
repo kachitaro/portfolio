@@ -9,50 +9,49 @@ export default function NotFound() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-[75vh] flex items-center justify-center py-16 px-4 relative overflow-hidden">
+    <div className="relative flex min-h-[75vh] items-center justify-center overflow-hidden px-4 py-16">
       {/* Background ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/15 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="bg-primary/15 pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
 
-      <div className="max-w-md w-full text-center space-y-6 glass-panel p-8 sm:p-10 rounded-3xl border-border/60 shadow-xl animate-in fade-in zoom-in-95 duration-300">
-        
+      <div className="glass-panel border-border/60 animate-in fade-in zoom-in-95 w-full max-w-md space-y-6 rounded-3xl p-8 text-center shadow-xl duration-300 sm:p-10">
         {/* Playful Cat Icon & 404 Badge */}
         <div className="relative inline-flex items-center justify-center">
-          <span className="text-6xl sm:text-7xl font-extrabold font-mono text-transparent bg-clip-text bg-linear-to-r from-primary via-sky-500 to-indigo-500">
+          <span className="from-primary bg-linear-to-r via-sky-500 to-indigo-500 bg-clip-text font-mono text-6xl font-extrabold text-transparent sm:text-7xl">
             404
           </span>
-          <span className="absolute -top-3 -right-6 text-2xl animate-bounce" title="Cat Lover 🐱">
+          <span className="absolute -top-3 -right-6 animate-bounce text-2xl" title="Cat Lover 🐱">
             🐱
           </span>
         </div>
 
         <div className="space-y-2">
-          <Badge variant="outline" className="px-3 py-0.5 text-xs font-mono border-primary/30 text-primary">
+          <Badge
+            variant="outline"
+            className="border-primary/30 text-primary px-3 py-0.5 font-mono text-xs">
             {t('ERROR 404 · TRANG KHÔNG TỒN TẠI', 'ERROR 404 · PAGE NOT FOUND')}
           </Badge>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="text-foreground text-xl font-bold tracking-tight sm:text-2xl">
             {t('Úi! Có vẻ bạn đã đi lạc...', 'Oops! You seem to be lost...')}
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground text-xs leading-relaxed sm:text-sm">
             {t(
               'Trang bạn đang tìm kiếm không tồn tại hoặc đã được mèo nhà mình giấu đi đâu đó rồi 🐾',
-              'The page you are looking for does not exist or has been hidden by my cat somewhere 🐾'
+              'The page you are looking for does not exist or has been hidden by my cat somewhere 🐾',
             )}
           </p>
         </div>
 
         {/* CTA Button back to home */}
-        <div className="pt-2 flex justify-center">
+        <div className="flex justify-center pt-2">
           <CtaLink
             href="/"
             size="lg"
-            icon={<Home className="w-4 h-4" />}
+            icon={<Home className="h-4 w-4" />}
             iconPosition="left"
-            className="rounded-full px-6 gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer font-medium text-xs sm:text-sm"
-          >
+            className="cursor-pointer gap-2 rounded-full px-6 text-xs font-medium shadow-md transition-all hover:shadow-lg sm:text-sm">
             {t('Quay về trang chủ', 'Back to Homepage')}
           </CtaLink>
         </div>
-
       </div>
     </div>
   );

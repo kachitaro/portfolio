@@ -1,17 +1,10 @@
-import { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://kachitaro.vercel.app';
   const currentDate = new Date();
 
-  const routes = [
-    '',
-    '/about',
-    '/skills',
-    '/projects',
-    '/experience',
-    '/contact',
-  ];
+  const routes = ['', '/about', '/skills', '/projects', '/experience', '/contact'];
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       } else if (rateLimitInfo.count >= MAX_REQUESTS) {
         return NextResponse.json(
           { error: 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau 10 phút.' },
-          { status: 429 }
+          { status: 429 },
         );
       } else {
         rateLimitInfo.count += 1;
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Vui lòng điền đầy đủ họ tên, email và nội dung tin nhắn.' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,15 +45,15 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Chưa cấu hình Telegram Bot Token hoặc Chat ID trong file .env.local.'
+          error: 'Chưa cấu hình Telegram Bot Token hoặc Chat ID trong file .env.local.',
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     const timeString = new Date().toLocaleString('vi-VN', {
       timeZone: 'Asia/Ho_Chi_Minh',
-      hour12: false
+      hour12: false,
     });
 
     const telegramText = `
@@ -76,9 +76,9 @@ ${escapeHtml(message)}
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        chat_id: chatId,
+        chatId: chatId,
         text: telegramText,
-        parse_mode: 'HTML',
+        parseMode: 'HTML',
       }),
     });
 
@@ -88,21 +88,19 @@ ${escapeHtml(message)}
       console.error('Telegram API Error:', result);
       return NextResponse.json(
         { error: result.description || 'Lỗi khi gửi thông báo tới Telegram.' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Tin nhắn đã được gửi tới Telegram thành công!'
+      message: 'Tin nhắn đã được gửi tới Telegram thành công!',
     });
   } catch (error: unknown) {
     console.error('Error handling contact form:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Đã có lỗi xảy ra trong quá trình xử lý.';
-    return NextResponse.json(
-      { error: errorMessage },
-      { status: 500 }
-    );
+    const errorMessage =
+      error instanceof Error ? error.message : 'Đã có lỗi xảy ra trong quá trình xử lý.';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 

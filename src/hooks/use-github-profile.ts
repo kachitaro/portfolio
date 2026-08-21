@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
-interface GithubProfile {
-  avatar_url: string;
-  public_repos: number;
+interface IGithubProfile {
+  avatarUrl: string;
+  publicRepos: number;
   followers: number;
   following: number;
 }
 
 export function useGithubProfile(username: string) {
-  const [profile, setProfile] = useState<GithubProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<IGithubProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -22,12 +22,12 @@ export function useGithubProfile(username: string) {
       } catch (error) {
         console.error('Failed to fetch Github profile:', error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
-    
+
     fetchProfile();
   }, [username]);
 
-  return { profile, loading };
+  return { profile, isLoading };
 }

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function DotfilesPage() {
   return (
-    <div className="py-8 animate-in fade-in-50 duration-300">
+    <div className="animate-in fade-in-50 py-8 duration-300">
       <DotfilesSection />
     </div>
   );
