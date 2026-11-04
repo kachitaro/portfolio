@@ -1,0 +1,122 @@
+/*
+ * shadcn/ui theme tokens, base color Taupe (shadcn@4.18.0).
+ * Part 1: stock values copied verbatim from https://ui.shadcn.com/r/colors/taupe.json
+ * Part 2: the single OVERRIDES block at the bottom. Nothing else may redefine a token.
+ */
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.147 0.004 49.3);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.147 0.004 49.3);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.147 0.004 49.3);
+  --primary: oklch(0.214 0.009 43.1);
+  --primary-foreground: oklch(0.986 0.002 67.8);
+  --secondary: oklch(0.96 0.002 17.2);
+  --secondary-foreground: oklch(0.214 0.009 43.1);
+  --muted: oklch(0.96 0.002 17.2);
+  --muted-foreground: oklch(0.547 0.021 43.1);
+  --accent: oklch(0.96 0.002 17.2);
+  --accent-foreground: oklch(0.214 0.009 43.1);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0.005 34.3);
+  --input: oklch(0.922 0.005 34.3);
+  --ring: oklch(0.714 0.014 41.2);
+  --chart-1: oklch(0.868 0.007 39.5);
+  --chart-2: oklch(0.547 0.021 43.1);
+  --chart-3: oklch(0.438 0.017 39.3);
+  --chart-4: oklch(0.367 0.016 35.7);
+  --chart-5: oklch(0.268 0.011 36.5);
+  --sidebar: oklch(0.986 0.002 67.8);
+  --sidebar-foreground: oklch(0.147 0.004 49.3);
+  --sidebar-primary: oklch(0.214 0.009 43.1);
+  --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-accent: oklch(0.96 0.002 17.2);
+  --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
+  --sidebar-border: oklch(0.922 0.005 34.3);
+  --sidebar-ring: oklch(0.714 0.014 41.2);
+}
+
+.dark {
+  --background: oklch(0.147 0.004 49.3);
+  --foreground: oklch(0.986 0.002 67.8);
+  --card: oklch(0.214 0.009 43.1);
+  --card-foreground: oklch(0.986 0.002 67.8);
+  --popover: oklch(0.214 0.009 43.1);
+  --popover-foreground: oklch(0.986 0.002 67.8);
+  --primary: oklch(0.922 0.005 34.3);
+  --primary-foreground: oklch(0.214 0.009 43.1);
+  --secondary: oklch(0.268 0.011 36.5);
+  --secondary-foreground: oklch(0.986 0.002 67.8);
+  --muted: oklch(0.268 0.011 36.5);
+  --muted-foreground: oklch(0.714 0.014 41.2);
+  --accent: oklch(0.268 0.011 36.5);
+  --accent-foreground: oklch(0.986 0.002 67.8);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.547 0.021 43.1);
+  --chart-1: oklch(0.868 0.007 39.5);
+  --chart-2: oklch(0.547 0.021 43.1);
+  --chart-3: oklch(0.438 0.017 39.3);
+  --chart-4: oklch(0.367 0.016 35.7);
+  --chart-5: oklch(0.268 0.011 36.5);
+  --sidebar: oklch(0.214 0.009 43.1);
+  --sidebar-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-accent: oklch(0.268 0.011 36.5);
+  --sidebar-accent-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.547 0.021 43.1);
+}
+
+/* ===================================================================
+ * OVERRIDES: every value that differs from stock shadcn Taupe.
+ * Format: stock -> new | reason | contrast before -> after
+ * Contrast is computed against the new --background unless stated.
+ * =================================================================== */
+/* :not(.dark) keeps these light overrides from beating the stock .dark values on <html class="dark"> */
+:root:not(.dark) {
+  /* stock oklch(1 0 0) (taupe-50 step: oklch(0.986 0.002 67.8)) -> warm paper.
+     Hue 67.8 from taupe-50, lightness 0.986 -> 0.975, chroma 0.002 -> 0.006 (taupe-50 reads as white).
+     foreground/background 19.8 -> 18.4 */
+  --background: oklch(0.975 0.006 67.8);
+
+  /* stock oklch(1 0 0) -> taupe-50 | keep surfaces one tone step above paper, not a white box | tone step 1.03:1 */
+  --card: oklch(0.986 0.002 67.8);
+  --popover: oklch(0.986 0.002 67.8);
+
+  /* stock oklch(0.214 0.009 43.1) -> teal-700 | single accent
+     primary-foreground/primary 16.89 -> 5.18; primary text on background 5.01, on muted 4.79 */
+  --primary: oklch(0.511 0.096 186.391);
+
+  /* stock oklch(0.547 0.021 43.1) (taupe-500) -> taupe-600 | fails AA on muted
+     on muted 4.41 -> 7.02; on background 4.60 -> 7.33 */
+  --muted-foreground: oklch(0.438 0.017 39.3);
+
+  /* stock oklch(0.577 0.245 27.325) -> red-700 | fails AA as text on paper | 4.43 -> 5.97 */
+  --destructive: oklch(0.505 0.213 27.518);
+
+  /* stock oklch(0.922 0.005 34.3) -> taupe-500 | form control boundary needs >= 3:1 | 1.17 -> 4.60 */
+  --input: oklch(0.547 0.021 43.1);
+
+  /* stock oklch(0.714 0.014 41.2) -> taupe-600 | focus indicator needs >= 3:1 | 2.37 -> 7.33 */
+  --ring: oklch(0.438 0.017 39.3);
+
+}
+
+:root {
+  /* stock 0.625rem -> 0.125rem | design rule: radius 0-2px */
+  --radius: 0.125rem;
+}
+
+.dark {
+  /* stock oklch(0.922 0.005 34.3) -> teal-400 | single accent | on dark background 10.59 */
+  --primary: oklch(0.777 0.152 181.912);
+
+  /* stock oklch(0.214 0.009 43.1) -> taupe-950 | text on teal-400 | 10.59 */
+  --primary-foreground: oklch(0.147 0.004 49.3);
+}

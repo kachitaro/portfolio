@@ -1,96 +1,94 @@
 'use client';
 
-import { Briefcase, Building2, Calendar, Clock, MapPin } from 'lucide-react';
-
-import { Badge } from '@/components/ui/badge';
+import { Reveal } from '@/components/reveal';
 import { useLanguage } from '@/context/language-context';
-import { experienceData } from '@/data/portfolioData';
+import { experienceData } from '@/data/experience';
+import { type TLanguage } from '@/types/portfolio';
+
+const EN_MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
+function parse(value: string) {
+  const [year, month] = value.split('-').map(Number);
+  return { year, month };
+}
+
+function formatMonth(value: string, language: TLanguage) {
+  const { year, month } = parse(value);
+  return language === 'vi'
+    ? `${String(month).padStart(2, '0')}/${year}`
+    : `${EN_MONTHS[month - 1]} ${year}`;
+}
+
+/** Inclusive month count, e.g. 2022-07 to 2023-01 is 7 months. */
+function formatDuration(start: string, end: string | undefined, language: TLanguage) {
+  const from = parse(start);
+  const to = end
+    ? parse(end)
+    : { year: new Date().getFullYear(), month: new Date().getMonth() + 1 };
+  const total = (to.year - from.year) * 12 + (to.month - from.month) + 1;
+  const years = Math.floor(total / 12);
+  const months = total % 12;
+  const parts: string[] = [];
+  if (language === 'vi') {
+    if (years) {
+      parts.push(`${years} năm`);
+    }
+    if (months) {
+      parts.push(`${months} tháng`);
+    }
+  } else {
+    if (years) {
+      parts.push(`${years} ${years > 1 ? 'yrs' : 'yr'}`);
+    }
+    if (months) {
+      parts.push(`${months} ${months > 1 ? 'mos' : 'mo'}`);
+    }
+  }
+  return parts.join(' ');
+}
 
 export function ExperienceSection() {
-  const { language, t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
-    <section id="experience" className="relative py-20">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        {/* Header */}
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <Badge
-            variant="outline"
-            className="border-primary/30 text-primary mb-3 px-3.5 py-1 text-xs tracking-wider uppercase">
-            {t('Hành trình nghề nghiệp', 'Career & Experience')}
-          </Badge>
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            {t('Kinh nghiệm làm việc thực tế', 'Work Experience & History')}
-          </h2>
-          <p className="text-muted-foreground mt-3 text-sm sm:text-base">
-            {t(
-              'Quá trình làm việc tại các công ty công nghệ và vai trò kỹ thuật trong các dự án.',
-              'Detailed record of my software engineering roles, company impact, and responsibilities.',
-            )}
-          </p>
-        </div>
+    <section id="experience" aria-labelledby="experience-title" className="page section-y">
+      <div className="grid-page gap-y-8 lg:gap-y-0">
+        <Reveal as="h2" id="experience-title" className="text-title col-span-full lg:col-span-4">
+          {t('Kinh nghiệm', 'Experience')}
+        </Reveal>
 
-        {/* Timeline Container */}
-        <div className="border-primary/30 relative ml-3 space-y-12 border-l-2 sm:ml-8">
-          {experienceData.map((item) => (
-            <div key={item.id} className="group relative pl-6 sm:pl-8">
-              {/* Timeline Marker Dot */}
-              <div className="bg-background border-primary group-hover:bg-primary absolute top-1.5 left-[-9px] h-4 w-4 rounded-full border-2 shadow-xs transition-all duration-300 group-hover:scale-125" />
-
-              <div className="glass-panel border-border/60 hover:border-primary/40 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg sm:p-7">
-                {/* Header Information Row */}
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-primary bg-primary/10 border-primary/20 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-xs font-bold">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {item.period[language]}
-                    </span>
-                    <span className="text-muted-foreground bg-muted/60 border-border/40 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[11px]">
-                      <Clock className="text-muted-foreground h-3 w-3" />
-                      {item.duration[language]}
-                    </span>
-                  </div>
-
-                  <div className="text-foreground/80 flex items-center gap-1.5 text-xs font-semibold">
-                    <Building2 className="text-primary h-4 w-4" />
-                    <span>{item.company}</span>
-                    <span className="text-muted-foreground font-normal">
-                      · {item.employmentType[language]}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Role Title */}
-                <h3 className="text-foreground group-hover:text-primary mb-2 flex items-center gap-2 text-xl font-bold transition-colors">
-                  <Briefcase className="text-primary h-5 w-5 shrink-0" />
-                  <span>{item.role[language]}</span>
-                </h3>
-
-                {/* Workplace Info */}
-                <div className="text-muted-foreground mb-4 flex items-center gap-1.5 text-xs font-medium">
-                  <MapPin className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
-                  <span>{item.workplaceType[language]}</span>
-                </div>
-
-                {/* Description */}
-                <p className="text-muted-foreground mb-5 text-sm leading-relaxed">
-                  {item.description[language]}
-                </p>
-
-                {/* Skills Tags */}
-                <div className="border-border/40 flex flex-wrap gap-2 border-t pt-3">
-                  {item.skills.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-background/80 text-foreground/90 border-border/60 hover:border-primary/40 rounded-lg border px-2.5 py-1 text-xs font-medium shadow-2xs transition-colors">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <ol className="col-span-full grid gap-12 lg:col-span-8 lg:col-start-5 lg:gap-16">
+          {experienceData.map((item, index) => (
+            <Reveal as="li" key={item.id} delay={index * 80}>
+              <p className="text-data text-muted-foreground">
+                {formatMonth(item.start, language)} –{' '}
+                {item.end ? formatMonth(item.end, language) : t('Hiện tại', 'Present')} ·{' '}
+                {formatDuration(item.start, item.end, language)}
+              </p>
+              <h3 className="text-lead mt-2 font-semibold">
+                {item.role[language]}, {item.company}
+              </h3>
+              <p className="text-data text-muted-foreground mt-1">
+                {item.employmentType[language]} · {item.workplaceType[language]}
+              </p>
+              <p className="text-body mt-4 max-w-[62ch]">{item.description[language]}</p>
+              <p className="text-data mt-4">{item.skills.join(', ')}</p>
+            </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

@@ -3,14 +3,7 @@ import { type IExperienceItem } from '@/types/portfolio';
 export const experienceData: IExperienceItem[] = [
   {
     id: 'exp-1',
-    period: {
-      vi: 'Tháng 02/2023 - Hiện tại',
-      en: 'Feb 2023 - Present',
-    },
-    duration: {
-      vi: '3 năm 7 tháng',
-      en: '3 yrs 7 mos',
-    },
+    start: '2023-02',
     role: {
       vi: 'Software Engineer (Kỹ sư phần mềm)',
       en: 'Software Engineer',
@@ -40,14 +33,8 @@ export const experienceData: IExperienceItem[] = [
   },
   {
     id: 'exp-2',
-    period: {
-      vi: 'Tháng 07/2022 - Tháng 01/2023',
-      en: 'Jul 2022 - Jan 2023',
-    },
-    duration: {
-      vi: '7 tháng',
-      en: '7 mos',
-    },
+    start: '2022-07',
+    end: '2023-01',
     role: {
       vi: 'Developer (Lập trình viên)',
       en: 'Developer',

@@ -1,79 +1,37 @@
 'use client';
 
-import { ArrowUpRight, Mail } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-
-import { GithubIcon } from '@/components/icons/github-icon';
+import { Reveal } from '@/components/reveal';
+import { buttonVariants } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
-import { personalInfo } from '@/data/portfolioData';
-import { useGithubProfile } from '@/hooks/use-github-profile';
+import { personalInfo } from '@/data/personal';
+import { ArrowDown } from 'lucide-react';
 
 export function HeroSection() {
-  const { language, t } = useLanguage();
-  const { profile } = useGithubProfile('kachitaro');
-  const facts = personalInfo.aboutDetailed[language].funFacts.slice(0, 4);
+  const { t } = useLanguage();
 
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 pt-32 pb-20 sm:px-6 md:pt-40">
-      <div className="flex items-center gap-4">
-        <Image
-          src={profile?.avatarUrl || personalInfo.avatar}
-          alt={personalInfo.name}
-          width={56}
-          height={56}
-          unoptimized
-          priority
-          className="ring-border rounded-full ring-1"
-        />
-        <p className="text-muted-foreground flex items-center gap-2 font-mono text-xs">
-          <span className="size-2 rounded-full bg-emerald-500" />
-          {t('Đang nhận dự án freelance', 'Open for freelance')} · {personalInfo.location[language]}
-        </p>
-      </div>
+    <section className="page section-y">
+      <Reveal as="h1" className="text-display">
+        {t('Xây giao diện web chính xác', 'Building precise web interfaces')}
+      </Reveal>
 
-      <h1 className="mt-8 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl md:text-7xl">
-        {t('Mình là', "I'm")} {personalInfo.name},{' '}
-        <span className="text-muted-foreground">
+      <div className="grid-page mt-8 items-end gap-y-8 lg:mt-12">
+        <Reveal as="p" delay={80} className="text-lead col-span-full lg:col-span-5">
           {t(
-            'kỹ sư frontend xây sản phẩm web thật.',
-            'a frontend engineer shipping real web products.',
+            `${personalInfo.name}, kỹ sư phần mềm tại Nexpando. React, Next.js và TypeScript trên các nền tảng đang vận hành.`,
+            `${personalInfo.name}, software engineer at Nexpando. React, Next.js and TypeScript on production platforms.`,
           )}
-        </span>
-      </h1>
+        </Reveal>
 
-      <p className="text-muted-foreground mt-8 max-w-2xl text-base leading-relaxed sm:text-lg">
-        {personalInfo.bio[language]}
-      </p>
-
-      <div className="mt-10 flex flex-wrap gap-3 text-sm">
-        <Link
-          href="/contact"
-          className="bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-medium transition-opacity hover:opacity-85">
-          <Mail className="size-4" />
-          {t('Liên hệ', 'Get in touch')}
-        </Link>
-        <a
-          href={personalInfo.socials.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="border-border hover:bg-muted inline-flex items-center gap-2 rounded-full border px-5 py-2.5 font-medium transition-colors">
-          <GithubIcon className="size-4" />
-          GitHub
-          <ArrowUpRight className="size-3.5" />
-        </a>
+        <Reveal
+          delay={160}
+          className="col-span-full flex lg:col-span-3 lg:col-start-10 lg:justify-end">
+          <a href="#work" className={`${buttonVariants()} w-full lg:w-auto`}>
+            {t('Xem dự án', 'View work')}
+            <ArrowDown aria-hidden="true" />
+          </a>
+        </Reveal>
       </div>
-
-      <dl className="border-border mt-16 grid grid-cols-2 gap-y-6 border-t pt-8 md:grid-cols-4">
-        {facts.map((f) => (
-          <div key={f.label}>
-            <dt className="text-muted-foreground text-xs">{f.label}</dt>
-            <dd className="mt-1 font-mono text-2xl font-semibold">
-              {f.label.includes('GitHub') && profile ? `${profile.public_repos}+` : f.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
     </section>
   );
 }

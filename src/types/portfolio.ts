@@ -1,67 +1,32 @@
 export type TLanguage = 'vi' | 'en';
 
-export interface IProject {
-  id: string;
-  title: {
-    vi: string;
-    en: string;
-  };
-  description: {
-    vi: string;
-    en: string;
-  };
-  category: 'enterprise' | 'frontend' | 'fullstack' | 'webapps';
-  projectType: 'enterprise' | 'personal';
-  status?: {
-    vi: string;
-    en: string;
-  };
-  company?: string;
-  tags: string[];
-  image: string;
-  githubUrl?: string;
-  demoUrl?: string;
-  featured: boolean;
-  highlights: {
-    vi: string[];
-    en: string[];
-  };
+export interface ILocalized<T = string> {
+  vi: T;
+  en: T;
 }
 
-export interface ISkillItem {
+export interface IProject {
+  id: string;
+  title: ILocalized;
+  description: ILocalized;
+  /** Short name used as the section heading. */
   name: string;
-  level: number; // 0 - 100
-  category: 'frontend' | 'backend' | 'database' | 'tools';
-  icon: string;
-  badgeColor?: string;
+  status: ILocalized;
+  company: string;
+  tags: string[];
+  highlights: ILocalized<string[]>;
 }
 
 export interface IExperienceItem {
   id: string;
-  period: {
-    vi: string;
-    en: string;
-  };
-  duration: {
-    vi: string;
-    en: string;
-  };
-  role: {
-    vi: string;
-    en: string;
-  };
+  /** ISO year-month, e.g. "2023-02" */
+  start: string;
+  /** ISO year-month; omitted while ongoing */
+  end?: string;
+  role: ILocalized;
   company: string;
-  employmentType: {
-    vi: string;
-    en: string;
-  };
-  workplaceType: {
-    vi: string;
-    en: string;
-  };
-  description: {
-    vi: string;
-    en: string;
-  };
+  employmentType: ILocalized;
+  workplaceType: ILocalized;
+  description: ILocalized;
   skills: string[];
 }

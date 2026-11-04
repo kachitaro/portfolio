@@ -5,30 +5,16 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion', 'gsap'],
+    optimizePackageImports: ['lucide-react'],
   },
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'skillicons.dev',
-      },
-    ],
+  async redirects() {
+    return [
+      { source: '/about', destination: '/#about', permanent: true },
+      { source: '/contact', destination: '/#contact', permanent: true },
+      { source: '/experience', destination: '/#experience', permanent: true },
+      { source: '/projects', destination: '/#work', permanent: true },
+      { source: '/skills', destination: '/#about', permanent: true },
+    ];
   },
 };
 

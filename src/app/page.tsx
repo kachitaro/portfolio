@@ -1,12 +1,17 @@
+import { AboutSection } from '@/components/about-section';
+import { ContactSection } from '@/components/contact-section';
+import { ExperienceSection } from '@/components/experience-section';
+import { FeaturedSection } from '@/components/featured-section';
 import { HeroSection } from '@/components/hero-section';
-import { HomeSectionsNav } from '@/components/home-sections-nav';
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-full flex-col">
+    <>
       <HeroSection />
-
-      <HomeSectionsNav />
-    </div>
+      <FeaturedSection />
+      <ExperienceSection />
+      <AboutSection />
+      <ContactSection />
+    </>
   );
 }

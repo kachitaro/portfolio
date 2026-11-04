@@ -1,21 +1,19 @@
 'use client';
 
-import { Languages } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
 
 export function LanguageToggle() {
   const { language, toggleLanguage } = useLanguage();
+  const next = language === 'vi' ? 'EN' : 'VI';
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
+    <button
+      type="button"
       onClick={toggleLanguage}
-      className="border-border/60 bg-background/80 h-9 w-9 cursor-pointer rounded-md shadow-xs backdrop-blur-sm transition-transform hover:scale-105"
-      title={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}>
-      <Languages className="text-primary h-3.5 w-3.5" />
-    </Button>
+      lang={language === 'vi' ? 'en' : 'vi'}
+      aria-label={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+      className="text-data text-tag hover:text-primary inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-medium transition-colors duration-150 motion-reduce:transition-none">
+      {next}
+    </button>
   );
 }

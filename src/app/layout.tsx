@@ -1,38 +1,29 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
-import { SmoothScroll } from '@/components/smooth-scroll';
-import { ThemeProvider } from '@/components/theme-provider';
-import { ScrollProgress } from '@/components/ui/scroll-progress';
-import { Spotlight } from '@/components/ui/spotlight';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { LanguageProvider } from '@/context/language-context';
 import { config } from '@/data/config';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { JetBrains_Mono, Playfair_Display, Source_Serif_4 } from 'next/font/google';
 import '../themes/globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin', 'vietnamese'],
   display: 'swap',
-  fallback: [
-    'system-ui',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'sans-serif',
-  ],
-  adjustFontFallback: true,
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const sourceSerif = Source_Serif_4({
+  variable: '--font-source-serif',
+  subsets: ['latin', 'vietnamese'],
+  axes: ['opsz'],
   display: 'swap',
-  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-  adjustFontFallback: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains',
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -46,56 +37,38 @@ export const metadata: Metadata = {
     description: config.description.long,
     url: config.site,
     siteName: `${config.author.name} Portfolio`,
-    images: [
-      {
-        url: config.ogImg,
-        width: 1200,
-        height: 630,
-        alt: config.author.name,
-      },
-    ],
     locale: 'vi_VN',
     type: 'website',
   },
 };
+
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+};
+
+/**
+ * Theme follows prefers-color-scheme (no toggle): the light tokens live on :root,
+ * and the dark set is applied by this class when the OS asks for it.
+ */
+const themeScript = `(function(){var m=matchMedia('(prefers-color-scheme: dark)');function a(){document.documentElement.classList.toggle('dark',m.matches)}a();m.addEventListener('change',a)})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="vi"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      className={`${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} antialiased`}>
       <head>
-        <link rel="preconnect" href="https://github.com" />
-
-        <link rel="dns-prefetch" href="https://github.com" />
-
-        <link rel="preconnect" href="https://images.unsplash.com" />
-
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-
-        <link rel="preconnect" href="https://skillicons.dev" />
-
-        <link rel="dns-prefetch" href="https://skillicons.dev" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="bg-background text-foreground relative flex min-h-full flex-col overflow-x-hidden transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <LanguageProvider>
-            <TooltipProvider delay={200}>
-              <ScrollProgress />
-
-              <Spotlight />
-
-              <Navbar />
-
-              <SmoothScroll>
-                <main className="relative z-10 flex-1 pt-14">{children}</main>
-              </SmoothScroll>
-
-              <Footer />
-            </TooltipProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+      <body className="flex min-h-dvh flex-col">
+        <LanguageProvider>
+          <div id="top" className="flex flex-1 flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
