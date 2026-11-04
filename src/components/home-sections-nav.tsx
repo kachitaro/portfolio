@@ -1,130 +1,101 @@
 'use client';
 
-import { ArrowRight, Briefcase, Building2, Cpu, FolderGit2, User } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-import { Badge } from '@/components/ui/badge';
-import { CtaLink } from '@/components/ui/cta-link';
 import { useLanguage } from '@/context/language-context';
+import { experienceData, projectsData } from '@/data/portfolioData';
+
+function SectionHeader({ title, href, label }: { title: string; href: string; label: string }) {
+  return (
+    <div className="border-border mb-2 flex items-end justify-between border-b pb-4">
+      <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
+      <Link
+        href={href}
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors">
+        {label}
+        <ArrowRight className="size-3.5" />
+      </Link>
+    </div>
+  );
+}
 
 export function HomeSectionsNav() {
-  const { t } = useLanguage();
-
-  const sectionsNav = [
-    {
-      href: '/about',
-      title: t('Giới thiệu bản thân', 'About Me'),
-      desc: t(
-        'Tìm hiểu về hành trình, thế mạnh chuyên môn và định hướng.',
-        'Get to know my engineering mission and background.',
-      ),
-      icon: <User className="h-5 w-5 text-sky-500" />,
-      badge: t('Hồ sơ cá nhân', 'Profile'),
-    },
-    {
-      href: '/skills',
-      title: t('Kỹ năng & Công nghệ', 'Tech Stack & Skills'),
-      desc: t(
-        'React.js, Next.js, TypeScript, Tailwind CSS, RESTful APIs & Tools.',
-        'Specialized in React ecosystem, TypeScript & modern dev tools.',
-      ),
-      icon: <Cpu className="h-5 w-5 text-amber-500" />,
-      badge: t('Hệ sinh thái', 'Stack'),
-    },
-    {
-      href: '/projects',
-      title: t('Dự án Doanh nghiệp', 'Enterprise Projects'),
-      desc: t(
-        'Hệ thống bán vé Nexbus, sàn TMĐT Vnshop V2 & dự án BANA.',
-        'Production systems: Nexbus, Vnshop V2 & BANA platform.',
-      ),
-      icon: <FolderGit2 className="h-5 w-5 text-emerald-500" />,
-      badge: t('3 Dự án lớn', '3 Key Works'),
-    },
-    {
-      href: '/experience',
-      title: t('Kinh nghiệm làm việc', 'Work Experience'),
-      desc: t(
-        'Software Engineer tại Nexpando & Developer tại Techbee Solutions.',
-        'Software Engineer at Nexpando & Techbee Solutions.',
-      ),
-      icon: <Briefcase className="h-5 w-5 text-indigo-500" />,
-      badge: t('4+ năm KN', '4+ Years'),
-    },
-  ];
+  const { language, t } = useLanguage();
+  const projects = projectsData.filter((p) => p.featured);
 
   return (
-    <section className="relative py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <Badge
-            variant="outline"
-            className="border-primary/30 text-primary mb-3 px-3.5 py-1 text-xs tracking-wider uppercase">
-            {t('Khám phá từng phần', 'Explore Sections')}
-          </Badge>
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
-            {t('Thông tin chi tiết về năng lực & kinh nghiệm', 'Dive Into My Portfolio Pages')}
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {sectionsNav.map((sec, idx) => (
-            <Link
-              key={idx}
-              href={sec.href}
-              className="glass-panel border-border/60 hover:border-primary/50 group flex cursor-pointer flex-col justify-between rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+    <div className="mx-auto w-full max-w-5xl space-y-24 px-4 pb-32 sm:px-6">
+      <section>
+        <SectionHeader
+          title={t('Dự án tiêu biểu', 'Selected work')}
+          href="/projects"
+          label={t('Tất cả dự án', 'All projects')}
+        />
+        <ul className="divide-border divide-y">
+          {projects.map((p) => (
+            <li key={p.id} className="grid gap-3 py-8 md:grid-cols-[1fr_2fr] md:gap-10">
               <div>
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="bg-background/80 border-border/50 rounded-xl border p-2.5 shadow-2xs transition-transform group-hover:scale-110">
-                    {sec.icon}
-                  </div>
-                  <span className="bg-muted/70 text-muted-foreground border-border/40 rounded-full border px-2 py-0.5 font-mono text-[11px] font-medium">
-                    {sec.badge}
-                  </span>
-                </div>
-
-                <h3 className="text-foreground group-hover:text-primary mb-1.5 flex items-center gap-1.5 text-base font-bold transition-colors">
-                  <span>{sec.title}</span>
-                </h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">{sec.desc}</p>
+                <h3 className="text-lg font-medium">{p.title[language]}</h3>
+                {p.status && (
+                  <p className="text-muted-foreground mt-1 font-mono text-xs">
+                    {p.company} · {p.status[language]}
+                  </p>
+                )}
               </div>
-
-              <div className="border-border/40 text-primary mt-4 flex items-center border-t pt-4 text-xs font-semibold transition-transform group-hover:translate-x-1">
-                <span>{t('Xem chi tiết', 'View page')}</span>
-                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              <div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {p.description[language]}
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {p.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="bg-muted text-muted-foreground rounded-full px-2.5 py-0.5 font-mono text-xs">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </Link>
+            </li>
           ))}
-        </div>
+        </ul>
+      </section>
 
-        {/* Featured Enterprise Preview */}
-        <div className="glass-panel border-border/60 mt-14 flex flex-col items-center justify-between gap-6 rounded-3xl p-6 sm:p-8 md:flex-row">
-          <div className="space-y-2 text-center md:text-left">
-            <span className="text-primary bg-primary/10 border-primary/20 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-xs font-semibold">
-              <Building2 className="h-3.5 w-3.5" />
-              {t('Dự án doanh nghiệp tiêu biểu', 'Featured Enterprise Projects')}
-            </span>
-            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
-              Nexbus, Vnshop V2 & BANA Platform
-            </h3>
-            <p className="text-muted-foreground max-w-xl text-xs sm:text-sm">
-              {t(
-                'Khám phá các hệ thống bán vé trực tuyến, sàn thương mại điện tử quy mô lớn và nền tảng mới đang phát triển tại Nexpando.',
-                'Explore real-world production ticketing, e-commerce, and high-performance web platforms engineered at Nexpando.',
-              )}
-            </p>
-          </div>
+      <section>
+        <SectionHeader
+          title={t('Kinh nghiệm', 'Experience')}
+          href="/experience"
+          label={t('Chi tiết', 'Details')}
+        />
+        <ul className="divide-border divide-y">
+          {experienceData.map((e) => (
+            <li key={e.id} className="grid gap-1 py-6 md:grid-cols-[1fr_2fr] md:gap-10">
+              <p className="text-muted-foreground font-mono text-xs md:pt-1">
+                {e.period[language]}
+              </p>
+              <div>
+                <h3 className="font-medium">
+                  {e.role[language]} · {e.company}
+                </h3>
+                <p className="text-muted-foreground mt-1 text-sm">{e.duration[language]}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-          <CtaLink
-            href="/projects"
-            size="lg"
-            icon={<ArrowRight className="h-4 w-4" />}
-            iconPosition="right"
-            className="shrink-0 cursor-pointer gap-2 rounded-full px-6 text-xs font-medium shadow-md transition-all hover:shadow-lg sm:text-sm">
-            {t('Xem tất cả dự án', 'Explore Projects')}
-          </CtaLink>
-        </div>
-      </div>
-    </section>
+      <section className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <h2 className="max-w-xl text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
+          {t('Có ý tưởng cần làm? Hãy nói chuyện.', 'Have something to build? Let’s talk.')}
+        </h2>
+        <Link
+          href="/contact"
+          className="bg-foreground text-background inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-85">
+          {t('Liên hệ', 'Contact me')}
+          <ArrowRight className="size-4" />
+        </Link>
+      </section>
+    </div>
   );
 }
