@@ -2,7 +2,8 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    // Keep console.error / console.warn so API failures still show up in Vercel runtime logs.
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion', 'gsap'],
