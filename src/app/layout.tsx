@@ -33,19 +33,65 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.site),
-  title: config.title,
+  title: {
+    default: config.title,
+    template: `%s | ${config.author.name}`,
+  },
   description: config.description.short,
   keywords: config.keywords,
   authors: [config.author],
-  openGraph: {
-    title: `${config.author.name} - Software Engineer Portfolio`,
-    description: config.description.long,
-    url: config.site,
-    siteName: `${config.author.name} Portfolio`,
-    images: [{ url: config.ogImg, width: 1200, height: 630, alt: config.author.name }],
-    locale: 'vi_VN',
-    type: 'website',
+  creator: config.author.name,
+  alternates: { canonical: '/' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
+  openGraph: {
+    title: config.title,
+    description: config.description.long,
+    url: '/',
+    siteName: `${config.author.name} – Portfolio`,
+    locale: 'vi_VN',
+    alternateLocale: ['en_US'],
+    type: 'profile',
+    firstName: 'John',
+    username: 'kachitaro',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: config.title,
+    description: config.description.short,
+  },
+  category: 'technology',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${config.site}/#person`,
+      name: config.author.name,
+      alternateName: ['Anh Tài', 'kachitaro'],
+      url: config.site,
+      image: 'https://github.com/kachitaro.png',
+      email: `mailto:${config.email}`,
+      jobTitle: config.jobTitle,
+      worksFor: { '@type': 'Organization', name: config.worksFor },
+      address: { '@type': 'PostalAddress', addressCountry: 'VN' },
+      knowsAbout: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Frontend development'],
+      sameAs: config.sameAs,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${config.site}/#website`,
+      url: config.site,
+      name: `${config.author.name} – Portfolio`,
+      inLanguage: ['vi', 'en'],
+      publisher: { '@id': `${config.site}/#person` },
+    },
+  ],
 };
 
 export const viewport: Viewport = {
@@ -64,6 +110,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bricolage.variable} ${newsreader.variable} ${jetbrains.variable} h-full antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: accentBootScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+        />
       </head>
       <body className="relative flex min-h-full flex-col overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

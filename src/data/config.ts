@@ -1,39 +1,46 @@
 import { personalInfo } from './personal';
 
 export const config = {
-  title: 'John (Anh Tài) | Software Engineer @ Nexpando',
+  title: 'John (Anh Tài) | Frontend Developer – React, Next.js, TypeScript',
   description: {
     short:
-      'Portfolio of John (Anh Tài) (@kachitaro) - Software Engineer at Nexpando specializing in React.js, Next.js, TypeScript, and high-performance Enterprise Web Platforms.',
-    long: 'Explore enterprise projects, frontend engineering skills, and work experience by John (Anh Tài) - Software Engineer at Nexpando specializing in React.js, Next.js, TypeScript, and modern web applications.',
+      'John (Anh Tài, @kachitaro) – Software Engineer tại Nexpando, chuyên frontend với React, Next.js và TypeScript. Xem dự án Nexbus, Vnshop V2, BANA, Gopy CSR Portal và nhận việc freelance.',
+    long: 'Portfolio of John (Anh Tài), a frontend-focused Software Engineer at Nexpando building production web apps with React.js, Next.js and TypeScript: the Nexbus ticketing platform, the Vnshop V2 marketplace, BANA and the Gopy CSR admin portal. Open to freelance work.',
   },
   keywords: [
     'kachitaro',
     'John Anh Tai',
-    'Software Engineer',
-    'Frontend Developer',
+    'Anh Tài',
+    'Frontend Developer Vietnam',
     'React Developer',
     'Next.js Developer',
+    'TypeScript Developer',
+    'Software Engineer',
+    'Freelance Frontend Developer',
+    'lập trình viên frontend',
     'Nexpando',
     'Nexbus',
     'Vnshop V2',
     'BANA',
-    'TypeScript',
-    'Tailwind CSS',
-    'RESTful APIs',
+    'Gopy',
     'Techbee Solutions',
+    'Tailwind CSS',
   ],
   author: {
     name: 'John (Anh Tài)',
     url: 'https://github.com/kachitaro',
   },
+  jobTitle: 'Software Engineer',
+  worksFor: 'Nexpando',
   email: personalInfo.email,
-  site: 'https://kachitaro.vercel.app',
+  site: 'https://portfolio.gen-nex.tech',
   social: {
     github: personalInfo.socials.github,
+    linkedin: personalInfo.socials.linkedin,
     email: personalInfo.socials.email,
   },
-  get ogImg() {
-    return `${this.site}/og-image.png`;
+  /** Public profiles for search engines (JSON-LD sameAs); empty links are skipped. */
+  get sameAs(): string[] {
+    return [this.social.github, this.social.linkedin].filter(Boolean);
   },
 };

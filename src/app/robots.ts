@@ -1,13 +1,15 @@
 import { type MetadataRoute } from 'next';
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://kachitaro.vercel.app';
+import { config } from '@/data/config';
 
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/api/', '/admin/'],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${config.site}/sitemap.xml`,
+    host: config.site,
   };
 }
