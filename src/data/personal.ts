@@ -148,6 +148,7 @@ export const personalInfo = {
   },
   socials: {
     github: 'https://github.com/kachitaro',
+    linkedin: 'https://www.linkedin.com/in/john-nguy%E1%BB%85n/',
     email: 'mailto:anhtai.dev@gmail.com',
   },
 };

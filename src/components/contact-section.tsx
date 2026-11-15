@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { GithubIcon } from '@/components/icons/github-icon';
+import { LinkedinIcon } from '@/components/icons/linkedin-icon';
 import { Section } from '@/components/section';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
@@ -19,8 +20,10 @@ export function ContactSection() {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [isCopied, setCopied] = React.useState(false);
 
-  const update = (key: keyof typeof EMPTY_FORM) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+  const update =
+    (key: keyof typeof EMPTY_FORM) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
   const copyEmail = async () => {
     try {
@@ -54,12 +57,19 @@ export function ContactSection() {
       setForm(EMPTY_FORM);
     } catch (err: unknown) {
       setStatus('error');
-      setErrorMessage(err instanceof Error ? err.message : t('Không kết nối được máy chủ.', 'Could not reach the server.'));
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : t('Không kết nối được máy chủ.', 'Could not reach the server.'),
+      );
     }
   };
 
   return (
-    <Section id="contact" title={t('Liên hệ', 'Contact')} note={t('Thường trả lời trong 24 giờ', 'Usually replies within 24 hours')}>
+    <Section
+      id="contact"
+      title={t('Liên hệ', 'Contact')}
+      note={t('Thường trả lời trong 24 giờ', 'Usually replies within 24 hours')}>
       <div className="grid gap-14 lg:grid-cols-9 lg:gap-10">
         <div className="lg:col-span-4">
           <p className="prose-serif text-neutral-12">
@@ -74,7 +84,11 @@ export function ContactSection() {
             {personalInfo.email}
           </a>
           <div className="mt-5 flex flex-wrap gap-5 text-sm font-medium">
-            <button type="button" onClick={copyEmail} className="text-neutral-11 hover:text-neutral-12" aria-live="polite">
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="text-neutral-11 hover:text-neutral-12"
+              aria-live="polite">
               {isCopied ? t('Đã chép email', 'Email copied') : t('Chép email', 'Copy email')}
             </button>
             <a
@@ -85,15 +99,30 @@ export function ContactSection() {
               <GithubIcon className="h-4 w-4" />
               GitHub
             </a>
+            {personalInfo.socials.linkedin && (
+              <a
+                href={personalInfo.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer me"
+                className="text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
+                <LinkedinIcon className="h-4 w-4" />
+                LinkedIn
+              </a>
+            )}
           </div>
         </div>
 
         <div className="lg:col-span-5">
           {status === 'sent' ? (
             <div className="bg-brand-2 border-brand-6 rounded-xl border p-6" role="status">
-              <p className="text-neutral-12 text-lg font-semibold">{t('Đã gửi tin nhắn.', 'Message sent.')}</p>
+              <p className="text-neutral-12 text-lg font-semibold">
+                {t('Đã gửi tin nhắn.', 'Message sent.')}
+              </p>
               <p className="text-neutral-11 mt-1 text-[15px]">
-                {t('Mình sẽ trả lời qua email bạn vừa nhập.', "I'll reply to the email you entered.")}
+                {t(
+                  'Mình sẽ trả lời qua email bạn vừa nhập.',
+                  "I'll reply to the email you entered.",
+                )}
               </p>
               <button
                 type="button"
@@ -107,7 +136,15 @@ export function ContactSection() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="text-neutral-12 block text-sm font-medium">
                   {t('Tên', 'Name')}
-                  <input required name="name" autoComplete="name" value={form.name} onChange={update('name')} className={fieldClass} />
+                  <input
+                    required
+                    maxLength={100}
+                    name="name"
+                    autoComplete="name"
+                    value={form.name}
+                    onChange={update('name')}
+                    className={fieldClass}
+                  />
                 </label>
                 <label className="text-neutral-12 block text-sm font-medium">
                   Email
@@ -123,14 +160,23 @@ export function ContactSection() {
                 </label>
               </div>
               <label className="text-neutral-12 block text-sm font-medium">
-                {t('Chủ đề', 'Subject')} <span className="text-neutral-11 font-normal">({t('không bắt buộc', 'optional')})</span>
-                <input name="subject" value={form.subject} onChange={update('subject')} className={fieldClass} />
+                {t('Chủ đề', 'Subject')}{' '}
+                <span className="text-neutral-11 font-normal">
+                  ({t('không bắt buộc', 'optional')})
+                </span>
+                <input
+                  name="subject"
+                  value={form.subject}
+                  onChange={update('subject')}
+                  className={fieldClass}
+                />
               </label>
               <label className="text-neutral-12 block text-sm font-medium">
                 {t('Nội dung', 'Message')}
                 <textarea
                   required
                   name="message"
+                  maxLength={3000}
                   rows={6}
                   value={form.message}
                   onChange={update('message')}
@@ -139,9 +185,13 @@ export function ContactSection() {
               </label>
 
               {status === 'error' && (
-                <p className="rounded-lg border-[var(--red-6)] bg-[var(--red-2)] text-[var(--red-11)] border px-4 py-3 text-sm" role="alert">
+                <p
+                  className="rounded-lg border border-(--red-6) bg-(--red-2) px-4 py-3 text-sm text-(--red-11)"
+                  role="alert">
                   {errorMessage}{' '}
-                  <a href={mailtoFallback} className="text-neutral-12 font-medium underline underline-offset-4">
+                  <a
+                    href={mailtoFallback}
+                    className="text-neutral-12 font-medium underline underline-offset-4">
                     {t('Gửi bằng ứng dụng email', 'Send with your email app')}
                   </a>
                 </p>
@@ -151,7 +201,9 @@ export function ContactSection() {
                 type="submit"
                 disabled={status === 'sending'}
                 className="bg-brand-9 text-brand-contrast hover:bg-brand-10 inline-flex h-11 items-center rounded-lg px-6 text-[15px] font-medium transition-colors disabled:opacity-60">
-                {status === 'sending' ? t('Đang gửi…', 'Sending…') : t('Gửi tin nhắn', 'Send message')}
+                {status === 'sending'
+                  ? t('Đang gửi…', 'Sending…')
+                  : t('Gửi tin nhắn', 'Send message')}
               </button>
             </form>
           )}

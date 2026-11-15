@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS = 5;
 const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
   try {
@@ -29,9 +30,33 @@ export async function POST(req: Request) {
 
     const { name, email, subject, message } = await req.json();
 
-    if (!name || !email || !message) {
+    if (
+      typeof name !== 'string' ||
+      typeof email !== 'string' ||
+      typeof message !== 'string' ||
+      !name.trim() ||
+      !email.trim() ||
+      !message.trim()
+    ) {
       return NextResponse.json(
         { error: 'Vui lòng điền đầy đủ họ tên, email và nội dung tin nhắn.' },
+        { status: 400 },
+      );
+    }
+
+    if (!EMAIL_RE.test(email.trim())) {
+      return NextResponse.json({ error: 'Email chưa đúng định dạng.' }, { status: 400 });
+    }
+
+    // Telegram rejects messages over 4096 characters, so cap each field well below that.
+    if (
+      name.length > 100 ||
+      email.length > 200 ||
+      (subject && String(subject).length > 200) ||
+      message.length > 3000
+    ) {
+      return NextResponse.json(
+        { error: 'Tin nhắn quá dài. Nội dung tối đa 3000 ký tự.' },
         { status: 400 },
       );
     }
@@ -61,7 +86,7 @@ export async function POST(req: Request) {
 
 👤 <b>Người gửi:</b> ${escapeHtml(name)}
 📧 <b>Email:</b> ${escapeHtml(email)}
-📌 <b>Chủ đề:</b> ${escapeHtml(subject || 'Liên hệ từ Portfolio')}
+📌 <b>Chủ đề:</b> ${escapeHtml(String(subject || 'Liên hệ từ Portfolio'))}
 ⏰ <b>Thời gian:</b> ${timeString}
 
 💬 <b>Nội dung tin nhắn:</b>
