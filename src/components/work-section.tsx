@@ -13,7 +13,7 @@ export function WorkSection() {
     <Section
       id="work"
       title={t('Dự án', 'Work')}
-      note={t(`${projectsData.length} dự án tại Nexpando`, `${projectsData.length} projects at Nexpando`)}>
+      note={t(`${projectsData.length} dự án, tại Nexpando và Techbee`, `${projectsData.length} projects, at Nexpando and Techbee`)}>
       <ul className="divide-neutral-4 border-neutral-4 divide-y border-y">
         {projectsData.map((project) => (
           <li key={project.id}>

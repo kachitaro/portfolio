@@ -103,4 +103,74 @@ export const projectsData: IProject[] = [
       ],
     },
   },
+  {
+    id: 'project-universal-dental',
+    title: {
+      vi: 'Website Nha khoa Universal Dental (dựng lại)',
+      en: 'Universal Dental Website (rebuild)',
+    },
+    company: 'Techbee Solutions',
+    projectType: 'personal',
+    status: {
+      vi: 'Dựng lại cho portfolio',
+      en: 'Portfolio rebuild',
+    },
+    description: {
+      vi: 'Website cho phòng khám nha khoa Universal Dental ở Irvine, California, thiết kế năm 2022 khi mình làm ở Techbee Solutions. Mình dựng lại trang chủ, trang dịch vụ, trang chi tiết Dental Implants và trang liên hệ từ file Adobe XD gốc.',
+      en: 'Website for the Universal Dental clinic in Irvine, California, designed in 2022 during my time at Techbee Solutions. I rebuilt the home, services, dental implants and contact pages from the original Adobe XD file.',
+    },
+    category: 'frontend',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
+    image: '',
+    demoUrl: 'https://universal-dental.gen-nex.tech',
+    githubUrl: 'https://github.com/kachitaro/dental-rebuilds',
+    featured: true,
+    highlights: {
+      vi: [
+        'Đọc trực tiếp dữ liệu artboard trong file .xd để lấy đúng màu, cỡ chữ, khoảng cách và nội dung',
+        'Responsive từ desktop 1366px xuống mobile 390px, carousel bác sĩ và đánh giá có điều khiển bàn phím',
+        'Form liên hệ dạng demo, ảnh xuất sang WebP, font tự host nên build không cần mạng',
+      ],
+      en: [
+        'Read the artboard data inside the .xd file to match colors, type sizes, spacing and copy exactly',
+        'Responsive from the 1366px desktop design down to 390px mobile, with keyboard-usable doctor and review carousels',
+        'Demo contact form, images converted to WebP, self-hosted fonts so the build needs no network',
+      ],
+    },
+  },
+  {
+    id: 'project-provo-pediatric',
+    title: {
+      vi: 'Website Nha khoa Nhi Provo Pediatric (dựng lại)',
+      en: 'Provo Pediatric Dentistry Website (rebuild)',
+    },
+    company: 'Techbee Solutions',
+    projectType: 'personal',
+    status: {
+      vi: 'Dựng lại cho portfolio',
+      en: 'Portfolio rebuild',
+    },
+    description: {
+      vi: 'Website cho phòng khám nha khoa nhi Provo Pediatric Dentistry ở Utah (Dr. Bott, Dr. Lund, Dr. Markham), thiết kế năm 2022 khi mình làm ở Techbee Solutions. Mình dựng lại trang chủ, trang dịch vụ, trang Dental Crowns và trang liên hệ từ file Adobe XD gốc.',
+      en: 'Website for Provo Pediatric Dentistry in Utah (Dr. Bott, Dr. Lund, Dr. Markham), designed in 2022 during my time at Techbee Solutions. I rebuilt the home, services, dental crowns and contact pages from the original Adobe XD file.',
+    },
+    category: 'frontend',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
+    image: '',
+    demoUrl: 'https://provo-pediatric.gen-nex.tech',
+    githubUrl: 'https://github.com/kachitaro/dental-rebuilds',
+    featured: true,
+    highlights: {
+      vi: [
+        'Xuất các hình minh hoạ vector (sinh vật biển, icon, phong bì) từ file XD thành ảnh nhẹ',
+        'Form liên hệ đặt trong phong bì mở và dải sóng biển, giữ đúng bố cục thiết kế trên mọi kích thước màn hình',
+        'Dữ liệu 16 dịch vụ và 2 cơ sở dùng chung cho trang dịch vụ, menu và footer',
+      ],
+      en: [
+        'Exported the vector illustrations (sea creatures, icons, envelope) from the XD file as light images',
+        'Contact form set inside an open envelope over an ocean band, holding the design’s layout at every screen size',
+        'One data source for the 16 services and 2 locations, shared by the services page, menus and footer',
+      ],
+    },
+  },
 ];
