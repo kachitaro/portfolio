@@ -104,6 +104,45 @@ export const projectsData: IProject[] = [
     },
   },
   {
+    id: 'project-gopy-csr-portal',
+    title: {
+      vi: 'Cổng quản trị CSR Portal của Gopy',
+      en: 'Gopy CSR Admin Portal',
+    },
+    company: 'Techbee Solutions',
+    projectType: 'enterprise',
+    status: {
+      vi: 'Dự án khách hàng',
+      en: 'Client project',
+    },
+    description: {
+      vi: 'Trang quản trị cho Gopy, mạng xã hội về trách nhiệm xã hội doanh nghiệp (CSR) kết nối doanh nghiệp, hiệp hội, influencer và người lao động. Khi làm ở Techbee Solutions, mình phát triển các phân hệ duyệt tài khoản, nhóm chat, khảo sát và đánh giá doanh nghiệp (self-assessment).',
+      en: 'Admin portal for Gopy, a corporate social responsibility (CSR) social network connecting companies, associations, influencers and employees. At Techbee Solutions I built the account approval, group chat, survey and company self-assessment modules.',
+    },
+    category: 'enterprise',
+    tags: ['React.js', 'JavaScript', 'GraphQL', 'REST API', 'Dynamic Forms', 'Excel / PDF export'],
+    image: '',
+    featured: true,
+    highlights: {
+      vi: [
+        'Tài khoản: trang duyệt tài khoản người dùng theo công ty (lọc, duyệt hoặc từ chối) và trang Influencer requests để influencer gửi, huỷ yêu cầu kết nối hoặc gỡ liên kết với doanh nghiệp',
+        'Group Chat: quản lý nhóm công khai và riêng tư, duyệt thành viên vào nhóm riêng, thêm/xoá và chặn/bỏ chặn người dùng trong nhóm',
+        'Khảo sát: tạo khảo sát với 6 loại câu hỏi (Text, Radio, Checkbox, Radio Grid, Checkbox Grid, Level), lên lịch Q&A một lần hoặc lặp theo tuần/tháng/năm và gửi theo công ty, khu vực hoặc nhóm chat',
+        'Attribute report: trình dựng biểu mẫu dạng cây cho admin, mỗi node có kiểu dữ liệu riêng (text, number, select, radio, checkbox, ngày giờ…), đơn vị, màu chữ, và có thể tự điền dữ liệu công ty qua GraphQL',
+        'Luồng đánh giá: lên lịch đợt đánh giá định kỳ hoặc theo yêu cầu và giao cho influencer; doanh nghiệp (My assessment) và influencer (Influencer input) cùng điền, review rồi nộp để admin so sánh và duyệt hoặc trả lại',
+        'Kết quả đánh giá: lọc theo tổ chức, đợt đánh giá, khoảng thời gian và nhóm câu hỏi, tính độ lệch giữa hai bên và xuất Excel/PDF',
+      ],
+      en: [
+        'Accounts: a page to approve users by company (filter, approve or reject) and an Influencer requests page where influencers send or cancel connection requests and remove links with companies',
+        'Group Chat: management of public and private groups, approving members into private groups, adding/removing and blocking/unblocking users',
+        'Surveys: survey builder with 6 question types (Text, Radio, Checkbox, Radio Grid, Checkbox Grid, Level), Q&A scheduling as one-off or weekly/monthly/yearly, targeted by company, location or chat group',
+        'Attribute report: a tree-based form builder for admins where each node has its own data type (text, number, select, radio, checkbox, date…), unit and text style, and can prefill company data through GraphQL',
+        'Assessment flow: scheduling periodic or on-request assessments and assigning them to influencers; companies (My assessment) and influencers (Influencer input) fill, review and submit their forms so the admin can compare and approve or send them back',
+        'Assessment results: filters by organization, campaign, date range and question group, deviation between the two sides, and Excel/PDF export',
+      ],
+    },
+  },
+  {
     id: 'project-universal-dental',
     title: {
       vi: 'Website Nha khoa Universal Dental (dựng lại)',
