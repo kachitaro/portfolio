@@ -3,6 +3,7 @@ import { type IExperienceItem } from '@/types/portfolio';
 export const experienceData: IExperienceItem[] = [
   {
     id: 'exp-1',
+    start: '2023-02',
     period: {
       vi: 'Tháng 02/2023 - Hiện tại',
       en: 'Feb 2023 - Present',
@@ -12,17 +13,17 @@ export const experienceData: IExperienceItem[] = [
       en: '3 yrs 7 mos',
     },
     role: {
-      vi: 'Software Engineer (Kỹ sư phần mềm)',
+      vi: 'Software Engineer',
       en: 'Software Engineer',
     },
     company: 'Nexpando',
     employmentType: {
-      vi: 'Full-time (Toàn thời gian)',
+      vi: 'Toàn thời gian',
       en: 'Full-time',
     },
     workplaceType: {
-      vi: 'Việt Nam · On-site (Tại văn phòng)',
-      en: 'Vietnam · On-site',
+      vi: 'Tại văn phòng, Việt Nam',
+      en: 'On-site, Vietnam',
     },
     description: {
       vi: 'Tham gia đội ngũ phát triển các hệ thống phần mềm web của công ty (Nexbus, Vnshop V2, BANA). Trực tiếp lập trình các phân hệ giao diện người dùng bằng React.js, Next.js và TypeScript; kết nối tích hợp các RESTful APIs và phối hợp chặt chẽ cùng các thành viên trong team để hoàn thành sprint đúng tiến độ.',
@@ -40,6 +41,8 @@ export const experienceData: IExperienceItem[] = [
   },
   {
     id: 'exp-2',
+    start: '2022-07',
+    end: '2023-01',
     period: {
       vi: 'Tháng 07/2022 - Tháng 01/2023',
       en: 'Jul 2022 - Jan 2023',
@@ -49,12 +52,12 @@ export const experienceData: IExperienceItem[] = [
       en: '7 mos',
     },
     role: {
-      vi: 'Developer (Lập trình viên)',
+      vi: 'Developer',
       en: 'Developer',
     },
     company: 'Techbee Solutions',
     employmentType: {
-      vi: 'Full-time (Toàn thời gian)',
+      vi: 'Toàn thời gian',
       en: 'Full-time',
     },
     workplaceType: {

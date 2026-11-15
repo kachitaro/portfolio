@@ -1,427 +1,162 @@
 'use client';
 
+import React from 'react';
+
 import { GithubIcon } from '@/components/icons/github-icon';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { TiltCard } from '@/components/ui/tilt-card';
+import { Section } from '@/components/section';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
-import confetti from 'canvas-confetti';
-import {
-  AlertCircle,
-  Check,
-  Clock,
-  Code2,
-  Copy,
-  Globe,
-  Layers,
-  Loader2,
-  Mail,
-  MapPin,
-  MessageSquare,
-  Send,
-  Sparkles,
-  Zap,
-} from 'lucide-react';
-import React, { useState } from 'react';
+
+const EMPTY_FORM = { name: '', email: '', subject: '', message: '' };
+
+const fieldClass =
+  'border-neutral-7 bg-neutral-1 text-neutral-12 placeholder:text-neutral-9 hover:border-neutral-8 focus-visible:border-brand-8 mt-2 block w-full rounded-lg border px-3.5 py-2.5 text-[15px] outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand-8';
 
 export function ContactSection() {
-  const { language, t } = useLanguage();
-  const [isCopied, setCopied] = useState(false);
-  const [isFormSubmitted, setFormSubmitted] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const { t } = useLanguage();
+  const [form, setForm] = React.useState(EMPTY_FORM);
+  const [status, setStatus] = React.useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [isCopied, setCopied] = React.useState(false);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const update = (key: keyof typeof EMPTY_FORM) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
-  const services = personalInfo.services[language];
-  const serviceIcons = [
-    <Code2 key="0" className="h-5 w-5 text-sky-400" />,
-    <Layers key="1" className="h-5 w-5 text-indigo-400" />,
-    <Zap key="2" className="h-5 w-5 text-amber-400" />,
-    <Globe key="3" className="h-5 w-5 text-emerald-400" />,
-  ];
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(personalInfo.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${personalInfo.email}`;
+    }
   };
 
-  const handleEmailFallback = () => {
-    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      formData.subject || 'Portfolio Contact from ' + formData.name,
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-    )}`;
-    window.location.href = mailtoUrl;
-  };
+  const mailtoFallback = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+    form.subject || `Portfolio: ${form.name}`,
+  )}&body=${encodeURIComponent(`${form.message}\n\n${form.name} <${form.email}>`)}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      return;
-    }
-
-    setLoading(true);
+    setStatus('sending');
     setErrorMessage('');
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(form),
       });
-
       const data = await res.json();
-
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Có lỗi xảy ra khi gửi tin nhắn.');
+        throw new Error(data.error || t('Chưa gửi được tin nhắn.', 'The message was not sent.'));
       }
-
-      setLoading(false);
-      setFormSubmitted(true);
-
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 },
-      });
+      setStatus('sent');
+      setForm(EMPTY_FORM);
     } catch (err: unknown) {
-      setLoading(false);
-      const message = err instanceof Error ? err.message : 'Không thể kết nối đến máy chủ.';
-      setErrorMessage(message);
+      setStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : t('Không kết nối được máy chủ.', 'Could not reach the server.'));
     }
   };
 
   return (
-    <section id="contact" className="relative py-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <Badge
-            variant="outline"
-            className="border-primary/30 text-primary mb-3 px-3.5 py-1 text-xs tracking-wider uppercase">
-            {t('Liên hệ & Hợp tác', 'Get In Touch')}
-          </Badge>
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            {t('Hãy cùng bắt đầu một dự án mới!', "Let's Build Something Awesome Together!")}
-          </h2>
-          <p className="text-muted-foreground mt-3 text-sm sm:text-base">
+    <Section id="contact" title={t('Liên hệ', 'Contact')} note={t('Thường trả lời trong 24 giờ', 'Usually replies within 24 hours')}>
+      <div className="grid gap-14 lg:grid-cols-9 lg:gap-10">
+        <div className="lg:col-span-4">
+          <p className="prose-serif text-neutral-12">
             {t(
-              'Bạn đang cần phát triển website, xây dựng ứng dụng hoặc trao đổi giải pháp công nghệ? Đừng ngần ngại nhắn tin cho mình nhé.',
-              'Looking for a dedicated software engineer or discussing modern web architectures? Reach out anytime!',
+              'Cần người làm frontend cho một dự án, hay muốn hỏi về bộ màu này? Viết cho mình.',
+              'Need someone on the frontend of a project, or want to ask about this color system? Write to me.',
             )}
           </p>
-        </div>
-
-        {/* Top Badges (Location, Timezone, Availability) */}
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
-          <div className="bg-background/80 glass-panel border-border/60 flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium">
-            <MapPin className="text-primary h-3.5 w-3.5" />
-            <span>{personalInfo.location[language]}</span>
-          </div>
-          <div className="bg-background/80 glass-panel border-border/60 flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium">
-            <Clock className="h-3.5 w-3.5 text-sky-400" />
-            <span>UTC+7 (ICT Timezone)</span>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-500">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-            </span>
-            <span>
-              {t('AVAILABLE FOR FREELANCE & PROJECTS', 'AVAILABLE FOR FREELANCE & PROJECTS')}
-            </span>
-          </div>
-        </div>
-
-        <div className="mb-16 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-          {/* Contact Details & Direct Channels */}
-          <div className="flex flex-col gap-4 lg:col-span-5">
-            {/* Direct Email Card */}
-            <div className="glass-panel border-border/60 rounded-3xl p-6 shadow-xs">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="bg-primary/10 text-primary rounded-2xl p-2.5">
-                  <Mail className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-foreground text-sm font-bold">
-                    {t('Địa chỉ Email trực tiếp', 'Direct Email')}
-                  </h4>
-                  <p className="text-muted-foreground text-xs">
-                    {t('Phản hồi nhanh trong 24 giờ', 'Quick response within 24h')}
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-muted/60 border-border/40 flex items-center justify-between rounded-2xl border p-3 font-mono text-xs sm:text-sm">
-                <span className="text-foreground mr-2 truncate select-all">
-                  {personalInfo.email}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleCopyEmail}
-                  className="hover:bg-background h-8 shrink-0 cursor-pointer gap-1.5 rounded-xl px-2.5 text-xs">
-                  {isCopied ? (
-                    <>
-                      <Check className="h-3.5 w-3.5 text-emerald-500" />
-                      <span className="font-semibold text-emerald-500">
-                        {t('Đã chép!', 'Copied!')}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3.5 w-3.5" />
-                      <span>{t('Sao chép', 'Copy')}</span>
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-
-            {/* GitHub Card */}
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="display-section text-neutral-12 decoration-brand-8 hover:text-brand-11 mt-8 block text-2xl font-semibold break-all underline underline-offset-[6px] sm:text-[1.75rem]">
+            {personalInfo.email}
+          </a>
+          <div className="mt-5 flex flex-wrap gap-5 text-sm font-medium">
+            <button type="button" onClick={copyEmail} className="text-neutral-11 hover:text-neutral-12" aria-live="polite">
+              {isCopied ? t('Đã chép email', 'Email copied') : t('Chép email', 'Copy email')}
+            </button>
             <a
-              href="https://github.com/kachitaro"
+              href={personalInfo.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel border-border/60 hover:border-primary/40 group flex items-center justify-between rounded-3xl p-5 transition-all duration-300 hover:shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="bg-background border-border/50 text-foreground group-hover:text-primary rounded-2xl border p-2.5 transition-colors">
-                  <GithubIcon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-foreground group-hover:text-primary text-sm font-bold transition-colors">
-                    GitHub Profile
-                  </h4>
-                  <p className="text-muted-foreground font-mono text-xs">@kachitaro</p>
-                </div>
-              </div>
-              <Badge variant="outline" className="border-border/60 text-xs">
-                {t('Xem hồ sơ', 'Visit')} ↗
-              </Badge>
+              className="text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
+              <GithubIcon className="h-4 w-4" />
+              GitHub
             </a>
-
-            {/* Telegram Notification Badge */}
-            <div className="glass-panel flex items-center gap-3 rounded-3xl border-sky-500/30 bg-sky-500/5 p-5">
-              <div className="rounded-2xl bg-sky-500/15 p-2.5 text-sky-400">
-                <Zap className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="text-foreground flex items-center gap-1.5 text-sm font-bold">
-                  <span>Telegram Notification Bot</span>
-                  <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                </h4>
-                <p className="text-muted-foreground text-xs">
-                  {t(
-                    'Tin nhắn gửi từ form sẽ thông báo ngay tới điện thoại của mình.',
-                    'Form messages trigger instant notification via Telegram.',
-                  )}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="lg:col-span-7">
-            <Card className="glass-panel border-border/60 rounded-3xl shadow-lg">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-xl font-bold">
-                  <MessageSquare className="text-primary h-5 w-5" />
-                  <span>
-                    {t(
-                      'Gửi tin nhắn nhanh (Tự động qua Telegram)',
-                      'Send Quick Message (via Telegram)',
-                    )}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isFormSubmitted ? (
-                  <div className="animate-in fade-in zoom-in-95 space-y-4 py-8 text-center duration-300">
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 shadow-md">
-                      <Check className="h-7 w-7" />
-                    </div>
-                    <h3 className="text-foreground text-xl font-bold">
-                      {t('Tin nhắn đã được gửi thành công! 🎉', 'Message sent successfully! 🎉')}
-                    </h3>
-                    <p className="text-muted-foreground mx-auto max-w-md text-sm leading-relaxed">
-                      {t(
-                        'Thông báo đã được chuyển tức thì tới Telegram của mình. Mình sẽ phản hồi lại cho bạn qua Email sớm nhất!',
-                        'Your message was sent instantly to my Telegram. I will get back to you via your email shortly!',
-                      )}
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setFormSubmitted(false);
-                        setFormData({ name: '', email: '', subject: '', message: '' });
-                      }}
-                      className="mt-2 rounded-full px-6">
-                      {t('Gửi tin nhắn khác', 'Send another message')}
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Error Banner */}
-                    {errorMessage && (
-                      <div className="bg-destructive/10 border-destructive/30 text-destructive animate-in fade-in flex flex-col gap-2 rounded-2xl border p-3.5 text-xs duration-200">
-                        <div className="flex items-center gap-2 font-semibold">
-                          <AlertCircle className="h-4 w-4 shrink-0" />
-                          <span>{errorMessage}</span>
-                        </div>
-                        <div className="border-destructive/20 text-foreground flex items-center gap-2 border-t pt-1">
-                          <span>
-                            {t(
-                              'Hoặc bạn có thể gửi trực tiếp qua Email:',
-                              'Or you can send directly via Email:',
-                            )}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={handleEmailFallback}
-                            className="text-primary cursor-pointer font-semibold underline hover:opacity-80">
-                            {t('Gửi qua Email ngay', 'Send via Email')}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <div className="space-y-1.5">
-                        <label
-                          htmlFor="contact-name"
-                          className="text-foreground/80 text-xs font-semibold">
-                          {t('Họ và tên *', 'Your Name *')}
-                        </label>
-                        <Input
-                          id="contact-name"
-                          name="name"
-                          required
-                          placeholder={t('Nguyễn Văn A', 'John Doe')}
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="bg-background/60 rounded-xl"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <label
-                          htmlFor="contact-email"
-                          className="text-foreground/80 text-xs font-semibold">
-                          {t('Địa chỉ Email *', 'Your Email *')}
-                        </label>
-                        <Input
-                          id="contact-email"
-                          name="email"
-                          required
-                          type="email"
-                          placeholder="example@gmail.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="bg-background/60 rounded-xl"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label
-                        htmlFor="contact-subject"
-                        className="text-foreground/80 text-xs font-semibold">
-                        {t('Chủ đề', 'Subject')}
-                      </label>
-                      <Input
-                        id="contact-subject"
-                        name="subject"
-                        placeholder={t(
-                          'Dự án Website / Hợp tác phát triển...',
-                          'Website Project / Collaboration inquiry...',
-                        )}
-                        value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="bg-background/60 rounded-xl"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label
-                        htmlFor="contact-message"
-                        className="text-foreground/80 text-xs font-semibold">
-                        {t('Nội dung tin nhắn *', 'Message *')}
-                      </label>
-                      <Textarea
-                        id="contact-message"
-                        name="message"
-                        required
-                        rows={4}
-                        placeholder={t(
-                          'Chia sẻ về ý tưởng dự án hoặc câu hỏi của bạn...',
-                          'Tell me about your project requirements or thoughts...',
-                        )}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="bg-background/60 resize-none rounded-xl"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full cursor-pointer gap-2 rounded-xl py-2.5 text-sm font-medium shadow-md">
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                          <span>{t('Đang gửi tới Telegram...', 'Sending to Telegram...')}</span>
-                        </>
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4" />
-                          <span>{t('Gửi tin nhắn ngay', 'Send Message')}</span>
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
           </div>
         </div>
 
-        {/* Services Grid (What I can help with) */}
-        <div>
-          <div className="mx-auto mb-8 max-w-xl text-center">
-            <h3 className="text-foreground flex items-center justify-center gap-2 font-mono text-xl font-bold">
-              <Sparkles className="h-5 w-5 text-amber-400" />
-              <span>{t('Dịch vụ & Lĩnh vực có thể hỗ trợ', 'What I Can Help With')}</span>
-            </h3>
-          </div>
+        <div className="lg:col-span-5">
+          {status === 'sent' ? (
+            <div className="bg-brand-2 border-brand-6 rounded-xl border p-6" role="status">
+              <p className="text-neutral-12 text-lg font-semibold">{t('Đã gửi tin nhắn.', 'Message sent.')}</p>
+              <p className="text-neutral-11 mt-1 text-[15px]">
+                {t('Mình sẽ trả lời qua email bạn vừa nhập.', "I'll reply to the email you entered.")}
+              </p>
+              <button
+                type="button"
+                onClick={() => setStatus('idle')}
+                className="text-brand-11 mt-4 text-sm font-medium underline underline-offset-4">
+                {t('Gửi tin nhắn khác', 'Send another message')}
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label className="text-neutral-12 block text-sm font-medium">
+                  {t('Tên', 'Name')}
+                  <input required name="name" autoComplete="name" value={form.name} onChange={update('name')} className={fieldClass} />
+                </label>
+                <label className="text-neutral-12 block text-sm font-medium">
+                  Email
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={form.email}
+                    onChange={update('email')}
+                    className={fieldClass}
+                  />
+                </label>
+              </div>
+              <label className="text-neutral-12 block text-sm font-medium">
+                {t('Chủ đề', 'Subject')} <span className="text-neutral-11 font-normal">({t('không bắt buộc', 'optional')})</span>
+                <input name="subject" value={form.subject} onChange={update('subject')} className={fieldClass} />
+              </label>
+              <label className="text-neutral-12 block text-sm font-medium">
+                {t('Nội dung', 'Message')}
+                <textarea
+                  required
+                  name="message"
+                  rows={6}
+                  value={form.message}
+                  onChange={update('message')}
+                  className={`${fieldClass} resize-y`}
+                />
+              </label>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((service, idx) => (
-              <TiltCard key={idx} className="rounded-2xl">
-                <div className="glass-panel border-border/60 hover:border-primary/40 flex h-full flex-col justify-between rounded-2xl p-5 transition-all hover:shadow-md">
-                  <div>
-                    <div className="bg-background/80 border-border/50 mb-3 w-fit rounded-xl border p-2.5">
-                      {serviceIcons[idx % serviceIcons.length]}
-                    </div>
-                    <h4 className="text-foreground mb-1.5 text-sm font-bold">{service.title}</h4>
-                    <p className="text-muted-foreground text-xs leading-relaxed">{service.desc}</p>
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
-          </div>
+              {status === 'error' && (
+                <p className="rounded-lg border-[var(--red-6)] bg-[var(--red-2)] text-[var(--red-11)] border px-4 py-3 text-sm" role="alert">
+                  {errorMessage}{' '}
+                  <a href={mailtoFallback} className="text-neutral-12 font-medium underline underline-offset-4">
+                    {t('Gửi bằng ứng dụng email', 'Send with your email app')}
+                  </a>
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="bg-brand-9 text-brand-contrast hover:bg-brand-10 inline-flex h-11 items-center rounded-lg px-6 text-[15px] font-medium transition-colors disabled:opacity-60">
+                {status === 'sending' ? t('Đang gửi…', 'Sending…') : t('Gửi tin nhắn', 'Send message')}
+              </button>
+            </form>
+          )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

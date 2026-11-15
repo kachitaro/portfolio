@@ -10,8 +10,8 @@ export const projectsData: IProject[] = [
     company: 'Nexpando',
     projectType: 'enterprise',
     status: {
-      vi: 'Đang phát triển (Active Development)',
-      en: 'Active Development',
+      vi: 'Đang phát triển',
+      en: 'In development',
     },
     description: {
       vi: 'Dự án mới hiện tại đang được nghiên cứu và phát triển tại Nexpando. Đảm nhiệm vai trò lập trình viên Frontend, xây dựng các module giao diện người dùng tương tác cao bằng React.js, Next.js và TypeScript theo yêu cầu thiết kế.',
@@ -44,8 +44,8 @@ export const projectsData: IProject[] = [
     company: 'Nexpando',
     projectType: 'enterprise',
     status: {
-      vi: 'Đã triển khai (In Production)',
-      en: 'In Production',
+      vi: 'Đang chạy thật',
+      en: 'In production',
     },
     description: {
       vi: 'Hệ thống website phục vụ nghiệp vụ tìm kiếm chuyến xe, chọn ghế ngồi theo thời gian thực và đặt vé trực tuyến. Tham gia phát triển giao diện người dùng, tối ưu luồng thao tác và kết nối API hệ thống.',
@@ -78,8 +78,8 @@ export const projectsData: IProject[] = [
     company: 'Nexpando',
     projectType: 'enterprise',
     status: {
-      vi: 'Đã triển khai (In Production)',
-      en: 'In Production',
+      vi: 'Đang chạy thật',
+      en: 'In production',
     },
     description: {
       vi: 'Phiên bản V2 của nền tảng thương mại điện tử Vnshop. Tham gia phát triển và tinh chỉnh giao diện hiển thị danh mục sản phẩm, tối ưu giỏ hàng và nâng cao độ mượt khi người dùng duyệt trang.',

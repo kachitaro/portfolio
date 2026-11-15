@@ -1,38 +1,34 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar';
+import { SiteHeader } from '@/components/site-header';
 import { SmoothScroll } from '@/components/smooth-scroll';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ScrollProgress } from '@/components/ui/scroll-progress';
-import { Spotlight } from '@/components/ui/spotlight';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import { accentBootScript, DEFAULT_ACCENT } from '@/context/accent-context';
 import { LanguageProvider } from '@/context/language-context';
 import { config } from '@/data/config';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Bricolage_Grotesque, JetBrains_Mono, Newsreader } from 'next/font/google';
 import '../themes/globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
+  axes: ['wdth', 'opsz'],
   display: 'swap',
-  fallback: [
-    'system-ui',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'sans-serif',
-  ],
-  adjustFontFallback: true,
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const newsreader = Newsreader({
+  variable: '--font-newsreader',
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
+  axes: ['opsz'],
+  style: ['normal', 'italic'],
   display: 'swap',
-  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-  adjustFontFallback: true,
+});
+
+const jetbrains = JetBrains_Mono({
+  variable: '--font-jetbrains',
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -46,54 +42,44 @@ export const metadata: Metadata = {
     description: config.description.long,
     url: config.site,
     siteName: `${config.author.name} Portfolio`,
-    images: [
-      {
-        url: config.ogImg,
-        width: 1200,
-        height: 630,
-        alt: config.author.name,
-      },
-    ],
+    images: [{ url: config.ogImg, width: 1200, height: 630, alt: config.author.name }],
     locale: 'vi_VN',
     type: 'website',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#fcfcfd' },
+    { media: '(prefers-color-scheme: dark)', color: '#111113' },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="vi"
+      data-accent={DEFAULT_ACCENT}
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      className={`${bricolage.variable} ${newsreader.variable} ${jetbrains.variable} h-full antialiased`}>
       <head>
-        <link rel="preconnect" href="https://github.com" />
-
-        <link rel="dns-prefetch" href="https://github.com" />
-
-        <link rel="preconnect" href="https://images.unsplash.com" />
-
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-
-        <link rel="preconnect" href="https://skillicons.dev" />
-
-        <link rel="dns-prefetch" href="https://skillicons.dev" />
+        <script dangerouslySetInnerHTML={{ __html: accentBootScript }} />
       </head>
-      <body className="bg-background text-foreground relative flex min-h-full flex-col overflow-x-hidden transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <body className="relative flex min-h-full flex-col overflow-x-hidden">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <LanguageProvider>
-            <TooltipProvider delay={200}>
-              <ScrollProgress />
-
-              <Spotlight />
-
-              <Navbar />
-
-              <SmoothScroll>
-                <main className="relative z-10 flex-1 pt-14">{children}</main>
-              </SmoothScroll>
-
+            <a
+              href="#main"
+              className="bg-primary text-primary-foreground sr-only z-[60] rounded-md px-3 py-2 text-sm focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
+              Bỏ qua điều hướng
+            </a>
+            <SiteHeader />
+            <SmoothScroll>
+              <main id="main" className="flex-1">
+                {children}
+              </main>
               <Footer />
-            </TooltipProvider>
+            </SmoothScroll>
           </LanguageProvider>
         </ThemeProvider>
       </body>
