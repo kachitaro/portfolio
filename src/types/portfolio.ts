@@ -38,6 +38,10 @@ export interface ISkillItem {
 
 export interface IExperienceItem {
   id: string;
+  /** 'YYYY-MM'. Used to compute the duration so it never goes stale. */
+  start?: string;
+  /** 'YYYY-MM'. Omit for the current role. */
+  end?: string;
   period: {
     vi: string;
     en: string;

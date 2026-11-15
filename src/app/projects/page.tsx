@@ -1,16 +1,6 @@
-import { ProjectsSection } from '@/components/projects-section';
-import type { Metadata } from 'next';
+import { permanentRedirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Dự án Doanh nghiệp (Projects) | John (Anh Tài)',
-  description:
-    'Các dự án doanh nghiệp thực tế quy mô lớn đã và đang phát triển: Nexbus, Vnshop V2, BANA của John (Anh Tài).',
-};
-
-export default function ProjectsPage() {
-  return (
-    <div className="animate-in fade-in-50 py-8 duration-300">
-      <ProjectsSection />
-    </div>
-  );
+// Merged into the home page in the one-page redesign.
+export default function Page() {
+  permanentRedirect('/#work');
 }

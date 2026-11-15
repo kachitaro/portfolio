@@ -76,9 +76,9 @@ ${escapeHtml(message)}
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        chatId: chatId,
+        chat_id: chatId,
         text: telegramText,
-        parseMode: 'HTML',
+        parse_mode: 'HTML',
       }),
     });
 

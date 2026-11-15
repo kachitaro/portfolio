@@ -1,173 +1,145 @@
 'use client';
 
-import React from 'react';
-
-import { ArrowRight, Briefcase, Mail, Terminal } from 'lucide-react';
-import Image from 'next/image';
-
-import { GithubIcon } from '@/components/icons/github-icon';
-import { CtaLink } from '@/components/ui/cta-link';
+import { ACCENTS, useAccent } from '@/context/accent-context';
 import { useLanguage } from '@/context/language-context';
 import { personalInfo } from '@/data/portfolioData';
-import { useGithubProfile } from '@/hooks/use-github-profile';
+import { cn } from '@/lib/utils';
+
+const STEPS = Array.from({ length: 12 }, (_, i) => i + 1);
+
+// What each Radix step is for, so the strip explains itself on hover/focus.
+const STEP_ROLES: Record<number, { vi: string; en: string }> = {
+  1: { vi: 'Nền trang', en: 'App background' },
+  2: { vi: 'Nền phụ', en: 'Subtle background' },
+  3: { vi: 'Nền thành phần', en: 'Component background' },
+  4: { vi: 'Nền khi hover', en: 'Hovered component' },
+  5: { vi: 'Nền khi chọn', en: 'Active component' },
+  6: { vi: 'Viền nhạt', en: 'Subtle border' },
+  7: { vi: 'Viền thành phần', en: 'Component border' },
+  8: { vi: 'Viền khi hover, focus', en: 'Hover border, focus ring' },
+  9: { vi: 'Màu đặc', en: 'Solid' },
+  10: { vi: 'Màu đặc khi hover', en: 'Hovered solid' },
+  11: { vi: 'Chữ có màu', en: 'Low-contrast text' },
+  12: { vi: 'Chữ đậm', en: 'High-contrast text' },
+};
 
 export function HeroSection() {
-  const { language, t } = useLanguage();
-  const roles = personalInfo.roles[language];
-  const { profile } = useGithubProfile('kachitaro');
-  const [currentRoleIndex, setCurrentRoleIndex] = React.useState(0);
-  const [isFadeState, setFadeState] = React.useState(true);
-  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeState(false);
-      timeoutRef.current = setTimeout(() => {
-        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-        setFadeState(true);
-      }, 300);
-    }, 3200);
-
-    return () => {
-      clearInterval(interval);
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [roles.length]);
+  const { t, language } = useLanguage();
+  const { accent, gray, setAccent } = useAccent();
 
   return (
-    <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden pt-24 pb-16">
-      <div className="bg-primary/15 dark:bg-primary/20 pointer-events-none absolute top-1/4 left-1/2 -z-10 h-100 w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]" />
+    <section aria-labelledby="hero-title" className="mx-auto max-w-6xl px-5 pt-14 pb-20 md:px-8 md:pt-24 md:pb-28">
+      <h1
+        id="hero-title"
+        className="display-tight text-neutral-12 max-w-[17ch] text-[2.75rem] font-semibold sm:text-6xl md:text-[5.5rem]">
+        {t(
+          'Mình dựng giao diện web bằng React, Next.js và TypeScript.',
+          'I build web interfaces with React, Next.js and TypeScript.',
+        )}
+      </h1>
 
-      <div className="pointer-events-none absolute top-1/3 left-1/4 -z-10 h-100 w-100 rounded-full bg-sky-500/10 blur-[120px]" />
-
-      <div className="pointer-events-none absolute right-1/4 bottom-1/4 -z-10 h-[300px] w-[300px] rounded-full bg-purple-500/10 blur-[100px]" />
-
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-4 text-center sm:px-6">
-        <div className="border-primary/30 bg-primary/10 animate-in fade-in zoom-in-95 mb-8 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 backdrop-blur-md duration-500">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-          </span>
-          <span className="text-foreground/90 text-xs font-semibold tracking-wide">
-            {t(
-              'Software Engineer tại Nexpando · Open for Freelance',
-              'Software Engineer at Nexpando · Open for Freelance',
-            )}
-          </span>
-        </div>
-
-        {/* Profile Avatar Card */}
-        <div className="group relative mb-6">
-          <div className="ring-primary/30 group-hover:ring-primary/60 bg-background relative h-28 w-28 overflow-hidden rounded-full p-1 shadow-xl ring-4 transition-all duration-300 sm:h-32 sm:w-32">
-            <Image
-              src={profile?.avatarUrl || personalInfo.avatar}
-              alt={personalInfo.name}
-              fill
-              unoptimized
-              sizes="(max-width: 640px) 112px, 128px"
-              className="rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
-              priority
-            />
-          </div>
-          <span
-            className="bg-background/90 border-border absolute right-1 bottom-1 rounded-full border p-1 text-xl shadow-xs"
-            title="Cat Lover 🐱">
-            🐱
-          </span>
-        </div>
-
-        {/* Main Headline */}
-        <h1 className="text-foreground mb-4 max-w-3xl text-3xl leading-[1.15] font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-          {t('Xin chào, mình là', "Hi, I'm")}{' '}
-          <span className="from-primary bg-linear-to-r via-sky-500 to-indigo-600 bg-clip-text text-transparent dark:from-sky-300 dark:via-indigo-300 dark:to-teal-300">
-            {personalInfo.name}
-          </span>
-        </h1>
-
-        {/* Animated Rotating Role Subheadline */}
-        <div className="mb-6 flex h-10 items-center justify-center">
-          <p
-            className={`text-foreground/80 flex items-center gap-2 font-mono text-lg font-medium transition-all duration-300 sm:text-2xl ${
-              isFadeState ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
-            }`}>
-            <Terminal className="text-primary h-5 w-5" />
-            <span>{roles[currentRoleIndex]}</span>
-          </p>
-        </div>
-
-        {/* Bio summary */}
-        <p className="text-muted-foreground mb-8 max-w-2xl text-sm leading-relaxed sm:text-base md:text-lg">
-          {personalInfo.bio[language]}
+      <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12">
+        <p className="prose-serif text-neutral-11 md:col-span-7">
+          {t(
+            'Software engineer tại Nexpando từ 2023, làm frontend cho hệ thống bán vé Nexbus, sàn Vnshop V2 và dự án BANA. Ngoài giờ mình đang nhận thêm việc freelance.',
+            'Software engineer at Nexpando since 2023, building the frontend for the Nexbus ticketing system, the Vnshop V2 marketplace and the BANA platform. I also take on freelance work.',
+          )}
         </p>
-
-        {/* Action Buttons */}
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-3.5">
-          <CtaLink
-            href="/projects"
-            size="lg"
-            icon={<ArrowRight className="h-4 w-4" />}
-            iconPosition="right"
-            className="cursor-pointer gap-2 rounded-full px-6 font-medium shadow-md transition-all hover:shadow-lg">
-            {t('Dự án doanh nghiệp', 'Enterprise Projects')}
-          </CtaLink>
-
-          <CtaLink
-            href="/experience"
-            variant="outline"
-            size="lg"
-            icon={<Briefcase className="text-primary h-4 w-4" />}
-            iconPosition="left"
-            className="glass-panel hover:bg-muted/80 cursor-pointer gap-2 rounded-full px-6 font-medium transition-all">
-            {t('Kinh nghiệm làm việc', 'Experience')}
-          </CtaLink>
-
-          <CtaLink
-            href="/contact"
-            variant="outline"
-            size="lg"
-            icon={<Mail className="text-primary h-4 w-4" />}
-            iconPosition="left"
-            className="glass-panel hover:bg-muted/80 cursor-pointer gap-2 rounded-full px-6 font-medium transition-all">
-            {t('Liên hệ ngay', 'Get in Touch')}
-          </CtaLink>
-
-          <CtaLink
-            href="https://github.com/kachitaro"
-            external
-            variant="outline"
-            size="lg"
-            icon={<GithubIcon className="h-4 w-4" />}
-            iconPosition="left"
-            className="glass-panel hover:bg-muted/80 cursor-pointer gap-2 rounded-full px-5 font-medium transition-all">
-            GitHub
-          </CtaLink>
-        </div>
-
-        {/* Quick Highlights Grid */}
-        <div className="grid w-full max-w-4xl grid-cols-2 gap-3.5 md:grid-cols-4">
-          {personalInfo.aboutDetailed[language].funFacts.slice(0, 4).map((stat, idx) => {
-            const isGithubStat = stat.label.includes('GitHub');
-            const value = isGithubStat && profile ? `${profile.public_repos}+` : stat.value;
-
-            console.log(profile);
-
-            return (
-              <div
-                key={idx}
-                className="glass-panel flex flex-col items-center justify-center rounded-2xl p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                <span className="text-primary font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
-                  {value}
-                </span>
-                <span className="text-muted-foreground mt-1 text-xs font-medium sm:text-sm">
-                  {stat.label}
-                </span>
-              </div>
-            );
-          })}
+        <div className="flex flex-wrap items-start gap-3 md:col-span-5 md:justify-end">
+          <a
+            href="#work"
+            className="bg-brand-9 text-brand-contrast hover:bg-brand-10 inline-flex h-11 items-center rounded-lg px-5 text-[15px] font-medium transition-colors">
+            {t('Xem dự án', 'See the work')}
+          </a>
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="border-neutral-7 text-neutral-12 hover:border-neutral-8 hover:bg-neutral-2 inline-flex h-11 items-center rounded-lg border px-5 text-[15px] font-medium transition-colors">
+            {t('Gửi email', 'Email me')}
+          </a>
         </div>
       </div>
+
+      {/* The color system: this is the one loud thing on the page. */}
+      <figure className="mt-16 md:mt-24" aria-labelledby="scale-caption">
+        <div className="ring-neutral-6 flex h-28 overflow-hidden rounded-xl ring-1 ring-inset sm:h-36 md:h-44" role="list" aria-label={t(`Thang màu ${accent}`, `${accent} scale`)}>
+          {STEPS.map((step) => (
+            <div
+              key={step}
+              role="listitem"
+              tabIndex={0}
+              className="group relative flex flex-1 items-end justify-start p-1.5 outline-offset-[-3px] sm:p-2.5"
+              style={{ backgroundColor: `var(--brand-${step})` }}
+              aria-label={`${step}: ${STEP_ROLES[step][language]}`}>
+              <span
+                className={cn(
+                  'text-[11px] font-medium tabular-nums sm:text-xs',
+                  step >= 9 ? 'text-brand-contrast' : 'text-brand-11',
+                  step >= 11 && 'text-brand-1',
+                )}>
+                {step}
+              </span>
+              <span
+                className="bg-neutral-12 text-neutral-1 pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden -translate-x-1/2 rounded-md px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg group-hover:block group-focus-visible:block"
+                aria-hidden>
+                <code className="font-mono">--{accent}-{step}</code>
+                <span className="text-neutral-8 ml-2">{STEP_ROLES[step][language]}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="ring-neutral-6 mt-1.5 flex h-5 overflow-hidden rounded-md ring-1 ring-inset" aria-hidden>
+          {STEPS.map((step) => (
+            <div key={step} className="flex-1" style={{ backgroundColor: `var(--neutral-${step})` }} />
+          ))}
+        </div>
+
+        <figcaption id="scale-caption" className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
+          <p className="text-neutral-11 text-[15px] leading-relaxed md:col-span-4">
+            {t(
+              'Cả trang chạy trên hai thang 12 bước: một màu nhấn và một màu xám đi kèm. Chọn màu khác để thấy toàn bộ giao diện đổi theo.',
+              'The whole page runs on two 12-step scales: one accent and the gray that pairs with it. Pick another hue and every part of the interface follows.',
+            )}{' '}
+            <span className="text-neutral-12">
+              {t('Đang dùng', 'Now using')} {accent} + {gray}.
+            </span>
+          </p>
+
+          <fieldset className="md:col-span-8 md:justify-self-end">
+            <legend className="sr-only">{t('Chọn màu nhấn cho trang', 'Choose the page accent')}</legend>
+            <div className="flex flex-wrap gap-2">
+              {ACCENTS.map((item) => {
+                const isActive = item.id === accent;
+                return (
+                  <label
+                    key={item.id}
+                    className={cn(
+                      'has-focus-visible:outline-brand-8 flex h-10 cursor-pointer items-center gap-2 rounded-full border pr-3.5 pl-1.5 text-sm transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2',
+                      isActive
+                        ? 'border-neutral-12 text-neutral-12'
+                        : 'border-neutral-6 text-neutral-11 hover:border-neutral-8 hover:text-neutral-12',
+                    )}>
+                    <input
+                      type="radio"
+                      name="accent"
+                      value={item.id}
+                      checked={isActive}
+                      onChange={() => setAccent(item.id)}
+                      className="sr-only"
+                    />
+                    <span
+                      aria-hidden
+                      className="h-7 w-7 rounded-full"
+                      style={{ backgroundColor: `var(--${item.id}-9)` }}
+                    />
+                    <span className="capitalize">{item.id}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+        </figcaption>
+      </figure>
     </section>
   );
 }

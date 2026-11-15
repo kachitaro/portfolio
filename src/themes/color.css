@@ -1,102 +1,197 @@
-/* 1. MÀU TRUNG TÍNH (Grays - Dùng cho Background, Border, Text) */
-@import "@radix-ui/colors/gray.css";
-@import "@radix-ui/colors/gray-dark.css";
-
-@import "@radix-ui/colors/mauve.css";
-@import "@radix-ui/colors/mauve-dark.css";
-
-@import "@radix-ui/colors/slate.css";
-@import "@radix-ui/colors/slate-dark.css";
-
-@import "@radix-ui/colors/sage.css";
-@import "@radix-ui/colors/sage-dark.css";
-
-@import "@radix-ui/colors/olive.css";
-@import "@radix-ui/colors/olive-dark.css";
-
-@import "@radix-ui/colors/sand.css";
-@import "@radix-ui/colors/sand-dark.css";
-
-
-/* 2. MÀU SẮC CHÍNH (Colors - Dùng cho Primary, Secondary, States) */
-@import "@radix-ui/colors/tomato.css";
-@import "@radix-ui/colors/tomato-dark.css";
-
-@import "@radix-ui/colors/red.css";
-@import "@radix-ui/colors/red-dark.css";
-
-@import "@radix-ui/colors/ruby.css";
-@import "@radix-ui/colors/ruby-dark.css";
-
-@import "@radix-ui/colors/crimson.css";
-@import "@radix-ui/colors/crimson-dark.css";
-
-@import "@radix-ui/colors/pink.css";
-@import "@radix-ui/colors/pink-dark.css";
-
-@import "@radix-ui/colors/plum.css";
-@import "@radix-ui/colors/plum-dark.css";
-
-@import "@radix-ui/colors/purple.css";
-@import "@radix-ui/colors/purple-dark.css";
-
-@import "@radix-ui/colors/violet.css";
-@import "@radix-ui/colors/violet-dark.css";
-
-@import "@radix-ui/colors/iris.css";
-@import "@radix-ui/colors/iris-dark.css";
+/* color.css — Radix scales + alias tokens.
+   Only the scales the site actually uses are imported.
+   Each accent is paired with the gray Radix recommends for it. */
 
 @import "@radix-ui/colors/indigo.css";
 @import "@radix-ui/colors/indigo-dark.css";
-
-@import "@radix-ui/colors/blue.css";
-@import "@radix-ui/colors/blue-dark.css";
-
-@import "@radix-ui/colors/cyan.css";
-@import "@radix-ui/colors/cyan-dark.css";
-
 @import "@radix-ui/colors/teal.css";
 @import "@radix-ui/colors/teal-dark.css";
-
-@import "@radix-ui/colors/jade.css";
-@import "@radix-ui/colors/jade-dark.css";
-
-@import "@radix-ui/colors/green.css";
-@import "@radix-ui/colors/green-dark.css";
-
-@import "@radix-ui/colors/grass.css";
-@import "@radix-ui/colors/grass-dark.css";
-
-@import "@radix-ui/colors/bronze.css";
-@import "@radix-ui/colors/bronze-dark.css";
-
-@import "@radix-ui/colors/gold.css";
-@import "@radix-ui/colors/gold-dark.css";
-
-@import "@radix-ui/colors/brown.css";
-@import "@radix-ui/colors/brown-dark.css";
-
-@import "@radix-ui/colors/orange.css";
-@import "@radix-ui/colors/orange-dark.css";
-
-
-/* 3. MÀU SÁNG (Bright Colors - Dùng cho Warning, Alert, Highlights) 
-   Lưu ý: Các màu này thường dùng text tối (đen) ở bước 9 thay vì text trắng */
-@import "@radix-ui/colors/sky.css";
-@import "@radix-ui/colors/sky-dark.css";
-
-@import "@radix-ui/colors/mint.css";
-@import "@radix-ui/colors/mint-dark.css";
-
-@import "@radix-ui/colors/lime.css";
-@import "@radix-ui/colors/lime-dark.css";
-
-@import "@radix-ui/colors/yellow.css";
-@import "@radix-ui/colors/yellow-dark.css";
-
+@import "@radix-ui/colors/tomato.css";
+@import "@radix-ui/colors/tomato-dark.css";
 @import "@radix-ui/colors/amber.css";
 @import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/violet.css";
+@import "@radix-ui/colors/violet-dark.css";
+@import "@radix-ui/colors/grass.css";
+@import "@radix-ui/colors/grass-dark.css";
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/mauve-dark.css";
+@import "@radix-ui/colors/olive.css";
+@import "@radix-ui/colors/olive-dark.css";
+@import "@radix-ui/colors/sage.css";
+@import "@radix-ui/colors/sage-dark.css";
+@import "@radix-ui/colors/sand.css";
+@import "@radix-ui/colors/sand-dark.css";
+@import "@radix-ui/colors/slate.css";
+@import "@radix-ui/colors/slate-dark.css";
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/red-dark.css";
 
+:root,
+[data-accent="indigo"] {
+  --brand-1: var(--indigo-1);
+  --brand-2: var(--indigo-2);
+  --brand-3: var(--indigo-3);
+  --brand-4: var(--indigo-4);
+  --brand-5: var(--indigo-5);
+  --brand-6: var(--indigo-6);
+  --brand-7: var(--indigo-7);
+  --brand-8: var(--indigo-8);
+  --brand-9: var(--indigo-9);
+  --brand-10: var(--indigo-10);
+  --brand-11: var(--indigo-11);
+  --brand-12: var(--indigo-12);
+  --neutral-1: var(--slate-1);
+  --neutral-2: var(--slate-2);
+  --neutral-3: var(--slate-3);
+  --neutral-4: var(--slate-4);
+  --neutral-5: var(--slate-5);
+  --neutral-6: var(--slate-6);
+  --neutral-7: var(--slate-7);
+  --neutral-8: var(--slate-8);
+  --neutral-9: var(--slate-9);
+  --neutral-10: var(--slate-10);
+  --neutral-11: var(--slate-11);
+  --neutral-12: var(--slate-12);
+  --brand-contrast: #ffffff;
+}
 
-@import "@radix-ui/colors/black-alpha.css";
-@import "@radix-ui/colors/white-alpha.css";
+[data-accent="teal"] {
+  --brand-1: var(--teal-1);
+  --brand-2: var(--teal-2);
+  --brand-3: var(--teal-3);
+  --brand-4: var(--teal-4);
+  --brand-5: var(--teal-5);
+  --brand-6: var(--teal-6);
+  --brand-7: var(--teal-7);
+  --brand-8: var(--teal-8);
+  --brand-9: var(--teal-9);
+  --brand-10: var(--teal-10);
+  --brand-11: var(--teal-11);
+  --brand-12: var(--teal-12);
+  --neutral-1: var(--sage-1);
+  --neutral-2: var(--sage-2);
+  --neutral-3: var(--sage-3);
+  --neutral-4: var(--sage-4);
+  --neutral-5: var(--sage-5);
+  --neutral-6: var(--sage-6);
+  --neutral-7: var(--sage-7);
+  --neutral-8: var(--sage-8);
+  --neutral-9: var(--sage-9);
+  --neutral-10: var(--sage-10);
+  --neutral-11: var(--sage-11);
+  --neutral-12: var(--sage-12);
+  --brand-contrast: #ffffff;
+}
+
+[data-accent="tomato"] {
+  --brand-1: var(--tomato-1);
+  --brand-2: var(--tomato-2);
+  --brand-3: var(--tomato-3);
+  --brand-4: var(--tomato-4);
+  --brand-5: var(--tomato-5);
+  --brand-6: var(--tomato-6);
+  --brand-7: var(--tomato-7);
+  --brand-8: var(--tomato-8);
+  --brand-9: var(--tomato-9);
+  --brand-10: var(--tomato-10);
+  --brand-11: var(--tomato-11);
+  --brand-12: var(--tomato-12);
+  --neutral-1: var(--mauve-1);
+  --neutral-2: var(--mauve-2);
+  --neutral-3: var(--mauve-3);
+  --neutral-4: var(--mauve-4);
+  --neutral-5: var(--mauve-5);
+  --neutral-6: var(--mauve-6);
+  --neutral-7: var(--mauve-7);
+  --neutral-8: var(--mauve-8);
+  --neutral-9: var(--mauve-9);
+  --neutral-10: var(--mauve-10);
+  --neutral-11: var(--mauve-11);
+  --neutral-12: var(--mauve-12);
+  --brand-contrast: #ffffff;
+}
+
+[data-accent="amber"] {
+  --brand-1: var(--amber-1);
+  --brand-2: var(--amber-2);
+  --brand-3: var(--amber-3);
+  --brand-4: var(--amber-4);
+  --brand-5: var(--amber-5);
+  --brand-6: var(--amber-6);
+  --brand-7: var(--amber-7);
+  --brand-8: var(--amber-8);
+  --brand-9: var(--amber-9);
+  --brand-10: var(--amber-10);
+  --brand-11: var(--amber-11);
+  --brand-12: var(--amber-12);
+  --neutral-1: var(--sand-1);
+  --neutral-2: var(--sand-2);
+  --neutral-3: var(--sand-3);
+  --neutral-4: var(--sand-4);
+  --neutral-5: var(--sand-5);
+  --neutral-6: var(--sand-6);
+  --neutral-7: var(--sand-7);
+  --neutral-8: var(--sand-8);
+  --neutral-9: var(--sand-9);
+  --neutral-10: var(--sand-10);
+  --neutral-11: var(--sand-11);
+  --neutral-12: var(--sand-12);
+  --brand-contrast: #1d1b16;
+}
+
+[data-accent="violet"] {
+  --brand-1: var(--violet-1);
+  --brand-2: var(--violet-2);
+  --brand-3: var(--violet-3);
+  --brand-4: var(--violet-4);
+  --brand-5: var(--violet-5);
+  --brand-6: var(--violet-6);
+  --brand-7: var(--violet-7);
+  --brand-8: var(--violet-8);
+  --brand-9: var(--violet-9);
+  --brand-10: var(--violet-10);
+  --brand-11: var(--violet-11);
+  --brand-12: var(--violet-12);
+  --neutral-1: var(--mauve-1);
+  --neutral-2: var(--mauve-2);
+  --neutral-3: var(--mauve-3);
+  --neutral-4: var(--mauve-4);
+  --neutral-5: var(--mauve-5);
+  --neutral-6: var(--mauve-6);
+  --neutral-7: var(--mauve-7);
+  --neutral-8: var(--mauve-8);
+  --neutral-9: var(--mauve-9);
+  --neutral-10: var(--mauve-10);
+  --neutral-11: var(--mauve-11);
+  --neutral-12: var(--mauve-12);
+  --brand-contrast: #ffffff;
+}
+
+[data-accent="grass"] {
+  --brand-1: var(--grass-1);
+  --brand-2: var(--grass-2);
+  --brand-3: var(--grass-3);
+  --brand-4: var(--grass-4);
+  --brand-5: var(--grass-5);
+  --brand-6: var(--grass-6);
+  --brand-7: var(--grass-7);
+  --brand-8: var(--grass-8);
+  --brand-9: var(--grass-9);
+  --brand-10: var(--grass-10);
+  --brand-11: var(--grass-11);
+  --brand-12: var(--grass-12);
+  --neutral-1: var(--olive-1);
+  --neutral-2: var(--olive-2);
+  --neutral-3: var(--olive-3);
+  --neutral-4: var(--olive-4);
+  --neutral-5: var(--olive-5);
+  --neutral-6: var(--olive-6);
+  --neutral-7: var(--olive-7);
+  --neutral-8: var(--olive-8);
+  --neutral-9: var(--olive-9);
+  --neutral-10: var(--olive-10);
+  --neutral-11: var(--olive-11);
+  --neutral-12: var(--olive-12);
+  --brand-contrast: #ffffff;
+}

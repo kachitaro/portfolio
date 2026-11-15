@@ -39,6 +39,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     getServerLanguage,
   );
 
+  React.useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   const handleSetLanguage = (lang: TLanguage) => {
     localStorage.setItem(STORAGE_KEY, lang);
     window.dispatchEvent(new Event('storage'));
