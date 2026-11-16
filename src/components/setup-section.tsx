@@ -25,7 +25,10 @@ export function SetupSection() {
     },
     {
       name: 'WezTerm',
-      desc: t('Cấu hình bằng Lua, theme sinh từ một file JSON chung.', 'Configured in Lua, themes generated from one shared JSON file.'),
+      desc: t(
+        'Cấu hình bằng Lua, theme sinh từ một file JSON chung.',
+        'Configured in Lua, themes generated from one shared JSON file.',
+      ),
     },
     {
       name: 'dot add / eject',
@@ -45,12 +48,18 @@ export function SetupSection() {
         )}
       </p>
 
-      <pre className="bg-neutral-12 text-neutral-3 mt-8 overflow-x-auto rounded-xl p-5 font-mono text-[13px] leading-7 md:text-sm">
+      <pre
+        tabIndex={0}
+        aria-label="Terminal commands"
+        className="bg-neutral-12 text-neutral-3 mt-8 overflow-x-auto rounded-xl p-5 font-mono text-[13px] leading-7 md:text-sm">
         <code>
           <span className="text-neutral-8">$ </span>git clone {REPO}.git ~/dotfiles{'\n'}
           <span className="text-neutral-8">$ </span>cd ~/dotfiles{'\n'}
-          <span className="text-neutral-8">$ </span>./scripts/install.ps1   <span className="text-neutral-9"># Windows</span>{'\n'}
-          <span className="text-neutral-8">$ </span>./scripts/install.sh    <span className="text-neutral-9"># Linux, macOS</span>
+          <span className="text-neutral-8">$ </span>./scripts/install.ps1{' '}
+          <span className="text-neutral-9"># Windows</span>
+          {'\n'}
+          <span className="text-neutral-8">$ </span>./scripts/install.sh{' '}
+          <span className="text-neutral-9"># Linux, macOS</span>
         </code>
       </pre>
 
@@ -67,7 +76,7 @@ export function SetupSection() {
         href={REPO}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-11 decoration-brand-7 hover:decoration-brand-11 mt-10 inline-block text-[15px] font-medium underline underline-offset-4">
+        className="tap-target text-brand-11 decoration-brand-7 hover:decoration-brand-11 mt-10 inline-block text-[15px] font-medium underline underline-offset-4">
         {t('Xem repo dotfiles trên GitHub', 'View the dotfiles repo on GitHub')}
       </a>
     </Section>

@@ -17,11 +17,11 @@ export function Footer() {
             href="https://www.radix-ui.com/colors"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-12 underline-offset-4 hover:underline">
+            className="tap-target text-neutral-12 underline-offset-4 hover:underline">
             Radix Colors
           </a>
         </p>
-        <a href="#main" className="text-neutral-12 underline-offset-4 hover:underline">
+        <a href="#main" className="tap-target text-neutral-12 underline-offset-4 hover:underline">
           {t('Lên đầu trang', 'Back to top')}
         </a>
       </div>

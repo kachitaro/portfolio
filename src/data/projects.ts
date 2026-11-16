@@ -14,24 +14,24 @@ export const projectsData: IProject[] = [
       en: 'In development',
     },
     description: {
-      vi: 'Dự án mới hiện tại đang được nghiên cứu và phát triển tại Nexpando. Đảm nhiệm vai trò lập trình viên Frontend, xây dựng các module giao diện người dùng tương tác cao bằng React.js, Next.js và TypeScript theo yêu cầu thiết kế.',
-      en: 'Current ongoing enterprise project at Nexpando. Contributing as a Frontend Developer building interactive UI modules with React.js, Next.js, and TypeScript according to specifications.',
+      vi: 'Nền tảng POS cho hộ kinh doanh cá thể và doanh nghiệp tại Việt Nam, đang chạy thử nghiệm. Mình xây dựng các module tài chính, thanh toán QR, hóa đơn, ca làm việc, sổ cái và báo cáo doanh thu bằng React và TypeScript trên lớp core/base dựa trên React-Admin và React Hook Form.',
+      en: 'A POS platform for individual household businesses and enterprises in Vietnam, currently in pilot. I build the finance, QR payment, invoicing, shift, ledger, and revenue-reporting modules with React and TypeScript on a core/base layer built on React-Admin and React Hook Form.',
     },
     category: 'enterprise',
-    tags: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'RESTful API'],
+    tags: ['React', 'TypeScript', 'Redux', 'React-Admin', 'React Hook Form', 'Tailwind CSS', 'shadcn/ui', 'Astro'],
     image:
       'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
     featured: true,
     highlights: {
       vi: [
-        'Tham gia phát triển các phân hệ giao diện trong dự án mới tại Nexpando',
-        'Áp dụng React.js / Next.js để dựng component giao diện tái sử dụng',
-        'Phối hợp cùng team để kết nối các luồng dữ liệu API backend',
+        'Triển khai các module tài chính, thanh toán QR, hóa đơn, ca làm việc, sổ cái và báo cáo doanh thu',
+        'Xây dựng lớp core/base trên React-Admin và React Hook Form, tái sử dụng cho form và bảng dữ liệu',
+        'Làm việc theo ticket có tiêu chí hoàn thành rõ ràng trong team 14 người, tích hợp RESTful API và Redux',
       ],
       en: [
-        'Contributing to new UI modules and features at Nexpando',
-        'Implementing reusable component structures using React.js / Next.js',
-        'Collaborating with teammates to integrate backend API endpoints',
+        'Delivered finance, QR payment, invoicing, shift, ledger, and revenue-reporting modules',
+        'Built a core/base layer on React-Admin and React Hook Form, reused for forms and data tables',
+        'Worked from tickets with defined acceptance criteria in a 14-person team, integrating RESTful APIs and Redux',
       ],
     },
   },
@@ -82,11 +82,11 @@ export const projectsData: IProject[] = [
       en: 'In production',
     },
     description: {
-      vi: 'Phiên bản V2 của nền tảng thương mại điện tử Vnshop. Tham gia phát triển và tinh chỉnh giao diện hiển thị danh mục sản phẩm, tối ưu giỏ hàng và nâng cao độ mượt khi người dùng duyệt trang.',
-      en: 'V2 upgrade of Vnshop e-commerce platform. Contributed to developing product catalog interfaces, shopping cart flow, and improving overall UI responsiveness.',
+      vi: 'Phiên bản V2 của Vnshop, sản phẩm thương mại điện tử tích hợp trong app VNPAY. Phát triển danh mục sản phẩm, giỏ hàng và trải nghiệm duyệt trang.',
+      en: 'E-commerce product embedded in the VNPAY app. Built the product catalog, cart flow, and browsing experience.',
     },
     category: 'enterprise',
-    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Redux / Zustand', 'RESTful API'],
+    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Redux', 'RESTful API'],
     image:
       'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
     featured: true,
@@ -162,7 +162,6 @@ export const projectsData: IProject[] = [
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
     image: '',
     demoUrl: 'https://universal-dental.gen-nex.tech',
-    githubUrl: 'https://github.com/kachitaro/dental-rebuilds',
     featured: true,
     highlights: {
       vi: [
@@ -197,7 +196,6 @@ export const projectsData: IProject[] = [
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
     image: '',
     demoUrl: 'https://provo-pediatric.gen-nex.tech',
-    githubUrl: 'https://github.com/kachitaro/dental-rebuilds',
     featured: true,
     highlights: {
       vi: [

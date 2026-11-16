@@ -64,8 +64,8 @@ export interface IExperienceItem {
     en: string;
   };
   description: {
-    vi: string;
-    en: string;
+    vi: string[];
+    en: string[];
   };
   skills: string[];
 }

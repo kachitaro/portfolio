@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { Menu, Moon, Sun, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 
@@ -36,7 +37,7 @@ function useActiveSection() {
 }
 
 const iconButton =
-  'text-neutral-11 hover:bg-neutral-3 hover:text-neutral-12 inline-flex h-9 min-w-9 items-center justify-center rounded-md px-2 text-sm font-medium transition-colors';
+  'text-neutral-11 hover:bg-neutral-3 hover:text-neutral-12 inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 text-sm font-medium transition-colors';
 
 export function SiteHeader() {
   const { t, language, toggleLanguage } = useLanguage();
@@ -65,6 +66,7 @@ export function SiteHeader() {
 
   return (
     <header
+      onKeyDown={(event) => event.key === 'Escape' && setMenuOpen(false)}
       className={cn(
         'sticky top-0 z-50 border-b transition-colors duration-200',
         isScrolled || isMenuOpen
@@ -75,7 +77,7 @@ export function SiteHeader() {
         <Link
           href="/"
           onClick={() => setMenuOpen(false)}
-          className="text-neutral-12 text-[15px] font-semibold tracking-tight">
+          className="text-neutral-12 inline-flex min-h-11 items-center gap-1 text-[15px] font-semibold tracking-tight">
           John <span className="text-neutral-11 font-normal">(Anh Tài)</span>
         </Link>
 
@@ -87,12 +89,20 @@ export function SiteHeader() {
                   href={`/#${link.id}`}
                   aria-current={active === link.id ? 'location' : undefined}
                   className={cn(
-                    'rounded-md px-3 py-2 text-sm transition-colors',
+                    'relative inline-flex min-h-11 items-center rounded-md px-3 text-sm transition-colors',
                     active === link.id
                       ? 'text-brand-11 font-medium'
                       : 'text-neutral-11 hover:text-neutral-12',
                   )}>
                   {link.label}
+                  {active === link.id && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      aria-hidden
+                      className="bg-brand-9 absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full"
+                      transition={{ type: 'spring', stiffness: 500, damping: 40 }}
+                    />
+                  )}
                 </a>
               </li>
             ))}
@@ -104,7 +114,7 @@ export function SiteHeader() {
             type="button"
             onClick={toggleLanguage}
             className={iconButton}
-            aria-label={language === 'vi' ? 'Switch to English' : 'Chuyển sang tiếng Việt'}>
+            aria-label={language === 'vi' ? 'EN: Switch to English' : 'VI: Chuyển sang tiếng Việt'}>
             {language === 'vi' ? 'EN' : 'VI'}
           </button>
 
@@ -112,7 +122,11 @@ export function SiteHeader() {
             type="button"
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className={iconButton}
-            aria-label={isDark ? t('Chuyển sang nền sáng', 'Use light theme') : t('Chuyển sang nền tối', 'Use dark theme')}>
+            aria-label={
+              isDark
+                ? t('Chuyển sang nền sáng', 'Use light theme')
+                : t('Chuyển sang nền tối', 'Use dark theme')
+            }>
             <Sun className="hidden h-4 w-4 dark:block" />
             <Moon className="h-4 w-4 dark:hidden" />
           </button>
@@ -141,7 +155,7 @@ export function SiteHeader() {
             className={cn(iconButton, 'md:hidden')}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
-            aria-label={t('Mở menu', 'Open menu')}>
+            aria-label={isMenuOpen ? t('Đóng menu', 'Close menu') : t('Mở menu', 'Open menu')}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>

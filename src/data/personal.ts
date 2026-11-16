@@ -11,26 +11,26 @@ export const personalInfo = {
     en: 'Vietnam 🇻🇳',
   },
   level: {
-    vi: 'Junior+ / Mid-level Developer',
-    en: 'Junior+ / Mid-level Developer',
+    vi: 'Mid-level Frontend Developer',
+    en: 'Mid-level Frontend Developer',
   },
   roles: {
     vi: [
       'Software Engineer @ Nexpando 💻',
       'Frontend / React.js Developer ⚡',
-      'Next.js & TypeScript Enthusiast 🚀',
+      'React, Next.js & TypeScript 🚀',
       'Growing & Learning Every Day 🌱',
     ],
     en: [
       'Software Engineer @ Nexpando 💻',
       'Frontend / React.js Developer ⚡',
-      'Next.js & TypeScript Enthusiast 🚀',
+      'React, Next.js & TypeScript 🚀',
       'Growing & Learning Every Day 🌱',
     ],
   },
   bio: {
-    vi: 'Kỹ sư phần mềm (Software Engineer) tại Nexpando đang trên lộ trình phát triển từ Junior lên Mid-level. Tập trung chuyên sâu vào lập trình Frontend với React.js, TypeScript, Tailwind CSS và Next.js trong các dự án thực tế.',
-    en: 'Software Engineer at Nexpando on the journey from Junior to Mid-level. Focused on Frontend engineering with React.js, TypeScript, Tailwind CSS, and Next.js in production environments.',
+    vi: 'Software Engineer thiên về Frontend tại Nexpando, hơn 3 năm xây dựng các nền tảng web production (Nexbus, Vnshop V2, BANA) bằng React, TypeScript và Next.js.',
+    en: 'Frontend-focused Software Engineer at Nexpando with 3+ years building production web platforms (Nexbus, Vnshop V2, BANA) with React, TypeScript, and Next.js.',
   },
   aboutDetailed: {
     vi: {
@@ -42,7 +42,7 @@ export const personalInfo = {
         '#TeamPlayer',
       ],
       intro:
-        'Xin chào! Mình là John (Anh Tài), hiện đang là Software Engineer tại Nexpando. Mình là một lập trình viên ở giai đoạn giữa Junior và Mid-level, với thế mạnh chính về mảng Frontend. Trong quá trình làm việc tại Nexpando và Techbee Solutions, mình trực tiếp tham gia xây dựng và bảo trì giao diện người dùng cho các hệ thống như nền tảng bán vé Nexbus, sàn thương mại điện tử Vnshop V2 và dự án mới BANA. Mình luôn trân trọng cơ hội được học hỏi từ các anh Senior/Tech Lead trong team, chú trọng viết code rõ ràng, tuân thủ convention và hoàn thành tốt các tính năng được giao.',
+        'Xin chào! Mình là John (Anh Tài), hiện đang là Software Engineer tại Nexpando. Mình là Frontend Engineer với hơn 3 năm kinh nghiệm thực chiến. Tại Nexpando, mình xây dựng từ đầu các nền tảng web B2B như nền tảng bán vé Nexbus, Vnshop V2 (thương mại điện tử trong app VNPAY) và BANA (nền tảng POS cho hộ kinh doanh và doanh nghiệp). Mình viết lớp core/base trên React-Admin và React Hook Form để tái sử dụng giữa các module, làm việc trong team 14 người theo Agile/Scrum, chú trọng code rõ ràng và giao đúng tính năng được giao.',
       visionQuote:
         '“Không ngừng học hỏi mỗi ngày, viết code có trách nhiệm và luôn nỗ lực tạo ra sản phẩm mượt mà, chỉn chu từ từng dòng code nhỏ.”',
       funFacts: [
@@ -79,7 +79,7 @@ export const personalInfo = {
         '#TeamPlayer',
       ],
       intro:
-        "Hi there! I'm John (Anh Tai), currently a Software Engineer at Nexpando. I'm a developer positioned between Junior+ and Mid-level with a primary focus on Frontend engineering. Through my hands-on work at Nexpando and Techbee Solutions, I have contributed to building and maintaining user interfaces for platforms like Nexbus ticketing, Vnshop V2 e-commerce, and the ongoing BANA project. I always strive to learn best practices from Seniors and Tech Leads, maintain clean code standards, and deliver reliable features.",
+        "Hi there! I'm John (Anh Tai), currently a Software Engineer at Nexpando. I'm a frontend engineer with 3+ years of production experience. At Nexpando I built B2B web platforms from scratch: the Nexbus ticketing platform, Vnshop V2 (e-commerce inside the VNPAY app), and BANA (a POS platform for household businesses and enterprises). I wrote the core/base layer on React-Admin and React Hook Form that the modules reuse, work in a 14-person Agile/Scrum team, and care about clear code and reliable delivery.",
       visionQuote:
         '"Learn continuously every day, write responsible code, and take pride in crafting smooth, reliable user experiences from every small detail."',
       funFacts: [

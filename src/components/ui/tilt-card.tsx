@@ -4,18 +4,33 @@ import React from 'react';
 
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 
-const ROTATION_RANGE = 18;
-const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
+import { useMotionPreference } from '@/hooks/use-motion-preference';
+
+const DEFAULT_RANGE = 18;
+
+const HOVER_QUERY = '(hover: hover)';
+const subscribeHover = (callback: () => void) => {
+  const query = window.matchMedia(HOVER_QUERY);
+  query.addEventListener('change', callback);
+  return () => query.removeEventListener('change', callback);
+};
+const getCanHover = () => window.matchMedia(HOVER_QUERY).matches;
 
 export function TiltCard({
   children,
   className = '',
   onClick,
+  range = DEFAULT_RANGE,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  /** Total tilt in degrees across the element. */
+  range?: number;
 }) {
+  const ROTATION_RANGE = range;
+  const HALF_ROTATION_RANGE = range / 2;
+  const { isReducedMotion } = useMotionPreference();
   const ref = React.useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -77,6 +92,16 @@ export function TiltCard({
     x.set(0);
     y.set(0);
   };
+
+  // No hover on touch screens, and no tilt when motion is reduced.
+  const canHover = React.useSyncExternalStore(subscribeHover, getCanHover, () => false);
+  if (isReducedMotion || !canHover) {
+    return (
+      <div className={className} onClick={onClick}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div

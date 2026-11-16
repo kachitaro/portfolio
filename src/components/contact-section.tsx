@@ -11,7 +11,7 @@ import { personalInfo } from '@/data/portfolioData';
 const EMPTY_FORM = { name: '', email: '', subject: '', message: '' };
 
 const fieldClass =
-  'border-neutral-7 bg-neutral-1 text-neutral-12 placeholder:text-neutral-9 hover:border-neutral-8 focus-visible:border-brand-8 mt-2 block w-full rounded-lg border px-3.5 py-2.5 text-[15px] outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand-8';
+  'border-neutral-7 bg-neutral-1 text-neutral-12 placeholder:text-neutral-9 hover:border-neutral-8 focus-visible:border-brand-8 mt-2 block w-full rounded-lg border min-h-11 px-3.5 py-2.5 text-base md:text-[15px] outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand-8';
 
 export function ContactSection() {
   const { t } = useLanguage();
@@ -80,14 +80,14 @@ export function ContactSection() {
           </p>
           <a
             href={`mailto:${personalInfo.email}`}
-            className="display-section text-neutral-12 decoration-brand-8 hover:text-brand-11 mt-8 block text-2xl font-semibold break-all underline underline-offset-[6px] sm:text-[1.75rem]">
+            className="tap-target display-section text-neutral-12 decoration-brand-8 hover:text-brand-11 mt-8 block text-2xl font-semibold break-all underline underline-offset-[6px] sm:text-[1.75rem]">
             {personalInfo.email}
           </a>
           <div className="mt-5 flex flex-wrap gap-5 text-sm font-medium">
             <button
               type="button"
               onClick={copyEmail}
-              className="text-neutral-11 hover:text-neutral-12"
+              className="tap-target text-neutral-11 hover:text-neutral-12"
               aria-live="polite">
               {isCopied ? t('Đã chép email', 'Email copied') : t('Chép email', 'Copy email')}
             </button>
@@ -95,7 +95,7 @@ export function ContactSection() {
               href={personalInfo.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
+              className="tap-target text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
               <GithubIcon className="h-4 w-4" />
               GitHub
             </a>
@@ -104,7 +104,7 @@ export function ContactSection() {
                 href={personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
+                className="tap-target text-neutral-11 hover:text-neutral-12 inline-flex items-center gap-1.5">
                 <LinkedinIcon className="h-4 w-4" />
                 LinkedIn
               </a>
