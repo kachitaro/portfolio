@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'John (Anh Tai) – Frontend Developer, React · Next.js · TypeScript';
+export const alt = 'John (Anh Tai) – Freelance Frontend Developer, React · Next.js · TypeScript';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -53,10 +53,10 @@ export default function OpengraphImage() {
           John (Anh Tai)
         </div>
         <div style={{ fontSize: 40, marginTop: 20, color: '#3a5bc7' }}>
-          Frontend Developer · React · Next.js · TypeScript
+          Freelance Frontend Developer · React · Next.js · TypeScript
         </div>
         <div style={{ fontSize: 28, marginTop: 16, color: '#60646c' }}>
-          Software Engineer at Nexpando · Open to freelance
+          I turn ideas into functional web experiences · Available for projects
         </div>
       </div>
       <div style={{ display: 'flex', height: 28, borderRadius: 8, overflow: 'hidden' }}>

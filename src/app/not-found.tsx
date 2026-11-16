@@ -8,7 +8,7 @@ export default function NotFound() {
   const { t } = useLanguage();
 
   return (
-    <section className="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-5 py-24 md:px-8">
+    <section className="mx-auto flex min-h-[70vh] max-w-[84rem] flex-col justify-center px-5 py-24 md:px-8">
       <p className="text-brand-11 text-sm font-medium">404</p>
       <h1 className="display-tight text-neutral-12 mt-3 max-w-[16ch] text-5xl font-semibold md:text-7xl">
         {t('Không có trang nào ở địa chỉ này.', 'There is no page at this address.')}

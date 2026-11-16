@@ -9,9 +9,26 @@ import Link from 'next/link';
 
 import { useLanguage } from '@/context/language-context';
 import { setMotionPreference, useMotionPreference } from '@/hooks/use-motion-preference';
+import { setInquiryTopic } from '@/lib/inquiry';
 import { cn } from '@/lib/utils';
 
-const SECTION_IDS = ['work', 'experience', 'stack', 'setup', 'contact'] as const;
+const SECTION_IDS = [
+  'work',
+  'services',
+  'process',
+  'about',
+  'experience',
+  'stack',
+  'setup',
+  'contact',
+] as const;
+
+// Sections without their own nav link light up the nearest link that has one.
+const NAV_GROUP: Record<string, string> = {
+  process: 'services',
+  stack: 'experience',
+  setup: 'experience',
+};
 
 function useActiveSection() {
   const [active, setActive] = React.useState<string | null>(null);
@@ -33,7 +50,7 @@ function useActiveSection() {
     return () => observer.disconnect();
   }, []);
 
-  return active;
+  return active ? (NAV_GROUP[active] ?? active) : null;
 }
 
 const iconButton =
@@ -56,9 +73,9 @@ export function SiteHeader() {
 
   const links = [
     { id: 'work', label: t('Dự án', 'Work') },
+    { id: 'services', label: t('Dịch vụ', 'Services') },
+    { id: 'about', label: t('Về mình', 'About') },
     { id: 'experience', label: t('Kinh nghiệm', 'Experience') },
-    { id: 'stack', label: t('Công nghệ', 'Stack') },
-    { id: 'setup', label: 'Setup' },
     { id: 'contact', label: t('Liên hệ', 'Contact') },
   ];
 
@@ -73,7 +90,7 @@ export function SiteHeader() {
           ? 'border-neutral-4 bg-neutral-1/85 backdrop-blur-md'
           : 'border-transparent bg-transparent',
       )}>
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 md:px-8">
+      <div className="mx-auto flex h-16 max-w-[84rem] items-center justify-between gap-6 px-5 md:px-8">
         <Link
           href="/"
           onClick={() => setMenuOpen(false)}
@@ -110,6 +127,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-0.5">
+          <a
+            href="/#contact"
+            onClick={() => setInquiryTopic(null)}
+            className="bg-brand-9 text-brand-contrast hover:bg-brand-10 mr-2 hidden h-11 items-center rounded-lg px-4 text-sm font-medium transition-colors lg:inline-flex">
+            {t('Trao đổi dự án', 'Start a project')}
+          </a>
           <button
             type="button"
             onClick={toggleLanguage}
@@ -175,6 +198,15 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
+          <a
+            href="/#contact"
+            onClick={() => {
+              setInquiryTopic(null);
+              setMenuOpen(false);
+            }}
+            className="bg-brand-9 text-brand-contrast mt-3 inline-flex h-12 w-full items-center justify-center rounded-lg text-base font-medium">
+            {t('Trao đổi dự án', 'Start a project')}
+          </a>
         </nav>
       )}
     </header>

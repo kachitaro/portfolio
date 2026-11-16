@@ -19,7 +19,7 @@ export function Section({ id, title, note, children, className, reveal = true }:
       id={id}
       aria-labelledby={`${id}-title`}
       className={cn('border-neutral-4 scroll-mt-16 border-t', className)}>
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-20 md:grid-cols-12 md:gap-10 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-[84rem] gap-8 px-5 py-20 md:grid-cols-12 md:gap-10 md:px-8 md:py-28">
         <Reveal className="min-w-0 md:col-span-3">
           <div className="md:sticky md:top-28">
             <h2

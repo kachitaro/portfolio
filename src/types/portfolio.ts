@@ -1,39 +1,29 @@
 export type TLanguage = 'vi' | 'en';
 
+export type TLocalized<T = string> = Record<TLanguage, T>;
+
+/** The kinds of enquiry a visitor can start from; used by service CTAs and the contact form. */
+export type TInquiryTopic =
+  'web-app' | 'website' | 'design-to-code' | 'api' | 'maintenance' | 'other';
+
+/** A project written as a case study: what it is, why it exists, who did what, how it was built. */
 export interface IProject {
   id: string;
-  title: {
-    vi: string;
-    en: string;
-  };
-  description: {
-    vi: string;
-    en: string;
-  };
-  category: 'enterprise' | 'frontend' | 'fullstack' | 'webapps';
-  projectType: 'enterprise' | 'personal';
-  status?: {
-    vi: string;
-    en: string;
-  };
-  company?: string;
+  title: TLocalized;
+  /** Where it was built and in what role. */
+  role: TLocalized;
+  /** One sentence: what the product is. */
+  overview: TLocalized;
+  context: TLocalized;
+  /** What I personally built. */
+  contribution: TLocalized<string[]>;
+  /** What belonged to the rest of the team, so my share is not overstated. */
+  team: TLocalized;
+  highlights: TLocalized<string[]>;
   tags: string[];
-  image: string;
-  githubUrl?: string;
   demoUrl?: string;
-  featured: boolean;
-  highlights: {
-    vi: string[];
-    en: string[];
-  };
-}
-
-export interface ISkillItem {
-  name: string;
-  level: number; // 0 - 100
-  category: 'frontend' | 'backend' | 'database' | 'tools';
-  icon: string;
-  badgeColor?: string;
+  /** Which enquiry the "similar project" CTA starts. */
+  topic: TInquiryTopic;
 }
 
 export interface IExperienceItem {

@@ -88,6 +88,15 @@ export const experienceData: IExperienceItem[] = [
         'Translated Figma and Adobe XD designs into responsive layouts across desktop, tablet, and mobile.',
       ],
     },
-    skills: ['React', 'Next.js', 'Tailwind CSS', 'shadcn/ui', 'Tina CMS', 'GraphQL', 'Figma', 'Adobe XD'],
+    skills: [
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Tina CMS',
+      'GraphQL',
+      'Figma',
+      'Adobe XD',
+    ],
   },
 ];

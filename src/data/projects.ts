@@ -1,213 +1,224 @@
 import { type IProject } from '@/types/portfolio';
 
+/**
+ * Case studies. Rules for this file: only facts already stated on the portfolio, no client
+ * figures or outcomes, and no implementation detail that belongs to an employer.
+ */
 export const projectsData: IProject[] = [
   {
     id: 'project-bana',
-    title: {
-      vi: 'Dự án BANA',
-      en: 'BANA Platform',
+    title: { vi: 'BANA, nền tảng POS', en: 'BANA, a POS platform' },
+    role: { vi: 'Frontend engineer tại Nexpando', en: 'Frontend engineer at Nexpando' },
+    overview: {
+      vi: 'Nền tảng POS cho hộ kinh doanh cá thể và doanh nghiệp tại Việt Nam: bán hàng, thanh toán, hóa đơn và theo dõi tài chính.',
+      en: 'A point-of-sale platform for individual household businesses and enterprises in Vietnam: selling, payments, invoicing and financial tracking.',
     },
-    company: 'Nexpando',
-    projectType: 'enterprise',
-    status: {
-      vi: 'Đang phát triển',
-      en: 'In development',
+    context: {
+      vi: 'Người bán cần một nơi để bán hàng, nhận tiền và biết tiền đi đâu về đâu. BANA do một team 14 người (backend, frontend, QC, design) xây dựng.',
+      en: 'Merchants need one place to sell, take payment and see where their money goes. BANA is built by a 14-person team (backend, frontend, QC, design).',
     },
-    description: {
-      vi: 'Nền tảng POS cho hộ kinh doanh cá thể và doanh nghiệp tại Việt Nam, đang chạy thử nghiệm. Mình xây dựng các module tài chính, thanh toán QR, hóa đơn, ca làm việc, sổ cái và báo cáo doanh thu bằng React và TypeScript trên lớp core/base dựa trên React-Admin và React Hook Form.',
-      en: 'A POS platform for individual household businesses and enterprises in Vietnam, currently in pilot. I build the finance, QR payment, invoicing, shift, ledger, and revenue-reporting modules with React and TypeScript on a core/base layer built on React-Admin and React Hook Form.',
-    },
-    category: 'enterprise',
-    tags: ['React', 'TypeScript', 'Redux', 'React-Admin', 'React Hook Form', 'Tailwind CSS', 'shadcn/ui', 'Astro'],
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-    featured: true,
-    highlights: {
+    contribution: {
       vi: [
-        'Triển khai các module tài chính, thanh toán QR, hóa đơn, ca làm việc, sổ cái và báo cáo doanh thu',
-        'Xây dựng lớp core/base trên React-Admin và React Hook Form, tái sử dụng cho form và bảng dữ liệu',
-        'Làm việc theo ticket có tiêu chí hoàn thành rõ ràng trong team 14 người, tích hợp RESTful API và Redux',
+        'Dựng frontend từ đầu cho các module tài chính, thanh toán QR, hóa đơn, ca làm việc, sổ cái và báo cáo doanh thu.',
+        'Viết lớp core/base trên React-Admin và React Hook Form để các module dùng chung cách làm form, bảng dữ liệu và resource.',
+        'Dựng landing page của BANA bằng Astro.',
       ],
       en: [
-        'Delivered finance, QR payment, invoicing, shift, ledger, and revenue-reporting modules',
-        'Built a core/base layer on React-Admin and React Hook Form, reused for forms and data tables',
-        'Worked from tickets with defined acceptance criteria in a 14-person team, integrating RESTful APIs and Redux',
+        'Built the frontend from scratch for the finance, QR payment, invoicing, shift, ledger and revenue-reporting modules.',
+        'Wrote the core/base layer on React-Admin and React Hook Form that these modules share for forms, data tables and resources.',
+        "Built BANA's landing page in Astro.",
       ],
     },
-  },
-  {
-    id: 'project-nexbus',
-    title: {
-      vi: 'Hệ thống Bán vé Trực tuyến Nexbus',
-      en: 'Nexbus Online Ticketing Platform',
+    team: {
+      vi: 'Backend, QC và thiết kế do các thành viên khác trong team đảm nhận. Công việc chạy theo sprint Agile/Scrum, từ ticket có phạm vi và tiêu chí hoàn thành rõ ràng.',
+      en: 'Backend, QA and design were handled by other team members. Work ran in Agile/Scrum sprints, from tickets with defined scope and acceptance criteria.',
     },
-    company: 'Nexpando',
-    projectType: 'enterprise',
-    status: {
-      vi: 'Đang chạy thật',
-      en: 'In production',
-    },
-    description: {
-      vi: 'Hệ thống website phục vụ nghiệp vụ tìm kiếm chuyến xe, chọn ghế ngồi theo thời gian thực và đặt vé trực tuyến. Tham gia phát triển giao diện người dùng, tối ưu luồng thao tác và kết nối API hệ thống.',
-      en: 'Production web ticketing platform designed for journey schedule searching, interactive seat selection, and online booking. Contributed to building frontend workflows and API integrations.',
-    },
-    category: 'enterprise',
-    tags: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'State Management', 'REST API'],
-    image:
-      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1000&auto=format&fit=crop',
-    featured: true,
     highlights: {
       vi: [
-        'Xây dựng giao diện tìm kiếm tuyến đường và sơ đồ chọn ghế ngồi trực quan',
-        'Phát triển luồng điền thông tin hành khách và xác nhận đặt chỗ',
-        'Đảm bảo giao diện hiển thị mượt mà trên cả máy tính và điện thoại',
+        'Một lớp nền chung để màn hình quản trị mới tái sử dụng cùng cách xử lý form, bảng và kiểm tra dữ liệu',
+        'Các màn hình liên quan đến tiền (thanh toán, sổ cái, báo cáo) cần hiển thị chính xác và nhập liệu rõ ràng',
+        'TypeScript xuyên suốt, giao diện dựng bằng Tailwind CSS và shadcn/ui, trạng thái phía client quản lý bằng Redux',
       ],
       en: [
-        'Built interactive trip searching and visual seat selection layout',
-        'Developed passenger information checkout form and booking confirmation',
-        'Ensured responsive rendering across both desktop and mobile screens',
+        'A shared base so new back-office screens reuse the same form, table and validation behavior',
+        'Money-related screens (payments, ledger, reports) that need precise data display and clear input',
+        'TypeScript throughout, UI on Tailwind CSS and shadcn/ui, client state managed with Redux',
       ],
     },
+    tags: [
+      'React',
+      'TypeScript',
+      'Redux',
+      'React-Admin',
+      'React Hook Form',
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Astro',
+    ],
+    topic: 'web-app',
   },
   {
     id: 'project-vnshop-v2',
     title: {
-      vi: 'Sàn Thương mại Điện tử Vnshop V2',
-      en: 'Vnshop V2 E-Commerce Platform',
+      vi: 'Vnshop V2, thương mại điện tử trong app VNPAY',
+      en: 'Vnshop V2, e-commerce inside the VNPAY app',
     },
-    company: 'Nexpando',
-    projectType: 'enterprise',
-    status: {
-      vi: 'Đang chạy thật',
-      en: 'In production',
+    role: { vi: 'Frontend engineer tại Nexpando', en: 'Frontend engineer at Nexpando' },
+    overview: {
+      vi: 'Phiên bản V2 của Vnshop, sản phẩm thương mại điện tử B2B tích hợp trong app VNPAY.',
+      en: 'The V2 of Vnshop, a B2B e-commerce product embedded in the VNPAY app.',
     },
-    description: {
-      vi: 'Phiên bản V2 của Vnshop, sản phẩm thương mại điện tử tích hợp trong app VNPAY. Phát triển danh mục sản phẩm, giỏ hàng và trải nghiệm duyệt trang.',
-      en: 'E-commerce product embedded in the VNPAY app. Built the product catalog, cart flow, and browsing experience.',
+    context: {
+      vi: 'Người dùng duyệt danh mục, lọc sản phẩm và đưa vào giỏ hàng ngay trong app VNPAY, nên giao diện phải nhanh và rõ ràng ngay từ lần chạm đầu tiên.',
+      en: 'Shoppers browse a catalog, filter products and add to cart without leaving the VNPAY app, so the interface has to be quick and clear from the first tap.',
     },
-    category: 'enterprise',
-    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Redux', 'RESTful API'],
-    image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-    featured: true,
-    highlights: {
+    contribution: {
       vi: [
-        'Phát triển các component danh mục sản phẩm và bộ lọc tìm kiếm',
-        'Cải thiện hiệu năng render giao diện và thời gian phản hồi thao tác',
-        'Xử lý cập nhật số lượng giỏ hàng và đồng bộ state phía client',
+        'Dựng frontend từ đầu bằng React và TypeScript.',
+        'Làm các component danh mục sản phẩm và bộ lọc theo nhiều thuộc tính.',
+        'Xử lý luồng giỏ hàng: cập nhật số lượng và đồng bộ trạng thái phía client.',
       ],
       en: [
-        'Developed product listing components and multi-attribute filter UI',
-        'Improved UI render responsiveness and client-side interaction flow',
-        'Handled cart item quantities and state synchronization on client',
+        'Built the frontend from scratch with React and TypeScript.',
+        'Developed the product catalog components and multi-attribute filters.',
+        'Handled the cart flow: quantity updates and client-side state synchronization.',
       ],
     },
+    team: {
+      vi: 'Làm trong team của Nexpando; dữ liệu đến từ các API backend do team cung cấp.',
+      en: "Built within Nexpando's team; data came from the backend APIs the team provided.",
+    },
+    highlights: {
+      vi: [
+        'Bộ lọc tìm kiếm theo nhiều thuộc tính',
+        'Cải thiện hiệu năng render và độ mượt của thao tác phía client',
+        'Quản lý state bằng Redux, tích hợp RESTful API',
+      ],
+      en: [
+        'Multi-attribute filter UI for searching the catalog',
+        'Improved render performance and the smoothness of client-side interactions',
+        'State managed with Redux, integrated with RESTful APIs',
+      ],
+    },
+    tags: ['React', 'TypeScript', 'Redux', 'Tailwind CSS', 'RESTful API'],
+    topic: 'web-app',
+  },
+  {
+    id: 'project-nexbus',
+    title: {
+      vi: 'Nexbus, hệ thống bán vé xe trực tuyến',
+      en: 'Nexbus, an online bus ticketing platform',
+    },
+    role: { vi: 'Frontend engineer tại Nexpando', en: 'Frontend engineer at Nexpando' },
+    overview: {
+      vi: 'Hệ thống web để tìm chuyến xe, chọn ghế trực quan và đặt vé trực tuyến.',
+      en: 'A web platform for searching bus trips, choosing seats visually and booking online.',
+    },
+    context: {
+      vi: 'Một luồng đặt vé nơi người dùng so sánh chuyến, chọn ghế và nhập thông tin hành khách phải rõ ràng trên cả máy tính lẫn điện thoại.',
+      en: 'A booking flow where people compare trips, choose seats and enter passenger details has to stay clear on both desktop and mobile.',
+    },
+    contribution: {
+      vi: [
+        'Dựng giao diện tìm tuyến và sơ đồ chọn ghế.',
+        'Phát triển form thông tin hành khách và màn hình xác nhận đặt chỗ.',
+        'Dựng landing page cho các đối tác của Nexbus bằng Next.js.',
+      ],
+      en: [
+        'Built the trip search interface and the seat selection layout.',
+        'Developed the passenger information form and booking confirmation.',
+        "Built landing pages for Nexbus's partners with Next.js.",
+      ],
+    },
+    team: {
+      vi: 'Làm trong team sản phẩm của Nexpando; API và thiết kế do các thành viên khác phụ trách.',
+      en: "Part of Nexpando's product team; APIs and design were handled by other members.",
+    },
+    highlights: {
+      vi: [
+        'Sơ đồ ghế tương tác, dùng được trên cả màn hình lớn và nhỏ',
+        'Form thông tin hành khách và màn hình xác nhận đặt chỗ',
+        'Layout responsive cho máy tính và điện thoại',
+      ],
+      en: [
+        'An interactive seat map that works on both large and small screens',
+        'A passenger information form and booking confirmation',
+        'Responsive layouts for desktop and mobile',
+      ],
+    },
+    tags: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'RESTful API'],
+    topic: 'website',
   },
   {
     id: 'project-gopy-csr-portal',
-    title: {
-      vi: 'Cổng quản trị CSR Portal của Gopy',
-      en: 'Gopy CSR Admin Portal',
+    title: { vi: 'Gopy, cổng quản trị CSR', en: 'Gopy, a CSR admin portal' },
+    role: { vi: 'Developer tại Techbee Solutions', en: 'Developer at Techbee Solutions' },
+    overview: {
+      vi: 'Trang quản trị cho Gopy, mạng xã hội về trách nhiệm xã hội doanh nghiệp (CSR) kết nối doanh nghiệp, hiệp hội, influencer và người lao động.',
+      en: 'The admin portal for Gopy, a corporate social responsibility (CSR) social network connecting companies, associations, influencers and employees.',
     },
-    company: 'Techbee Solutions',
-    projectType: 'enterprise',
-    status: {
-      vi: 'Dự án khách hàng',
-      en: 'Client project',
+    context: {
+      vi: 'Quản trị viên cần duyệt tài khoản, điều phối nhóm chat, gửi khảo sát và so sánh kết quả đánh giá giữa doanh nghiệp và influencer.',
+      en: 'Admins need to approve accounts, manage chat groups, send surveys and compare assessment results between companies and influencers.',
     },
-    description: {
-      vi: 'Trang quản trị cho Gopy, mạng xã hội về trách nhiệm xã hội doanh nghiệp (CSR) kết nối doanh nghiệp, hiệp hội, influencer và người lao động. Khi làm ở Techbee Solutions, mình phát triển các phân hệ duyệt tài khoản, nhóm chat, khảo sát và đánh giá doanh nghiệp (self-assessment).',
-      en: 'Admin portal for Gopy, a corporate social responsibility (CSR) social network connecting companies, associations, influencers and employees. At Techbee Solutions I built the account approval, group chat, survey and company self-assessment modules.',
-    },
-    category: 'enterprise',
-    tags: ['React.js', 'JavaScript', 'GraphQL', 'REST API', 'Dynamic Forms', 'Excel / PDF export'],
-    image: '',
-    featured: true,
-    highlights: {
+    contribution: {
       vi: [
-        'Tài khoản: trang duyệt tài khoản người dùng theo công ty (lọc, duyệt hoặc từ chối) và trang Influencer requests để influencer gửi, huỷ yêu cầu kết nối hoặc gỡ liên kết với doanh nghiệp',
-        'Group Chat: quản lý nhóm công khai và riêng tư, duyệt thành viên vào nhóm riêng, thêm/xoá và chặn/bỏ chặn người dùng trong nhóm',
-        'Khảo sát: tạo khảo sát với 6 loại câu hỏi (Text, Radio, Checkbox, Radio Grid, Checkbox Grid, Level), lên lịch Q&A một lần hoặc lặp theo tuần/tháng/năm và gửi theo công ty, khu vực hoặc nhóm chat',
-        'Attribute report: trình dựng biểu mẫu dạng cây cho admin, mỗi node có kiểu dữ liệu riêng (text, number, select, radio, checkbox, ngày giờ…), đơn vị, màu chữ, và có thể tự điền dữ liệu công ty qua GraphQL',
-        'Luồng đánh giá: lên lịch đợt đánh giá định kỳ hoặc theo yêu cầu và giao cho influencer; doanh nghiệp (My assessment) và influencer (Influencer input) cùng điền, review rồi nộp để admin so sánh và duyệt hoặc trả lại',
-        'Kết quả đánh giá: lọc theo tổ chức, đợt đánh giá, khoảng thời gian và nhóm câu hỏi, tính độ lệch giữa hai bên và xuất Excel/PDF',
+        'Duyệt tài khoản theo công ty và quản lý yêu cầu kết nối của influencer.',
+        'Quản lý nhóm chat công khai và riêng tư.',
+        'Trình dựng khảo sát và lên lịch Q&A.',
+        'Trình dựng biểu mẫu dạng cây và luồng đánh giá giữa doanh nghiệp và influencer.',
       ],
       en: [
-        'Accounts: a page to approve users by company (filter, approve or reject) and an Influencer requests page where influencers send or cancel connection requests and remove links with companies',
-        'Group Chat: management of public and private groups, approving members into private groups, adding/removing and blocking/unblocking users',
-        'Surveys: survey builder with 6 question types (Text, Radio, Checkbox, Radio Grid, Checkbox Grid, Level), Q&A scheduling as one-off or weekly/monthly/yearly, targeted by company, location or chat group',
-        'Attribute report: a tree-based form builder for admins where each node has its own data type (text, number, select, radio, checkbox, date…), unit and text style, and can prefill company data through GraphQL',
-        'Assessment flow: scheduling periodic or on-request assessments and assigning them to influencers; companies (My assessment) and influencers (Influencer input) fill, review and submit their forms so the admin can compare and approve or send them back',
-        'Assessment results: filters by organization, campaign, date range and question group, deviation between the two sides, and Excel/PDF export',
+        'Account approval by company and management of influencer connection requests.',
+        'Management of public and private chat groups.',
+        'A survey builder and Q&A scheduling.',
+        'A tree-based form builder and the assessment flow between companies and influencers.',
       ],
     },
+    team: {
+      vi: 'Các module trên là phần mình làm khi ở Techbee Solutions; mình không đề cập các phần còn lại của sản phẩm.',
+      en: "The modules above are the ones I built at Techbee Solutions; I don't cover the rest of the product here.",
+    },
+    highlights: {
+      vi: [
+        'Khảo sát với 6 loại câu hỏi, lên lịch một lần hoặc lặp theo tuần, tháng, năm',
+        'Biểu mẫu dạng cây, mỗi node có kiểu dữ liệu riêng và có thể tự điền dữ liệu công ty qua GraphQL',
+        'Kết quả đánh giá: lọc theo tổ chức, đợt và khoảng thời gian, tính độ lệch giữa hai bên, xuất Excel/PDF',
+      ],
+      en: [
+        'Surveys with 6 question types, scheduled once or repeating weekly, monthly or yearly',
+        'A tree-based form builder where each node has its own data type and can prefill company data through GraphQL',
+        'Assessment results: filters by organization, campaign and date range, deviation between the two sides, Excel/PDF export',
+      ],
+    },
+    tags: ['React', 'JavaScript', 'GraphQL', 'REST API', 'Dynamic Forms', 'Excel / PDF export'],
+    topic: 'web-app',
   },
+];
+
+/** Websites rebuilt from original designs for this portfolio; not current client work. */
+export const rebuildsData = [
   {
-    id: 'project-universal-dental',
+    id: 'rebuild-universal-dental',
     title: {
-      vi: 'Website Nha khoa Universal Dental (dựng lại)',
-      en: 'Universal Dental Website (rebuild)',
+      vi: 'Universal Dental (Irvine, California)',
+      en: 'Universal Dental (Irvine, California)',
     },
-    company: 'Techbee Solutions',
-    projectType: 'personal',
-    status: {
-      vi: 'Dựng lại cho portfolio',
-      en: 'Portfolio rebuild',
+    note: {
+      vi: 'Website nha khoa thiết kế năm 2022 khi mình làm ở Techbee Solutions. Mình dựng lại từ file Adobe XD gốc: responsive từ 1366px xuống 390px, carousel dùng được bằng bàn phím.',
+      en: 'A dental clinic site designed in 2022 during my time at Techbee Solutions. I rebuilt it from the original Adobe XD file: responsive from 1366px down to 390px, with keyboard-usable carousels.',
     },
-    description: {
-      vi: 'Website cho phòng khám nha khoa Universal Dental ở Irvine, California, thiết kế năm 2022 khi mình làm ở Techbee Solutions. Mình dựng lại trang chủ, trang dịch vụ, trang chi tiết Dental Implants và trang liên hệ từ file Adobe XD gốc.',
-      en: 'Website for the Universal Dental clinic in Irvine, California, designed in 2022 during my time at Techbee Solutions. I rebuilt the home, services, dental implants and contact pages from the original Adobe XD file.',
-    },
-    category: 'frontend',
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
-    image: '',
     demoUrl: 'https://universal-dental.gen-nex.tech',
-    featured: true,
-    highlights: {
-      vi: [
-        'Đọc trực tiếp dữ liệu artboard trong file .xd để lấy đúng màu, cỡ chữ, khoảng cách và nội dung',
-        'Responsive từ desktop 1366px xuống mobile 390px, carousel bác sĩ và đánh giá có điều khiển bàn phím',
-        'Form liên hệ dạng demo, ảnh xuất sang WebP, font tự host nên build không cần mạng',
-      ],
-      en: [
-        'Read the artboard data inside the .xd file to match colors, type sizes, spacing and copy exactly',
-        'Responsive from the 1366px desktop design down to 390px mobile, with keyboard-usable doctor and review carousels',
-        'Demo contact form, images converted to WebP, self-hosted fonts so the build needs no network',
-      ],
-    },
   },
   {
-    id: 'project-provo-pediatric',
-    title: {
-      vi: 'Website Nha khoa Nhi Provo Pediatric (dựng lại)',
-      en: 'Provo Pediatric Dentistry Website (rebuild)',
+    id: 'rebuild-provo-pediatric',
+    title: { vi: 'Provo Pediatric Dentistry (Utah)', en: 'Provo Pediatric Dentistry (Utah)' },
+    note: {
+      vi: 'Website nha khoa nhi thiết kế năm 2022 khi mình làm ở Techbee Solutions, dựng lại từ file Adobe XD gốc, với 16 dịch vụ và 2 cơ sở dùng chung một nguồn dữ liệu.',
+      en: 'A pediatric dental site designed in 2022 during my time at Techbee Solutions, rebuilt from the original Adobe XD file, with 16 services and 2 locations sharing one data source.',
     },
-    company: 'Techbee Solutions',
-    projectType: 'personal',
-    status: {
-      vi: 'Dựng lại cho portfolio',
-      en: 'Portfolio rebuild',
-    },
-    description: {
-      vi: 'Website cho phòng khám nha khoa nhi Provo Pediatric Dentistry ở Utah (Dr. Bott, Dr. Lund, Dr. Markham), thiết kế năm 2022 khi mình làm ở Techbee Solutions. Mình dựng lại trang chủ, trang dịch vụ, trang Dental Crowns và trang liên hệ từ file Adobe XD gốc.',
-      en: 'Website for Provo Pediatric Dentistry in Utah (Dr. Bott, Dr. Lund, Dr. Markham), designed in 2022 during my time at Techbee Solutions. I rebuilt the home, services, dental crowns and contact pages from the original Adobe XD file.',
-    },
-    category: 'frontend',
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Adobe XD'],
-    image: '',
     demoUrl: 'https://provo-pediatric.gen-nex.tech',
-    featured: true,
-    highlights: {
-      vi: [
-        'Xuất các hình minh hoạ vector (sinh vật biển, icon, phong bì) từ file XD thành ảnh nhẹ',
-        'Form liên hệ đặt trong phong bì mở và dải sóng biển, giữ đúng bố cục thiết kế trên mọi kích thước màn hình',
-        'Dữ liệu 16 dịch vụ và 2 cơ sở dùng chung cho trang dịch vụ, menu và footer',
-      ],
-      en: [
-        'Exported the vector illustrations (sea creatures, icons, envelope) from the XD file as light images',
-        'Contact form set inside an open envelope over an ocean band, holding the design’s layout at every screen size',
-        'One data source for the 16 services and 2 locations, shared by the services page, menus and footer',
-      ],
-    },
   },
 ];

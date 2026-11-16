@@ -6,9 +6,11 @@ import { SmoothScroll } from '@/components/smooth-scroll';
 import { ThemeProvider } from '@/components/theme-provider';
 import { accentBootScript, DEFAULT_ACCENT } from '@/context/accent-context';
 import { MotionProvider } from '@/components/motion/motion';
+import { ScrollRuler } from '@/components/scroll-ruler';
 import { LazyMount } from '@/components/three/lazy-mount';
 import { ParticleField } from '@/components/three/lazy-scenes';
 import { LanguageProvider } from '@/context/language-context';
+import { rulerBootScript } from '@/lib/ruler';
 import { config } from '@/data/config';
 import '@fontsource-variable/bricolage-grotesque/standard.css';
 import '@fontsource-variable/jetbrains-mono';
@@ -65,7 +67,14 @@ const jsonLd = {
       jobTitle: config.jobTitle,
       worksFor: { '@type': 'Organization', name: config.worksFor },
       address: { '@type': 'PostalAddress', addressCountry: 'VN' },
-      knowsAbout: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Frontend development'],
+      knowsAbout: [
+        'React',
+        'Next.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'Frontend development',
+        'Web application development',
+      ],
       sameAs: config.sameAs,
     },
     {
@@ -95,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className="h-full antialiased">
       <head>
         <script dangerouslySetInnerHTML={{ __html: accentBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: rulerBootScript }} />
         <noscript>
           <style>
             {'[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}'}
@@ -118,6 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               Bỏ qua điều hướng
             </a>
             <MotionProvider>
+              <ScrollRuler />
               <LazyMount when="idle">
                 <ParticleField />
               </LazyMount>

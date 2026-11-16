@@ -1,11 +1,11 @@
 import { personalInfo } from './personal';
 
 export const config = {
-  title: 'John (Anh Tài) | Frontend Developer – React, Next.js, TypeScript',
+  title: 'John (Anh Tài) | Freelance Frontend Developer – React, Next.js, TypeScript',
   description: {
     short:
-      'John (Anh Tài, @kachitaro) – Software Engineer tại Nexpando, chuyên frontend với React, Next.js và TypeScript. Xem dự án Nexbus, Vnshop V2, BANA, Gopy CSR Portal và nhận việc freelance.',
-    long: 'Portfolio of John (Anh Tài), a frontend-focused Software Engineer at Nexpando building production web apps with React.js, Next.js and TypeScript: the Nexbus ticketing platform, the Vnshop V2 marketplace, BANA and the Gopy CSR admin portal. Open to freelance work.',
+      'Mình là John, software engineer thiên về frontend ở Việt Nam. Mình biến ý tưởng thành web app, dashboard và website chạy tốt bằng React, Next.js và TypeScript. Đang nhận dự án freelance.',
+    long: 'John (Anh Tài) is a frontend-focused software engineer in Vietnam who turns ideas into functional web experiences: web applications, dashboards and websites built with React, Next.js and TypeScript. Experience with ticketing, e-commerce and POS platforms. Available for freelance projects.',
   },
   keywords: [
     'kachitaro',
@@ -17,6 +17,9 @@ export const config = {
     'TypeScript Developer',
     'Software Engineer',
     'Freelance Frontend Developer',
+    'Freelance web developer Vietnam',
+    'Web application development',
+    'Dashboard development',
     'lập trình viên frontend',
     'Nexpando',
     'Nexbus',

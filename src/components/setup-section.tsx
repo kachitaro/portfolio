@@ -1,5 +1,6 @@
 'use client';
 
+import { ColorSystem } from '@/components/color-system';
 import { Section } from '@/components/section';
 import { useLanguage } from '@/context/language-context';
 
@@ -40,7 +41,7 @@ export function SetupSection() {
   ];
 
   return (
-    <Section id="setup" title="Setup" note=".dotfiles">
+    <Section id="setup" title={t('Môi trường làm việc', 'Developer setup')} note=".dotfiles">
       <p className="prose-serif text-neutral-12">
         {t(
           'Môi trường làm việc của mình trên Windows và Linux, gói trong một repo. Clone về, chạy một script là có đủ.',
@@ -79,6 +80,10 @@ export function SetupSection() {
         className="tap-target text-brand-11 decoration-brand-7 hover:decoration-brand-11 mt-10 inline-block text-[15px] font-medium underline underline-offset-4">
         {t('Xem repo dotfiles trên GitHub', 'View the dotfiles repo on GitHub')}
       </a>
+
+      <div className="mt-16">
+        <ColorSystem />
+      </div>
     </Section>
   );
 }

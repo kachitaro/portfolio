@@ -7,7 +7,7 @@ import { Section } from '@/components/section';
 import { LazyMount } from '@/components/three/lazy-mount';
 import { SkillsScene } from '@/components/three/lazy-scenes';
 import { useLanguage } from '@/context/language-context';
-import { personalInfo, toolchainGroups } from '@/data/portfolioData';
+import { stackIntro, toolchainGroups } from '@/data/portfolioData';
 
 // Same order and colours as the orbits in the 3D scene.
 const GROUP_SWATCH = ['bg-brand-9', 'bg-neutral-12', 'bg-brand-7', 'bg-neutral-9'];
@@ -24,7 +24,7 @@ export function StackSection() {
     <Section id="stack" reveal={false} title={t('Công nghệ', 'Stack')}>
       <Stagger gap={0.07}>
         <Item as="p" className="prose-serif text-neutral-12">
-          {personalInfo.bio[language]}
+          {stackIntro[language]}
         </Item>
 
         {!isSkillsHidden && (
@@ -71,18 +71,6 @@ export function StackSection() {
             </Item>
           ))}
         </div>
-
-        <Item as="h3" className="text-neutral-12 mt-16 text-base font-semibold">
-          {t('Việc mình nhận', 'What I can take on')}
-        </Item>
-        <dl className="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2">
-          {personalInfo.services[language].map((service) => (
-            <Item key={service.title}>
-              <dt className="text-neutral-12 text-[15px] font-medium">{service.title}</dt>
-              <dd className="text-neutral-11 mt-1 text-[15px] leading-relaxed">{service.desc}</dd>
-            </Item>
-          ))}
-        </dl>
       </Stagger>
     </Section>
   );

@@ -1,9 +1,9 @@
 /* globals.css */
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "lenis/dist/lenis.css";
-@import "./color.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import 'lenis/dist/lenis.css';
+@import './color.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -109,7 +109,9 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-feature-settings: "kern" 1, "liga" 1;
+    font-feature-settings:
+      'kern' 1,
+      'liga' 1;
     text-rendering: optimizeLegibility;
   }
 
@@ -130,11 +132,20 @@
   font-family: var(--font-serif);
   font-size: clamp(1rem, 0.93rem + 0.3vw, 1.125rem);
   line-height: 1.7;
-  font-variation-settings: "opsz" 18;
+  font-variation-settings: 'opsz' 18;
   max-width: 64ch;
 }
 
 /* A larger hit area for small inline links, without changing their layout. */
+/* Scroll ruler: the native scrollbar steps aside and its gutter becomes the rail. */
+html[data-ruler='on'] {
+  scrollbar-width: none;
+  padding-right: 44px;
+}
+html[data-ruler='on']::-webkit-scrollbar {
+  display: none;
+}
+
 .tap-target {
   position: relative;
 }
@@ -149,13 +160,17 @@
 
 /* Hero headline: Bricolage pulled narrow and tight. */
 .display-tight {
-  font-variation-settings: "wdth" 90, "opsz" 96;
+  font-variation-settings:
+    'wdth' 90,
+    'opsz' 96;
   letter-spacing: -0.02em;
   line-height: 1.02;
 }
 
 .display-section {
-  font-variation-settings: "wdth" 88, "opsz" 48;
+  font-variation-settings:
+    'wdth' 88,
+    'opsz' 48;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
